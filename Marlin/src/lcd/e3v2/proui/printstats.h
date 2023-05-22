@@ -1,8 +1,8 @@
 /**
  * Print Stats page for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 2.1.0
- * Date: 2023/07/12
+ * Version: 1.4.0
+ * Date: 2022/12/03
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -20,13 +20,13 @@
  */
 #pragma once
 
-class PrintStats {
+class PrintStatsClass {
 public:
-  static void draw();
-  static void reset();
+  static void Draw();
+  static void Reset();
 };
 
-extern PrintStats printStats;
+extern PrintStatsClass PrintStats;
 
-void gotoPrintStats();
-void printStatsReset();
+void Goto_PrintStats();
+void PrintStatsReset();

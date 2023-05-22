@@ -1,9 +1,9 @@
 /**
  * Bed Level Tools for Pro UI
  * Extended by: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 5.1.0
- * Date: 2023/08/22
- *
+ * Version: 3.2.0
+ * Date: 2023/05/03
+ * 
  * Based on the original work of: Henri-J-Norden
  * https://github.com/Jyers/Marlin/pull/126
  *
@@ -28,25 +28,36 @@
 #define UBL_Z_OFFSET_MIN -3.0
 #define UBL_Z_OFFSET_MAX  3.0
 
-class BedLevelTools {
+class BedLevelToolsClass {
 public:
+  #if ENABLED(USE_GRID_MESHVIEWER)
+    static bool viewer_asymmetric_range;
+    static bool viewer_print_value;
+  #endif
   static bool goto_mesh_value;
-  static uint8_t mesh_x, mesh_y;
+  static uint8_t mesh_x;
+  static uint8_t mesh_y;
   static uint8_t tilt_grid;
 
   #if ENABLED(AUTO_BED_LEVELING_UBL)
-    static void manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y, bool undefined=false);
-    static bool createPlaneFromMesh();
+    static void manual_value_update(const uint8_t mesh_x, const uint8_t mesh_y, bool undefined=false);
+    static bool create_plane_from_mesh();
   #else
-    static void manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y);
+    static void manual_value_update(const uint8_t mesh_x, const uint8_t mesh_y);
   #endif
-  static void manualMove(const uint8_t mesh_x, const uint8_t mesh_y, bool zmove=false);
-  static void moveToXYZ();
-  static void moveToXY();
-  static void moveToZ();
-  static void probeXY();
-  static void meshReset();
-  static bool meshValidate();
+  static void manual_move(const uint8_t mesh_x, const uint8_t mesh_y, bool zmove=false);
+  static void MoveToXYZ();
+  static void MoveToXY();
+  static void MoveToZ();
+  static void ProbeXY();
+  static void mesh_reset();
+  static float get_max_value();
+  static float get_min_value();
+  static bool meshvalidate();
+  #if ENABLED(USE_GRID_MESHVIEWER)
+    static void Draw_Bed_Mesh(int16_t selected = -1, uint8_t gridline_width = 1, uint16_t padding_x = 8, uint16_t padding_y_top = 40 + 53 - 7);
+    static void Set_Mesh_Viewer_Status();
+  #endif
 };
 
-extern BedLevelTools bedLevelTools;
+extern BedLevelToolsClass bedLevelTools;

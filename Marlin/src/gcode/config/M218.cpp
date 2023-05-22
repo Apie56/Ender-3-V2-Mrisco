@@ -64,14 +64,14 @@ void GcodeSuite::M218() {
 
 void GcodeSuite::M218_report(const bool forReplay/*=true*/) {
   report_heading_etc(forReplay, F(STR_HOTEND_OFFSETS));
-  for (uint8_t e = 1; e < HOTENDS; ++e) {
+  LOOP_S_L_N(e, 1, HOTENDS) {
     report_echo_start(forReplay);
-    SERIAL_ECHOLNPGM_P(
+    SERIAL_ECHOPGM_P(
       PSTR("  M218 T"), e,
       SP_X_STR, LINEAR_UNIT(hotend_offset[e].x),
-      SP_Y_STR, LINEAR_UNIT(hotend_offset[e].y),
-      SP_Z_STR, p_float_t(LINEAR_UNIT(hotend_offset[e].z), 3)
+      SP_Y_STR, LINEAR_UNIT(hotend_offset[e].y)
     );
+    SERIAL_ECHOLNPAIR_F_P(SP_Z_STR, LINEAR_UNIT(hotend_offset[e].z), 3);
   }
 }
 

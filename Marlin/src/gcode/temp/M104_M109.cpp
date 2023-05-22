@@ -49,7 +49,7 @@
   #include "../../module/tool_change.h"
 #endif
 
-#if ALL(DWIN_LCD_PROUI, CV_LASER_MODULE)
+#if BOTH(DWIN_LCD_PROUI, CV_LASER_MODULE)
   #include "../../lcd/e3v2/proui/dwin.h"
 #endif
 
@@ -79,7 +79,7 @@
  */
 void GcodeSuite::M104_M109(const bool isM109) {
 
-  TERN_(CV_LASER_MODULE, laserOn(false));
+  TERN_(CV_LASER_MODULE, LaserOn(false));
   // #if ENABLED(CV_LASER_MODULE)
   //   if(laser_device.is_laser_device()) return; // 激光模式不加热。专业固件是最好的 107011 -20211021
   // #endif

@@ -1,11 +1,11 @@
 /**
  * DWIN general defines and data structs for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 4.1.3
- * Date: 2023/07/12
+ * Version: 3.13.3
+ * Date: 2022/05/18
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
+ * it under the terms of the GNU Lesser General Public License as 
  * published by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -39,27 +39,27 @@
   #define HAS_ZOFFSET_ITEM 1
 #endif
 
-#define defColorBackground  RGB( 1, 12,  8)
-#define defColorCursor      RGB(20, 49, 31)
-#define defColorTitleBg     RGB( 0, 23, 16)
-#define defColorTitleTxt    COLOR_WHITE
-#define defColorText        COLOR_WHITE
-#define defColorSelected    COLOR_SELECT
-#define defColorSplitLine   RGB( 0, 23, 16)
-#define defColorHighlight   COLOR_WHITE
-#define defColorStatusBg    RGB( 0, 23, 16)
-#define defColorStatusTxt   COLOR_YELLOW
-#define defColorPopupBg     COLOR_BG_WINDOW
-#define defColorPopupTxt    COLOR_POPUP_TEXT
-#define defColorAlertBg     COLOR_BG_RED
-#define defColorAlertTxt    COLOR_YELLOW
-#define defColorPercentTxt  COLOR_PERCENT
-#define defColorBarfill     COLOR_BARFILL
-#define defColorIndicator   COLOR_WHITE
-#define defColorCoordinate  COLOR_WHITE
-#define defColorButton      RGB( 0, 23, 16)
-#define defColorLeds        0xFFFFFFFF
-#define defCaseLightBrightness 255
+#define Def_Background_Color  RGB( 1, 12,  8)
+#define Def_Cursor_Color      RGB(20, 49, 31)
+#define Def_TitleBg_Color     RGB( 0, 23, 16)
+#define Def_TitleTxt_Color    Color_White
+#define Def_Text_Color        Color_White
+#define Def_Selected_Color    Select_Color
+#define Def_SplitLine_Color   RGB( 0, 23, 16)
+#define Def_Highlight_Color   Color_White
+#define Def_StatusBg_Color    RGB( 0, 23, 16)
+#define Def_StatusTxt_Color   Color_Yellow
+#define Def_PopupBg_Color     Color_Bg_Window
+#define Def_PopupTxt_Color    Popup_Text_Color
+#define Def_AlertBg_Color     Color_Bg_Red
+#define Def_AlertTxt_Color    Color_Yellow
+#define Def_PercentTxt_Color  Percent_Color
+#define Def_Barfill_Color     BarFill_Color
+#define Def_Indicator_Color   Color_White
+#define Def_Coordinate_Color  Color_White
+#define Def_Button_Color      RGB( 0, 23, 16)
+#define Def_Leds_Color        0xFFFFFFFF
+#define Def_CaseLight_Brightness 255
 #ifdef Z_AFTER_HOMING
   #define DEF_Z_AFTER_HOMING Z_AFTER_HOMING
 #else
@@ -81,15 +81,6 @@
 #endif
 #if ENABLED(CV_LASER_MODULE) && DISABLED(PROUI_EX)
   #error "CV_LASER_MODULE requires PROUI_EX."
-#endif
-#if ENABLED(PROUI_EX) && (PROBING_MARGIN!=10)
-  #error "PROUI_EX requires a PROBING_MARGIN of 10."
-#endif
-#if HAS_PROUI_RUNOUT_SENSOR && !(ALL(PROUI_EX, FILAMENT_RUNOUT_SENSOR))
-  #error "HAS_PROUI_RUNOUT_SENSOR requires PROUI_EX and FILAMENT_RUNOUT_SENSOR."
-#endif
-#if HAS_PROUI_RUNOUT_SENSOR && DISABLED(HAS_FILAMENT_RUNOUT_DISTANCE)
-  #error "PROUI_EX requires FILAMENT_RUNOUT_DISTANCE_MM if FILAMENT_RUNOUT_SENSOR was enabled."
 #endif
 
 #if PROUI_EX

@@ -94,7 +94,7 @@ if pioutil.is_pio_build():
                     val = None
                 if val:
                     opt = mat[1].upper()
-                    blab("%s.custom_marlin.%s = '%s'" % ( env['PIOENV'], opt, val ), 2)
+                    blab("%s.custom_marlin.%s = '%s'" % ( env['PIOENV'], opt, val ))
                     add_to_feat_cnf(opt, val)
 
     def get_all_known_libs():
@@ -202,14 +202,14 @@ if pioutil.is_pio_build():
                         relp = os.path.relpath(fullpath, marlinbasedir)
                         if srcfilepattern.match(relp):
                             if info:
-                                blab("Added src file %s (%s)" % (relp, str(info)), 3)
+                                blab("Added src file %s (%s)" % (relp, str(info)))
                             else:
-                                blab("Added src file %s " % relp, 3)
+                                blab("Added src file %s " % relp)
                             cur_srcs.add(relp)
                     # Special rule: If a direct folder is specified add all files within.
                     fullplain = os.path.join(marlinbasedir, plain)
                     if os.path.isdir(fullplain):
-                        blab("Directory content addition for %s " % plain, 3)
+                        blab("Directory content addition for %s " % plain)
                         gpattern = os.path.join(fullplain, "**")
                         for fname in glob.glob(gpattern, recursive=True):
                             addentry(fname, "dca")
@@ -227,12 +227,12 @@ if pioutil.is_pio_build():
                     # Special rule: If a direct folder is specified then remove all files within.
                     def onremove(relp, info=None):
                         if info:
-                            blab("Removed src file %s (%s)" % (relp, str(info)), 3)
+                            blab("Removed src file %s (%s)" % (relp, str(info)))
                         else:
-                            blab("Removed src file %s " % relp, 3)
+                            blab("Removed src file %s " % relp)
                     fullplain = os.path.join(marlinbasedir, plain)
                     if os.path.isdir(fullplain):
-                        blab("Directory content removal for %s " % plain, 2)
+                        blab("Directory content removal for %s " % plain)
                         def filt(x):
                             common = os.path.commonpath([plain, x])
                             if not common == os.path.normpath(plain): return True
@@ -248,10 +248,10 @@ if pioutil.is_pio_build():
                         cur_srcs = set(filter(filt, cur_srcs))
             # Transform the resulting set into a string.
             for x in cur_srcs:
-                if build_src_filter != "": build_src_filter += ' '
+                if len(build_src_filter) > 0: build_src_filter += ' '
                 build_src_filter += "+<" + x + ">"
 
-            #blab("Final build_src_filter: " + build_src_filter, 3)
+            #blab("Final build_src_filter: " + build_src_filter)
         else:
             build_src_filter = build_filters
 
@@ -281,7 +281,7 @@ if pioutil.is_pio_build():
     #
     def MarlinHas(env, feature):
         load_marlin_features()
-        r = re.compile('^' + feature + '$', re.IGNORECASE)
+        r = re.compile('^' + feature + '$')
         found = list(filter(r.match, env['MARLIN_FEATURES']))
 
         # Defines could still be 'false' or '0', so check
@@ -294,7 +294,7 @@ if pioutil.is_pio_build():
                 elif val in env['MARLIN_FEATURES']:
                     some_on = env.MarlinHas(val)
 
-        #blab("%s is %s" % (feature, str(some_on)), 2)
+        #blab("%s is %s" % (feature, str(some_on)))
 
         return some_on
 

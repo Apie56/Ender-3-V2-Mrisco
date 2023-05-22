@@ -64,10 +64,10 @@
       if (parser.seenval('L')) {
         // Set volumetric limit (in mm^3/sec)
         const float lval = parser.value_float();
-        if (WITHIN(lval, 0, VOLUMETRIC_EXTRUDER_LIMIT_MAX))
+        if (WITHIN(lval, 0, 20))
           planner.set_volumetric_extruder_limit(target_extruder, lval);
         else
-          SERIAL_ECHOLNPGM("?L value out of range (0-" STRINGIFY(VOLUMETRIC_EXTRUDER_LIMIT_MAX) ").");
+          SERIAL_ECHOLNPGM("?L value out of range (0-20).");
       }
     #endif
 
@@ -168,7 +168,7 @@ void GcodeSuite::M201_report(const bool forReplay/*=true*/) {
   #endif
 
   #if ENABLED(DISTINCT_E_FACTORS)
-    for (uint8_t i = 0; i < E_STEPPERS; ++i) {
+    LOOP_L_N(i, E_STEPPERS) {
       report_echo_start(forReplay);
       SERIAL_ECHOLNPGM_P(
           PSTR("  M201 T"), i
@@ -224,7 +224,7 @@ void GcodeSuite::M203_report(const bool forReplay/*=true*/) {
   #endif
 
   #if ENABLED(DISTINCT_E_FACTORS)
-    for (uint8_t i = 0; i < E_STEPPERS; ++i) {
+    LOOP_L_N(i, E_STEPPERS) {
       if (!forReplay) SERIAL_ECHO_START();
       SERIAL_ECHOLNPGM_P(
           PSTR("  M203 T"), i

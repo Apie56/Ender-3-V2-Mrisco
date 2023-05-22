@@ -67,8 +67,8 @@ typedef struct {
   #if HAS_HOME_OFFSET
     xyz_pos_t home_offset;
   #endif
-  #if HAS_WORKSPACE_OFFSET
-    xyz_pos_t workspace_offset;
+  #if HAS_POSITION_SHIFT
+    xyz_pos_t position_shift;
   #endif
   #if HAS_MULTI_EXTRUDER
     uint8_t active_extruder;

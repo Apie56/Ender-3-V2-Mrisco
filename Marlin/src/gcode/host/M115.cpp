@@ -54,9 +54,6 @@
  * M115: Capabilities string and extended capabilities report
  *       If a capability is not reported, hosts should assume
  *       the capability is not present.
- *
- * NOTE: Always make sure to add new capabilities to the RepRap Wiki
- *       at https://reprap.org/wiki/Firmware_Capabilities_Protocol
  */
 void GcodeSuite::M115() {
   SERIAL_ECHOPGM("FIRMWARE_NAME:Marlin"
@@ -81,7 +78,7 @@ void GcodeSuite::M115() {
     // Although this code should work on all STM32 based boards
     SERIAL_ECHOPGM(" UUID:");
     uint32_t *uid_address = (uint32_t*)UID_BASE;
-    for (uint8_t i = 0; i < 3; ++i) {
+    LOOP_L_N(i, 3) {
       const uint32_t UID = uint32_t(READ_REG(*(uid_address)));
       uid_address += 4U;
       for (int B = 24; B >= 0; B -= 8) print_hex_byte(UID >> B);
@@ -203,9 +200,6 @@ void GcodeSuite::M115() {
 
     // BABYSTEPPING (M290)
     cap_line(F("BABYSTEPPING"), ENABLED(BABYSTEPPING));
-
-    // EP_BABYSTEP (M293, M294)
-    cap_line(F("EP_BABYSTEP"), ENABLED(EP_BABYSTEPPING));
 
     // CHAMBER_TEMPERATURE (M141, M191)
     cap_line(F("CHAMBER_TEMPERATURE"), ENABLED(HAS_HEATED_CHAMBER));

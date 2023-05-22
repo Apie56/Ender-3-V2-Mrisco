@@ -1,8 +1,8 @@
 /**
  * Lock screen implementation for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 4.1.3
- * Date: 2023/07/12
+ * Version: 2.3.3
+ * Date: 2022/11/20
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -23,7 +23,7 @@
 #include "../common/encoder.h"
 #include <stdint.h>
 
-class LockScreen {
+class LockScreenClass {
 private:
   static bool unlocked;
   static uint8_t lock_pos;
@@ -35,4 +35,4 @@ public:
   static bool isUnlocked() { return unlocked; }
 };
 
-extern LockScreen lockScreen;
+extern LockScreenClass lockScreen;

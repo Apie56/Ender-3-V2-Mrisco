@@ -1,5 +1,5 @@
 /**
- * toolBar for PRO UI
+ * ToolBar for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
  * version: 1.4.1
  * Date: 2023/04/28
@@ -26,30 +26,26 @@
 #include "dwin.h"
 #include "toolbar.h"
 
-#if ENABLED(LCD_BED_TRAMMING)
-  #include "bed_tramming.h"
-#endif
-
 const TBItem_t TBItemA[] = {
   {0, GET_TEXT_F(MSG_OPTION_DISABLED), nullptr},
-  {ICON_Homing, GET_TEXT_F(MSG_AUTO_HOME), autoHome},
+  {ICON_Homing, GET_TEXT_F(MSG_AUTO_HOME), AutoHome},
   #if HAS_BED_PROBE
     #if ENABLED(LCD_BED_TRAMMING)
-      {ICON_BedTramming, GET_TEXT_F(MSG_TRAMMING_WIZARD), trammingwizard},
+      {ICON_BedTramming, GET_TEXT_F(MSG_TRAMMING_WIZARD), Trammingwizard},
     #endif
-    {ICON_SetZOffset, GET_TEXT_F(MSG_PROBE_WIZARD), drawZOffsetWizMenu},
-    {ICON_Level, GET_TEXT_F(MSG_AUTO_MESH), autoLev},
+    {ICON_SetZOffset, GET_TEXT_F(MSG_PROBE_WIZARD), Draw_ZOffsetWiz_Menu},
+    {ICON_Level, GET_TEXT_F(MSG_AUTO_MESH), AutoLev},
   #else
-    {ICON_MoveZ0, F("Home Z and disable"), homeZandDisable},
+    {ICON_MoveZ0, F("Home Z and disable"), HomeZandDisable},
   #endif
-  {ICON_CloseMotor, GET_TEXT_F(MSG_DISABLE_STEPPERS), disableMotors},
-  {ICON_Cool, GET_TEXT_F(MSG_COOLDOWN), doCoolDown},
+  {ICON_CloseMotor, GET_TEXT_F(MSG_DISABLE_STEPPERS), DisableMotors},
+  {ICON_Cool, GET_TEXT_F(MSG_COOLDOWN), DoCoolDown},
   #if HAS_PREHEAT
     #define _TBPREHEAT(N) {ICON_Preheat##N, GET_TEXT_F(MSG_PREHEAT_##N), DoPreheat##N},
     REPEAT_1(PREHEAT_COUNT, _TBPREHEAT)
   #endif
-  {ICON_Brightness, GET_TEXT_F(MSG_BRIGHTNESS_OFF), turnOffBacklight},
-  {ICON_Reboot, GET_TEXT_F(MSG_RESET_PRINTER), rebootPrinter},
-  {ICON_WriteEEPROM, GET_TEXT_F(MSG_STORE_EEPROM), writeEeprom},
-  {ICON_Park, GET_TEXT_F(MSG_FILAMENT_PARK_ENABLED), parkHead}
+  {ICON_Brightness, GET_TEXT_F(MSG_BRIGHTNESS_OFF), TurnOffBacklight},
+  {ICON_Reboot, GET_TEXT_F(MSG_RESET_PRINTER), RebootPrinter},
+  {ICON_WriteEEPROM, GET_TEXT_F(MSG_STORE_EEPROM), WriteEeprom},
+  {ICON_Park, GET_TEXT_F(MSG_FILAMENT_PARK_ENABLED), ParkHead}
 };
