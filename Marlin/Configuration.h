@@ -2363,7 +2363,7 @@
 #define PREHEAT_3_TEMP_BED     70
 #define PREHEAT_3_FAN_SPEED   0
 
-#define PREHEAT_4_LABEL       "Composite"
+#define PREHEAT_4_LABEL       "COMP"
 #define PREHEAT_4_TEMP_HOTEND 250
 #define PREHEAT_4_TEMP_BED     40
 #define PREHEAT_4_FAN_SPEED   0
