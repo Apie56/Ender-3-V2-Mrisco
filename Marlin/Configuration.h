@@ -3344,7 +3344,7 @@
 #define PROUI_EX 1
 #if PROUI_EX
   #define HAS_GCODE_PREVIEW 0
-  #define HAS_TOOLBAR 0
+  #define HAS_TOOLBAR 1
 #endif
 #define HAS_CUSTOM_COLORS 1
 #define HAS_PLOT 1
