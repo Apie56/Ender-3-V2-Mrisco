@@ -58,7 +58,11 @@ void GcodeSuite::M0_M1() {
   #if HAS_MARLINUI_MENU
 
     if (parser.string_arg)
+<<<<<<< HEAD
       ui.set_status(parser.string_arg, true);
+=======
+      ui.set_status_no_expire(parser.string_arg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     else {
       LCD_MESSAGE(MSG_USERWAIT);
       #if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
@@ -73,9 +77,15 @@ void GcodeSuite::M0_M1() {
       ExtUI::onUserConfirmRequired(GET_TEXT_F(MSG_USERWAIT));
   #elif ENABLED(DWIN_LCD_PROUI)
     if (parser.string_arg)
+<<<<<<< HEAD
       DWIN_Popup_Confirm(ICON_BLTouch, parser.string_arg, GET_TEXT_F(MSG_USERWAIT));
     else
       DWIN_Popup_Confirm(ICON_BLTouch, GET_TEXT_F(MSG_STOPPED), GET_TEXT_F(MSG_USERWAIT));
+=======
+      dwinPopupConfirm(ICON_BLTouch, parser.string_arg, GET_TEXT_F(MSG_USERWAIT));
+    else
+      dwinPopupConfirm(ICON_BLTouch, GET_TEXT_F(MSG_STOPPED), GET_TEXT_F(MSG_USERWAIT));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #else
 
     if (parser.string_arg) {

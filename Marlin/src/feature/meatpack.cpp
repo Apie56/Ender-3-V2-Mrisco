@@ -171,7 +171,11 @@ void MeatPack::report_state() {
   // should not contain the "PV' substring, as this is used to indicate protocol version
   SERIAL_ECHOPGM("[MP] " MeatPack_ProtocolVersion " ");
   serialprint_onoff(TEST(state, MPConfig_Bit_Active));
+<<<<<<< HEAD
   SERIAL_ECHOF(TEST(state, MPConfig_Bit_NoSpaces) ? F(" NSP\n") : F(" ESP\n"));
+=======
+  SERIAL_ECHO(TEST(state, MPConfig_Bit_NoSpaces) ? F(" NSP\n") : F(" ESP\n"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 /**

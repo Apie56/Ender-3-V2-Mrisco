@@ -119,7 +119,11 @@ void lcd_move_axis(const AxisEnum axis) {
 
 #endif // E_MANUAL
 
+<<<<<<< HEAD
 #if EITHER(PROBE_OFFSET_WIZARD, X_AXIS_TWIST_COMPENSATION)
+=======
+#if ANY(PROBE_OFFSET_WIZARD, X_AXIS_TWIST_COMPENSATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   void _goto_manual_move_z(const_float_t scale) {
     ui.manual_move.menu_scale = scale;
@@ -207,7 +211,11 @@ void menu_move() {
   START_MENU();
   BACK_ITEM(MSG_MOTION);
 
+<<<<<<< HEAD
   #if BOTH(HAS_SOFTWARE_ENDSTOPS, SOFT_ENDSTOPS_MENU_ITEM)
+=======
+  #if ALL(HAS_SOFTWARE_ENDSTOPS, SOFT_ENDSTOPS_MENU_ITEM)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     EDIT_ITEM(bool, MSG_LCD_SOFT_ENDSTOPS, &soft_endstop._enabled);
   #endif
 
@@ -530,7 +538,11 @@ void menu_motion() {
   //
   // Auto Z-Align
   //
+<<<<<<< HEAD
   #if EITHER(Z_STEPPER_AUTO_ALIGN, MECHANICAL_GANTRY_CALIBRATION)
+=======
+  #if ANY(Z_STEPPER_AUTO_ALIGN, MECHANICAL_GANTRY_CALIBRATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     GCODES_ITEM(MSG_AUTO_Z_ALIGN, F("G34"));
   #endif
 

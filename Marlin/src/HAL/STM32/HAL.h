@@ -57,6 +57,7 @@
 #define _MSERIAL(X) MSerial##X
 #define MSERIAL(X) _MSERIAL(X)
 
+<<<<<<< HEAD
 #if WITHIN(SERIAL_PORT, 1, 6)
   #define MYSERIAL1 MSERIAL(SERIAL_PORT)
 #elif !defined(USBCON)
@@ -76,10 +77,32 @@
     #define MYSERIAL2 MSerialUSB
   #else
     #error "SERIAL_PORT_2 must be from 1 to 6, or -1 for Native USB."
+=======
+#if WITHIN(SERIAL_PORT, 1, 9)
+  #define MYSERIAL1 MSERIAL(SERIAL_PORT)
+#elif !defined(USBCON)
+  #error "SERIAL_PORT must be from 1 to 9."
+#elif SERIAL_PORT == -1
+  #define MYSERIAL1 MSerialUSB
+#else
+  #error "SERIAL_PORT must be from 1 to 9, or -1 for Native USB."
+#endif
+
+#ifdef SERIAL_PORT_2
+  #if WITHIN(SERIAL_PORT_2, 1, 9)
+    #define MYSERIAL2 MSERIAL(SERIAL_PORT_2)
+  #elif !defined(USBCON)
+    #error "SERIAL_PORT_2 must be from 1 to 9."
+  #elif SERIAL_PORT_2 == -1
+    #define MYSERIAL2 MSerialUSB
+  #else
+    #error "SERIAL_PORT_2 must be from 1 to 9, or -1 for Native USB."
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
 #ifdef SERIAL_PORT_3
+<<<<<<< HEAD
   #if WITHIN(SERIAL_PORT_3, 1, 6)
     #define MYSERIAL3 MSERIAL(SERIAL_PORT_3)
   #elif !defined(USBCON)
@@ -88,10 +111,21 @@
     #define MYSERIAL3 MSerialUSB
   #else
     #error "SERIAL_PORT_3 must be from 1 to 6, or -1 for Native USB."
+=======
+  #if WITHIN(SERIAL_PORT_3, 1, 9)
+    #define MYSERIAL3 MSERIAL(SERIAL_PORT_3)
+  #elif !defined(USBCON)
+    #error "SERIAL_PORT_3 must be from 1 to 9."
+  #elif SERIAL_PORT_3 == -1
+    #define MYSERIAL3 MSerialUSB
+  #else
+    #error "SERIAL_PORT_3 must be from 1 to 9, or -1 for Native USB."
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
 #ifdef MMU2_SERIAL_PORT
+<<<<<<< HEAD
   #if WITHIN(MMU2_SERIAL_PORT, 1, 6)
     #define MMU2_SERIAL MSERIAL(MMU2_SERIAL_PORT)
   #elif !defined(USBCON)
@@ -100,10 +134,21 @@
     #define MMU2_SERIAL MSerialUSB
   #else
     #error "MMU2_SERIAL_PORT must be from 1 to 6, or -1 for Native USB."
+=======
+  #if WITHIN(MMU2_SERIAL_PORT, 1, 9)
+    #define MMU2_SERIAL MSERIAL(MMU2_SERIAL_PORT)
+  #elif !defined(USBCON)
+    #error "MMU2_SERIAL_PORT must be from 1 to 9."
+  #elif MMU2_SERIAL_PORT == -1
+    #define MMU2_SERIAL MSerialUSB
+  #else
+    #error "MMU2_SERIAL_PORT must be from 1 to 9, or -1 for Native USB."
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
 #ifdef LCD_SERIAL_PORT
+<<<<<<< HEAD
   #if WITHIN(LCD_SERIAL_PORT, 1, 6)
     #define LCD_SERIAL MSERIAL(LCD_SERIAL_PORT)
   #elif !defined(USBCON)
@@ -115,6 +160,19 @@
   #endif
   #if HAS_DGUS_LCD
     #define SERIAL_GET_TX_BUFFER_FREE() LCD_SERIAL.availableForWrite()
+=======
+  #if WITHIN(LCD_SERIAL_PORT, 1, 9)
+    #define LCD_SERIAL MSERIAL(LCD_SERIAL_PORT)
+  #elif !defined(USBCON)
+    #error "LCD_SERIAL_PORT must be from 1 to 9."
+  #elif LCD_SERIAL_PORT == -1
+    #define LCD_SERIAL MSerialUSB
+  #else
+    #error "LCD_SERIAL_PORT must be from 1 to 9, or -1 for Native USB."
+  #endif
+  #if HAS_DGUS_LCD
+    #define LCD_SERIAL_TX_BUFFER_FREE() LCD_SERIAL.availableForWrite()
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
@@ -160,7 +218,11 @@ typedef libServo hal_servo_t;
   #define HAL_ADC_RESOLUTION 12
 #endif
 
+<<<<<<< HEAD
 #define HAL_ADC_VREF         3.3
+=======
+#define HAL_ADC_VREF_MV   3300
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 //
 // Pin Mapping for M42, M43, M226

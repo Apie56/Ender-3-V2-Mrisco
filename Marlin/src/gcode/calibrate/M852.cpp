@@ -93,11 +93,17 @@ void GcodeSuite::M852() {
 
 void GcodeSuite::M852_report(const bool forReplay/*=true*/) {
   report_heading_etc(forReplay, F(STR_SKEW_FACTOR));
+<<<<<<< HEAD
   SERIAL_ECHOPAIR_F("  M852 I", planner.skew_factor.xy, 6);
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
     SERIAL_ECHOPAIR_F(" J", planner.skew_factor.xz, 6);
     SERIAL_ECHOPAIR_F(" K", planner.skew_factor.yz, 6);
     SERIAL_ECHOLNPGM(" ; XY, XZ, YZ");
+=======
+  SERIAL_ECHOPGM("  M852 I", p_float_t(planner.skew_factor.xy, 6));
+  #if ENABLED(SKEW_CORRECTION_FOR_Z)
+    SERIAL_ECHOLNPGM(" J", p_float_t(planner.skew_factor.xz, 6), " K", p_float_t(planner.skew_factor.yz, 6), " ; XY, XZ, YZ");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #else
     SERIAL_ECHOLNPGM(" ; XY");
   #endif

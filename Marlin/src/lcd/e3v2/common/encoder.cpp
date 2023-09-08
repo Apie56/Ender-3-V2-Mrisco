@@ -46,7 +46,11 @@
   #define ENCODER_PULSES_PER_STEP 4
 #endif
 
+<<<<<<< HEAD
 ENCODER_Rate EncoderRate;
+=======
+EncoderRate encoderRate;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 // TODO: Replace with ui.quick_feedback
 void Encoder_tick() {
@@ -54,7 +58,11 @@ void Encoder_tick() {
 }
 
 // Encoder initialization
+<<<<<<< HEAD
 void Encoder_Configuration() {
+=======
+void encoderConfiguration() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if BUTTON_EXISTS(EN1)
     SET_INPUT_PULLUP(BTN_EN1);
   #endif
@@ -70,7 +78,11 @@ void Encoder_Configuration() {
 }
 
 // Analyze encoder value and return state
+<<<<<<< HEAD
 EncoderState Encoder_ReceiveAnalyze() {
+=======
+EncoderState encoderReceiveAnalyze() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   const millis_t now = millis();
   static uint8_t lastEncoderBits;
   uint8_t newbutton = 0;
@@ -87,7 +99,17 @@ EncoderState Encoder_ReceiveAnalyze() {
       #if PIN_EXISTS(LCD_LED)
         //LED_Action();
       #endif
+<<<<<<< HEAD
       if (!ui.backlight) ui.refresh_brightness();
+=======
+      #if LCD_BACKLIGHT_TIMEOUT_MINS
+        ui.refresh_backlight_timeout();
+      #endif
+      if (!ui.backlight) {
+        ui.refresh_brightness();
+        return ENCODER_DIFF_NO;
+      }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       const bool was_waiting = wait_for_user;
       wait_for_user = false;
       return was_waiting ? ENCODER_DIFF_NO : ENCODER_DIFF_ENTER;
@@ -126,6 +148,7 @@ EncoderState Encoder_ReceiveAnalyze() {
       int32_t encoderMultiplier = 1;
 
       // if must encoder rati multiplier
+<<<<<<< HEAD
       if (EncoderRate.enabled) {
         const float abs_diff = ABS(temp_diff),
                     encoderMovementSteps = abs_diff / (ENCODER_PULSES_PER_STEP);
@@ -133,13 +156,26 @@ EncoderState Encoder_ReceiveAnalyze() {
           // Note that the rate is always calculated between two passes through the
           // loop and that the abs of the temp_diff value is tracked.
           const float encoderStepRate = encoderMovementSteps / float(ms - EncoderRate.lastEncoderTime) * 1000;
+=======
+      if (encoderRate.enabled) {
+        const float abs_diff = ABS(temp_diff),
+                    encoderMovementSteps = abs_diff / (ENCODER_PULSES_PER_STEP);
+        if (encoderRate.lastEncoderTime) {
+          // Note that the rate is always calculated between two passes through the
+          // loop and that the abs of the temp_diff value is tracked.
+          const float encoderStepRate = encoderMovementSteps / float(ms - encoderRate.lastEncoderTime) * 1000;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                if (encoderStepRate >= ENCODER_100X_STEPS_PER_SEC) encoderMultiplier = 100;
           else if (encoderStepRate >= ENCODER_10X_STEPS_PER_SEC)  encoderMultiplier = 10;
           #if ENCODER_5X_STEPS_PER_SEC
             else if (encoderStepRate >= ENCODER_5X_STEPS_PER_SEC) encoderMultiplier = 5;
           #endif
         }
+<<<<<<< HEAD
         EncoderRate.lastEncoderTime = ms;
+=======
+        encoderRate.lastEncoderTime = ms;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
 
     #else
@@ -148,12 +184,27 @@ EncoderState Encoder_ReceiveAnalyze() {
 
     #endif
 
+<<<<<<< HEAD
     // EncoderRate.encoderMoveValue += (temp_diff * encoderMultiplier) / (ENCODER_PULSES_PER_STEP);
     EncoderRate.encoderMoveValue = (temp_diff * encoderMultiplier) / (ENCODER_PULSES_PER_STEP);
     if (EncoderRate.encoderMoveValue < 0) EncoderRate.encoderMoveValue = -EncoderRate.encoderMoveValue;
 
     temp_diff = 0;
   }
+=======
+    // encoderRate.encoderMoveValue += (temp_diff * encoderMultiplier) / (ENCODER_PULSES_PER_STEP);
+    encoderRate.encoderMoveValue = (temp_diff * encoderMultiplier) / (ENCODER_PULSES_PER_STEP);
+    if (encoderRate.encoderMoveValue < 0) encoderRate.encoderMoveValue = -encoderRate.encoderMoveValue;
+
+    temp_diff = 0;
+  }
+  if (temp_diffState != ENCODER_DIFF_NO) {
+    #if LCD_BACKLIGHT_TIMEOUT_MINS
+      ui.refresh_backlight_timeout();
+    #endif
+    if (!ui.backlight) ui.refresh_brightness();
+  }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   return temp_diffState;
 }
 

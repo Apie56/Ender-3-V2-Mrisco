@@ -30,6 +30,10 @@
 
 #include "../gcode.h"
 #include "../../feature/bedlevel/bdl/bdl.h"
+<<<<<<< HEAD
+=======
+#include "../../MarlinCore.h" // for printingIsActive
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 /**
  * M102: Configure the Bed Distance Sensor
@@ -38,11 +42,17 @@
  *   M102 S0       : Disable adjustable Z height.
  *
  * Negative S values are commands:
+<<<<<<< HEAD
  *   M102 S-1       : Read sensor information
+=======
+ *   M102 S-1       : Read BDsensor version
+ *   M102 S-2       : Read BDsensor distance value
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  *   M102 S-5       : Read raw Calibration data
  *   M102 S-6       : Start Calibration
  */
 void GcodeSuite::M102() {
+<<<<<<< HEAD
   if (parser.seenval('S'))
     bdl.config_state = parser.value_int();
   else
@@ -52,6 +62,21 @@ void GcodeSuite::M102() {
 void GcodeSuite::M102_report(const bool forReplay/*=true*/) {
   report_heading(forReplay, F("Bed Distance Sensor"));
   SERIAL_ECHOLNPGM("  M102 S", bdl.config_state);
+=======
+  if (bdl.config_state < BDS_IDLE) {
+    SERIAL_ECHOLNPGM("BDsensor is busy:", bdl.config_state);
+    return;
+  }
+  if (parser.seenval('S')) {
+    const int8_t command = parser.value_int();
+    if (command == BDS_READ_MM)
+      SERIAL_ECHOLNPGM("Bed Distance:", bdl.read(), "mm");
+    else if ((command < BDS_IDLE) && printingIsActive())
+      return;
+    else
+      bdl.config_state = command;
+  }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #endif // BD_SENSOR

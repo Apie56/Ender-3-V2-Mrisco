@@ -24,7 +24,11 @@
 
 #include "../MarlinCore.h" // for printingIsPaused
 
+<<<<<<< HEAD
 #if LED_POWEROFF_TIMEOUT > 0 || BOTH(HAS_WIRED_LCD, PRINTER_EVENT_LEDS) || (defined(LCD_BACKLIGHT_TIMEOUT_MINS) && defined(NEOPIXEL_BKGD_INDEX_FIRST))
+=======
+#if LED_POWEROFF_TIMEOUT > 0 || ALL(HAS_WIRED_LCD, PRINTER_EVENT_LEDS) || (defined(LCD_BACKLIGHT_TIMEOUT_MINS) && defined(NEOPIXEL_BKGD_INDEX_FIRST))
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../feature/leds/leds.h"
 #endif
 
@@ -32,7 +36,11 @@
   #include "../feature/host_actions.h"
 #endif
 
+<<<<<<< HEAD
 #if BOTH(BROWSE_MEDIA_ON_INSERT, PASSWORD_ON_SD_PRINT_MENU)
+=======
+#if ALL(BROWSE_MEDIA_ON_INSERT, PASSWORD_ON_SD_PRINT_MENU)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../feature/password/password.h"
 #endif
 
@@ -66,10 +74,17 @@ MarlinUI ui;
 constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 
 #if HAS_STATUS_MESSAGE
+<<<<<<< HEAD
   #if ENABLED(STATUS_MESSAGE_SCROLLING) && EITHER(HAS_WIRED_LCD, DWIN_LCD_PROUI)
     uint8_t MarlinUI::status_scroll_offset; // = 0
   #endif
   char MarlinUI::status_message[MAX_MESSAGE_LENGTH + 1];
+=======
+  #if ENABLED(STATUS_MESSAGE_SCROLLING) && ANY(HAS_WIRED_LCD, DWIN_LCD_PROUI)
+    uint8_t MarlinUI::status_scroll_offset; // = 0
+  #endif
+  MString<MAX_MESSAGE_LENGTH> MarlinUI::status_message;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   uint8_t MarlinUI::alert_level; // = 0
   #if HAS_STATUS_MESSAGE_TIMEOUT
     millis_t MarlinUI::status_message_expire_ms; // = 0
@@ -152,7 +167,11 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   }
 #endif
 
+<<<<<<< HEAD
 #if EITHER(HAS_MARLINUI_MENU, EXTENSIBLE_UI)
+=======
+#if ANY(HAS_MARLINUI_MENU, EXTENSIBLE_UI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   bool MarlinUI::lcd_clicked;
 #endif
 
@@ -268,7 +287,11 @@ void MarlinUI::init() {
 
   #endif // HAS_SHIFT_ENCODER
 
+<<<<<<< HEAD
   #if BOTH(HAS_ENCODER_ACTION, HAS_SLOW_BUTTONS)
+=======
+  #if ALL(HAS_ENCODER_ACTION, HAS_SLOW_BUTTONS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     slow_buttons = 0;
   #endif
 
@@ -337,7 +360,11 @@ void MarlinUI::init() {
 
   uint8_t MarlinUI::lcd_status_update_delay = 1; // First update one loop delayed
 
+<<<<<<< HEAD
   #if BOTH(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+=======
+  #if ALL(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     millis_t MarlinUI::next_filament_display; // = 0
   #endif
 
@@ -400,7 +427,11 @@ void MarlinUI::init() {
       }
     #endif
 
+<<<<<<< HEAD
     #if EITHER(REVERSE_MENU_DIRECTION, REVERSE_SELECT_DIRECTION)
+=======
+    #if ANY(REVERSE_MENU_DIRECTION, REVERSE_SELECT_DIRECTION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       int8_t MarlinUI::encoderDirection = ENCODERBASE;
     #endif
 
@@ -409,7 +440,11 @@ void MarlinUI::init() {
       uint8_t MarlinUI::repeat_delay;
     #endif
 
+<<<<<<< HEAD
     #if EITHER(AUTO_BED_LEVELING_UBL, G26_MESH_VALIDATION)
+=======
+    #if ANY(AUTO_BED_LEVELING_UBL, G26_MESH_VALIDATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
       bool MarlinUI::external_control; // = false
 
@@ -490,10 +525,13 @@ void MarlinUI::init() {
 
   #endif // HAS_MARLINUI_MENU
 
+<<<<<<< HEAD
   ////////////////////////////////////////////
   ///////////// Keypad Handling //////////////
   ////////////////////////////////////////////
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if IS_RRW_KEYPAD && HAS_ENCODER_ACTION
 
     volatile uint8_t MarlinUI::keypad_buttons;
@@ -572,7 +610,11 @@ void MarlinUI::init() {
             #endif
 
             if (homed) {
+<<<<<<< HEAD
               #if EITHER(DELTA, Z_HOME_TO_MAX)
+=======
+              #if ANY(DELTA, Z_HOME_TO_MAX)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                 if (RRK(EN_KEYPAD_F2))  _reprapworld_keypad_move(Z_AXIS,  1);
               #endif
               if (RRK(EN_KEYPAD_F3))    _reprapworld_keypad_move(Z_AXIS, -1);
@@ -639,7 +681,11 @@ void MarlinUI::init() {
           // Expire the message if a job is active and the bar has ticks
           if (get_progress_percent() > 2 && !print_job_timer.isPaused()) {
             if (ELAPSED(ms, expire_status_ms)) {
+<<<<<<< HEAD
               status_message[0] = '\0';
+=======
+              status_message.clear();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
               expire_status_ms = 0;
             }
           }
@@ -668,7 +714,11 @@ void MarlinUI::init() {
 
     #if HAS_MARLINUI_MENU
       if (use_click()) {
+<<<<<<< HEAD
         #if BOTH(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+=======
+        #if ALL(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           pause_filament_display();
         #endif
         goto_screen(menu_main);
@@ -700,7 +750,11 @@ void MarlinUI::init() {
       if (old_frm != new_frm) {
         feedrate_percentage = new_frm;
         encoderPosition = 0;
+<<<<<<< HEAD
         #if BOTH(HAS_SOUND, BEEP_ON_FEEDRATE_CHANGE)
+=======
+        #if ALL(HAS_SOUND, BEEP_ON_FEEDRATE_CHANGE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           static millis_t next_beep;
           #ifndef GOT_MS
             const millis_t ms = millis();
@@ -774,10 +828,13 @@ void MarlinUI::init() {
     #endif
   }
 
+<<<<<<< HEAD
   ////////////////////////////////////////////
   /////////////// Manual Move ////////////////
   ////////////////////////////////////////////
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if HAS_MARLINUI_MENU
 
     ManualMove MarlinUI::manual_move{};
@@ -1044,7 +1101,11 @@ void MarlinUI::init() {
         if (encoderPastThreshold || lcd_clicked) {
           if (encoderPastThreshold && TERN1(IS_TFTGLCD_PANEL, !external_control)) {
 
+<<<<<<< HEAD
             #if BOTH(HAS_MARLINUI_MENU, ENCODER_RATE_MULTIPLIER)
+=======
+            #if ALL(HAS_MARLINUI_MENU, ENCODER_RATE_MULTIPLIER)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
               int32_t encoderMultiplier = 1;
 
@@ -1110,7 +1171,11 @@ void MarlinUI::init() {
         refresh(LCDVIEW_REDRAW_NOW);
       }
 
+<<<<<<< HEAD
       #if BOTH(HAS_MARLINUI_MENU, SCROLL_LONG_FILENAMES)
+=======
+      #if ALL(HAS_MARLINUI_MENU, SCROLL_LONG_FILENAMES)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         // If scrolling of long file names is enabled and we are in the sd card menu,
         // cause a refresh to occur until all the text has scrolled into view.
         if (currentScreen == menu_media && !lcd_status_update_delay--) {
@@ -1177,7 +1242,11 @@ void MarlinUI::init() {
           run_current_screen();
 
           // Apply all DWIN drawing after processing
+<<<<<<< HEAD
           TERN_(IS_DWIN_MARLINUI, DWIN_UpdateLCD());
+=======
+          TERN_(IS_DWIN_MARLINUI, dwinUpdateLCD());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         #endif
 
@@ -1287,7 +1356,11 @@ void MarlinUI::init() {
         thermalManager.current_ADCKey_raw = HAL_ADC_RANGE;
         thermalManager.ADCKey_count = 0;
         if (currentkpADCValue < adc_other_button)
+<<<<<<< HEAD
           LOOP_L_N(i, ADC_KEY_NUM) {
+=======
+          for (uint8_t i = 0; i < ADC_KEY_NUM; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             const raw_adc_t lo = pgm_read_word(&stADCKeyTable[i].ADCKeyValueMin),
                             hi = pgm_read_word(&stADCKeyTable[i].ADCKeyValueMax);
             if (WITHIN(currentkpADCValue, lo, hi)) return pgm_read_byte(&stADCKeyTable[i].ADCKeyNo);
@@ -1351,7 +1424,11 @@ void MarlinUI::init() {
           #endif // UP || DOWN || LEFT || RIGHT
 
           buttons = (newbutton | TERN0(HAS_SLOW_BUTTONS, slow_buttons)
+<<<<<<< HEAD
             #if BOTH(HAS_TOUCH_BUTTONS, HAS_ENCODER_ACTION)
+=======
+            #if ALL(HAS_TOUCH_BUTTONS, HAS_ENCODER_ACTION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
               | (touch_buttons & TERN(HAS_ENCODER_WHEEL, ~(EN_A | EN_B), 0xFF))
             #endif
           );
@@ -1378,7 +1455,11 @@ void MarlinUI::init() {
           uint8_t val = 0;
           WRITE(SHIFT_LD_PIN, LOW);
           WRITE(SHIFT_LD_PIN, HIGH);
+<<<<<<< HEAD
           LOOP_L_N(i, 8) {
+=======
+          for (uint8_t i = 0; i < 8; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             val >>= 1;
             if (READ(SHIFT_OUT_PIN)) SBI(val, 7);
             WRITE(SHIFT_CLK_PIN, HIGH);
@@ -1411,7 +1492,11 @@ void MarlinUI::init() {
             case 3: ENCODER_SPIN(2, 1); break;
             case 1: ENCODER_SPIN(3, 0); break;
           }
+<<<<<<< HEAD
           #if BOTH(HAS_MARLINUI_MENU, AUTO_BED_LEVELING_UBL)
+=======
+          #if ALL(HAS_MARLINUI_MENU, AUTO_BED_LEVELING_UBL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             external_encoder();
           #endif
           lastEncoderBits = enc;
@@ -1431,16 +1516,30 @@ void MarlinUI::init() {
 
 #endif // HAS_WIRED_LCD
 
+<<<<<<< HEAD
 #if HAS_STATUS_MESSAGE
 
   ////////////////////////////////////////////
   ////////////// Status Message //////////////
   ////////////////////////////////////////////
+=======
+void MarlinUI::host_notify_P(PGM_P const pstr) {
+  TERN_(HOST_STATUS_NOTIFICATIONS, hostui.notify_P(pstr));
+}
+void MarlinUI::host_notify(const char * const cstr) {
+  TERN_(HOST_STATUS_NOTIFICATIONS, hostui.notify(cstr));
+}
+
+#include <stdarg.h>
+
+#if HAS_STATUS_MESSAGE
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if ENABLED(EXTENSIBLE_UI)
     #include "extui/ui_api.h"
   #endif
 
+<<<<<<< HEAD
   bool MarlinUI::has_status() { return (status_message[0] != '\0'); }
 
   void MarlinUI::set_status(const char * const cstr, const bool persist) {
@@ -1474,6 +1573,11 @@ void MarlinUI::init() {
    * Reset the status message
    */
 
+=======
+  /**
+   * Reset the status message
+   */
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   void MarlinUI::reset_status(const bool no_welcome) {
     #if SERVICE_INTERVAL_1 > 0
       static PGMSTR(service1, "> " SERVICE_NAME_1 "!");
@@ -1490,7 +1594,11 @@ void MarlinUI::init() {
       msg = GET_TEXT_F(MSG_PRINT_PAUSED);
     #if HAS_MEDIA && DISABLED(DWIN_LCD_PROUI)
       else if (IS_SD_PRINTING())
+<<<<<<< HEAD
         return set_status(card.longest_filename(), true);
+=======
+        return set_status_no_expire(card.longest_filename());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #endif
     else if (print_job_timer.isRunning())
       #if ENABLED(CV_LASER_MODULE)
@@ -1515,6 +1623,7 @@ void MarlinUI::init() {
     else
       return;
 
+<<<<<<< HEAD
     set_status(msg, -1);
   }
 
@@ -1556,10 +1665,74 @@ void MarlinUI::init() {
 
   void MarlinUI::set_alert_status(FSTR_P const fstr) {
     set_status(fstr, 1);
+=======
+    set_min_status(msg);
+  }
+
+  /**
+   * Try to set the alert level.
+   * @param level Alert level. Negative to ignore and reset the level. Non-zero never expires.
+   * @return      TRUE if the level could NOT be set.
+   */
+  bool MarlinUI::set_alert_level(int8_t &level) {
+    if (level < 0) level = alert_level = 0;
+    if (level < alert_level) return true;
+    alert_level = level;
+    return false;
+  }
+
+  /**
+   * @brief Set Status with a C- or P-string and alert level.
+   *
+   * @param ustr  A C- or P-string, according to pgm.
+   * @param level Alert level. Negative to ignore and reset the level. Non-zero never expires.
+   * @param pgm   Program string flag. Only relevant on AVR.
+   */
+  void MarlinUI::_set_status_and_level(const char * const ustr, int8_t level, const bool pgm) {
+    if (set_alert_level(level)) return;
+
+    pgm ? host_notify_P(ustr) : host_notify(ustr);
+
+    MString<30> msg;
+    pgm ? msg.set_P(ustr) : msg.set(ustr);
+    status_message.set(&msg).utrunc(MAX_MESSAGE_LENGTH);
+
+    finish_status(level > 0); // Persist if the status has a level
+  }
+
+  /**
+   * @brief Set Status with a C- or P-string and persistence flag.
+   *
+   * @param ustr    A C- or P-string, according to pgm.
+   * @param persist Don't expire (Requires STATUS_EXPIRE_SECONDS) - and set alert level to 1.
+   * @param pgm     Program string flag. Only relevant on AVR.
+   */
+  void MarlinUI::_set_status(const char * const ustr, const bool persist, const bool pgm) {
+    if (alert_level) return;
+
+    pgm ? host_notify_P(ustr) : host_notify(ustr);
+
+    // Remove the last partial Unicode glyph, if any
+    (pgm ? status_message.set_P(ustr) : status_message.set(ustr)).utrunc(MAX_MESSAGE_LENGTH);
+
+    finish_status(persist);
+  }
+
+  /**
+   * @brief Set Alert with a C- or P-string and alert level.
+   *
+   * @param ustr  A C- or P-string, according to pgm.
+   * @param level Alert level. Negative to ignore and reset the level. Non-zero never expires.
+   * @param pgm   Program string flag. Only relevant on AVR.
+   */
+  void MarlinUI::_set_alert(const char * const ustr, const int8_t level, const bool pgm) {
+    pgm ? set_status_and_level_P(ustr, level) : set_status_and_level(ustr, level);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     TERN_(HAS_TOUCH_SLEEP, wakeup_screen());
     TERN_(HAS_MARLINUI_MENU, return_to_status());
   }
 
+<<<<<<< HEAD
   #include <stdarg.h>
 
   void MarlinUI::status_printf(int8_t level, FSTR_P const fmt, ...) {
@@ -1574,6 +1747,22 @@ void MarlinUI::init() {
     va_end(args);
 
     TERN_(HOST_STATUS_NOTIFICATIONS, hostui.notify(status_message));
+=======
+  /**
+   * @brief Set a status with a format string and parameters.
+   *
+   * @param pfmt    A constant format P-string
+   */
+  void MarlinUI::status_printf_P(int8_t level, PGM_P const fmt, ...) {
+    if (set_alert_level(level)) return;
+
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf_P(status_message, MAX_MESSAGE_LENGTH, fmt, args);
+    va_end(args);
+
+    host_notify(status_message);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     finish_status(level > 0);
   }
@@ -1588,7 +1777,11 @@ void MarlinUI::init() {
 
     #if HAS_WIRED_LCD
 
+<<<<<<< HEAD
       #if BASIC_PROGRESS_BAR || BOTH(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+=======
+      #if BASIC_PROGRESS_BAR || ALL(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         const millis_t ms = millis();
       #endif
 
@@ -1599,33 +1792,55 @@ void MarlinUI::init() {
         #endif
       #endif
 
+<<<<<<< HEAD
       #if BOTH(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+=======
+      #if ALL(FILAMENT_LCD_DISPLAY, HAS_MEDIA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         pause_filament_display(ms); // Show status message for 5s
       #endif
 
     #endif
 
+<<<<<<< HEAD
     #if ENABLED(STATUS_MESSAGE_SCROLLING) && EITHER(HAS_WIRED_LCD, DWIN_LCD_PROUI)
+=======
+    #if ENABLED(STATUS_MESSAGE_SCROLLING) && ANY(HAS_WIRED_LCD, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       status_scroll_offset = 0;
     #endif
 
     TERN_(EXTENSIBLE_UI, ExtUI::onStatusChanged(status_message));
+<<<<<<< HEAD
     TERN_(DWIN_CREALITY_LCD, DWIN_StatusChanged(status_message));
     TERN_(DWIN_LCD_PROUI, DWIN_CheckStatusMessage());
+=======
+    TERN_(DWIN_CREALITY_LCD, dwinStatusChanged(status_message));
+    TERN_(DWIN_LCD_PROUI, dwinCheckStatusMessage());
+    TERN_(DWIN_CREALITY_LCD_JYERSUI, jyersDWIN.updateStatus(status_message));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 
   #if ENABLED(STATUS_MESSAGE_SCROLLING)
 
     void MarlinUI::advance_status_scroll() {
       // Advance by one UTF8 code-word
+<<<<<<< HEAD
       if (status_scroll_offset < utf8_strlen(status_message))
+=======
+      if (status_scroll_offset < status_message.glyphs())
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         while (!START_OF_UTF8_CHAR(status_message[++status_scroll_offset]));
       else
         status_scroll_offset = 0;
     }
 
     char* MarlinUI::status_and_len(uint8_t &len) {
+<<<<<<< HEAD
       char *out = status_message + status_scroll_offset;
+=======
+      char *out = &status_message + status_scroll_offset;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       len = utf8_strlen(out);
       return out;
     }
@@ -1637,6 +1852,7 @@ void MarlinUI::init() {
   //
   // Send the status line as a host notification
   //
+<<<<<<< HEAD
   void MarlinUI::set_status(const char * const cstr, const bool) {
     TERN(HOST_PROMPT_SUPPORT, hostui.notify(cstr), UNUSED(cstr));
   }
@@ -1645,6 +1861,26 @@ void MarlinUI::init() {
   }
   void MarlinUI::status_printf(int8_t, FSTR_P const fstr, ...) {
     TERN(HOST_PROMPT_SUPPORT, hostui.notify(fstr), UNUSED(fstr));
+=======
+  void MarlinUI::_set_status(const char * const cstr, const bool, const bool pgm) {
+    host_notify(cstr);
+  }
+  void MarlinUI::_set_alert(const char * const cstr, const int8_t, const bool pgm) {
+    host_notify(cstr);
+  }
+  void MarlinUI::_set_status_and_level(const char * const ustr, const int8_t=0, const bool pgm) {
+    pgm ? host_notify_P(ustr) : host_notify(ustr);
+  }
+  void MarlinUI::status_printf_P(int8_t level, PGM_P const fmt, ...) {
+    MString<30> msg;
+
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf_P(&msg, 30, fmt, args);
+    va_end(args);
+
+    host_notify(msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 
 #endif // !HAS_STATUS_MESSAGE
@@ -1670,10 +1906,17 @@ void MarlinUI::init() {
     TERN_(HOST_PROMPT_SUPPORT, hostui.prompt_open(PROMPT_INFO, F("UI Aborted"), FPSTR(DISMISS_STR)));
     LCD_MESSAGE(MSG_PRINT_ABORTED);
     TERN_(HAS_MARLINUI_MENU, return_to_status());
+<<<<<<< HEAD
     TERN_(DWIN_LCD_PROUI, HMI_flag.abort_flag = true);
   }
 
   #if BOTH(HAS_MARLINUI_MENU, PSU_CONTROL)
+=======
+    TERN_(DWIN_LCD_PROUI, hmiFlag.abort_flag = true);
+  }
+
+  #if ALL(HAS_MARLINUI_MENU, PSU_CONTROL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     void MarlinUI::poweroff() {
       queue.inject(F("M81" TERN_(POWER_OFF_WAIT_FOR_COOLDOWN, "S")));
@@ -1682,11 +1925,21 @@ void MarlinUI::init() {
 
   #endif
 
+<<<<<<< HEAD
   void MarlinUI::flow_fault() {
     LCD_ALERTMESSAGE(MSG_FLOWMETER_FAULT);
     BUZZ(1000, 440);
     TERN_(HAS_MARLINUI_MENU, return_to_status());
   }
+=======
+  #if ENABLED(FLOWMETER_SAFETY)
+    void MarlinUI::flow_fault() {
+      LCD_ALERTMESSAGE(MSG_FLOWMETER_FAULT);
+      BUZZ(1000, 440);
+      TERN_(HAS_MARLINUI_MENU, return_to_status());
+    }
+  #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   void MarlinUI::pause_print() {
     #if HAS_MARLINUI_MENU
@@ -1727,6 +1980,7 @@ void MarlinUI::init() {
 
   #if HAS_TOUCH_BUTTONS
 
+<<<<<<< HEAD
     //
     // Screen Click
     //  - On menu screens move directly to the touched item
@@ -1734,6 +1988,15 @@ void MarlinUI::init() {
     //  - On select screens (and others) touch the Right Half for +, Left Half for -
     //  - On edit screens, touch Up Half for -,  Bottom Half to +
     //
+=======
+    /**
+     * Screen Click
+     *  - On menu screens move directly to the touched item
+     *  - On menu screens, right side (last 3 cols) acts like a scroll - half up => prev page, half down = next page
+     *  - On select screens (and others) touch the Left Half for ←, Right Half for →
+     *  - On edit screens, touch Top Half for ↑, Bottom Half for ↓
+     */
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     void MarlinUI::screen_click(const uint8_t row, const uint8_t col, const uint8_t, const uint8_t) {
       const millis_t now = millis();
       if (PENDING(now, next_button_update_ms)) return;
@@ -1857,7 +2120,11 @@ void MarlinUI::init() {
     #endif
   }
 
+<<<<<<< HEAD
   #if EITHER(BABYSTEP_GFX_OVERLAY, MESH_EDIT_GFX_OVERLAY)
+=======
+  #if ANY(BABYSTEP_GFX_OVERLAY, MESH_EDIT_GFX_OVERLAY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     void MarlinUI::zoffset_overlay(const_float_t zvalue) {
       // Determine whether the user is raising or lowering the nozzle.
       static int8_t dir;
@@ -1872,7 +2139,11 @@ void MarlinUI::init() {
 
 #endif
 
+<<<<<<< HEAD
 #if BOTH(EXTENSIBLE_UI, ADVANCED_PAUSE_FEATURE)
+=======
+#if ALL(EXTENSIBLE_UI, ADVANCED_PAUSE_FEATURE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   void MarlinUI::pause_show_message(
     const PauseMessage message,
@@ -1922,6 +2193,7 @@ void MarlinUI::init() {
 
   #if DISABLED(EEPROM_AUTO_INIT)
 
+<<<<<<< HEAD
     static inline FSTR_P eeprom_err(const uint8_t msgid) {
       switch (msgid) {
         default:
@@ -1934,6 +2206,24 @@ void MarlinUI::init() {
     void MarlinUI::eeprom_alert(const uint8_t msgid) {
       #if HAS_MARLINUI_MENU
         editable.uint8 = msgid;
+=======
+    static inline FSTR_P eeprom_err(const EEPROM_Error err) {
+      switch (err) {
+        case ERR_EEPROM_VERSION:  return GET_TEXT_F(MSG_ERR_EEPROM_VERSION);
+        case ERR_EEPROM_SIZE:     return GET_TEXT_F(MSG_ERR_EEPROM_SIZE);
+        case ERR_EEPROM_CRC:      return GET_TEXT_F(MSG_ERR_EEPROM_CRC);
+        case ERR_EEPROM_CORRUPT:  return GET_TEXT_F(MSG_ERR_EEPROM_CORRUPT);
+        default: return nullptr;
+      }
+    }
+
+    void MarlinUI::eeprom_alert(const EEPROM_Error err) {
+      FSTR_P const err_msg = eeprom_err(err);
+      set_status(err_msg);
+      TERN_(HOST_PROMPT_SUPPORT, hostui.notify(err_msg));
+      #if HAS_MARLINUI_MENU
+        editable.uint8 = err;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         goto_screen([]{
           FSTR_P const restore_msg = GET_TEXT_F(MSG_INIT_EEPROM);
           char msg[utf8_strlen(restore_msg) + 1];
@@ -1941,11 +2231,17 @@ void MarlinUI::init() {
           MenuItem_confirm::select_screen(
             GET_TEXT_F(MSG_BUTTON_RESET), GET_TEXT_F(MSG_BUTTON_IGNORE),
             init_eeprom, return_to_status,
+<<<<<<< HEAD
             eeprom_err(editable.uint8), msg, F("?")
           );
         });
       #else
         set_status(eeprom_err(msgid));
+=======
+            eeprom_err((EEPROM_Error)editable.uint8), msg, F("?")
+          );
+        });
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
     }
 

@@ -25,6 +25,7 @@
 #include "../inc/MarlinConfigPre.h"
 #include "../core/utility.h"
 
+<<<<<<< HEAD
 char conv[9] = { 0 };
 
 #define DIGIT(n) ('0' + (n))
@@ -33,6 +34,27 @@ char conv[9] = { 0 };
 #define MINUSOR(n, alt) (n >= 0 ? (alt) : (n = -n, '-'))
 #define INTFLOAT(V,N) (((V) * 10 * pow(10, N) + ((V) < 0 ? -5: 5)) / 10)      // pow10?
 #define UINTFLOAT(V,N) INTFLOAT((V) < 0 ? -(V) : (V), N)
+=======
+constexpr char DIGIT(const uint8_t n) { return '0' + n; }
+
+template <typename T1, typename T2>
+constexpr char DIGIMOD(const T1 n, const T2 f) { return DIGIT((n / f) % 10); }
+
+template <typename T1, typename T2>
+constexpr char RJDIGIT(const T1 n, const T2 f) { return (n >= (T1)f ? DIGIMOD(n, f) : ' '); }
+
+template <typename T>
+constexpr char MINUSOR(T &n, const char alt) { return (n >= 0) ? alt : (n = -n) ? '-' : '-'; }
+
+constexpr long INTFLOAT(const float V, const int N) {
+  return long((V * 10.0f * pow(10.0f, N) + (V < 0.0f ? -5.0f : 5.0f)) / 10.0f);
+}
+constexpr long UINTFLOAT(const float V, const int N) {
+  return INTFLOAT(V < 0.0f ? -V : V, N);
+}
+
+char conv[9] = { 0 };
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 // Format uint8_t (0-100) as rj string with 123% / _12% / __1% format
 const char* pcttostrpctrj(const uint8_t i) {

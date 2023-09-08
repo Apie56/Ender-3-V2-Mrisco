@@ -74,6 +74,7 @@ void say_shaping() {
 
     #if HAS_X_AXIS
       SERIAL_ECHO_TERNARY(dynamic, "X/A ", "base dynamic", "static", " compensator frequency: ");
+<<<<<<< HEAD
       SERIAL_ECHO_F(fxdTiCtrl.cfg.baseFreq[X_AXIS], 2);
       SERIAL_ECHOPGM("Hz");
       #if HAS_DYNAMIC_FREQ
@@ -82,12 +83,18 @@ void say_shaping() {
           SERIAL_ECHO_F(fxdTiCtrl.cfg.dynFreqK[X_AXIS], 8);
           serial_ternary(F("Hz/"), z_based, F("mm"), F("g"));
         }
+=======
+      SERIAL_ECHO(p_float_t(fxdTiCtrl.cfg.baseFreq[X_AXIS], 2), F("Hz"));
+      #if HAS_DYNAMIC_FREQ
+        if (dynamic) SERIAL_ECHO(" scaling: ", p_float_t(fxdTiCtrl.cfg.dynFreqK[X_AXIS], 8), F("Hz/"), z_based ? F("mm") : F("g"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
       SERIAL_EOL();
     #endif
 
     #if HAS_Y_AXIS
       SERIAL_ECHO_TERNARY(dynamic, "Y/B ", "base dynamic", "static", " compensator frequency: ");
+<<<<<<< HEAD
       SERIAL_ECHO_F(fxdTiCtrl.cfg.baseFreq[Y_AXIS], 2);
       SERIAL_ECHOLNPGM(" Hz");
       #if HAS_DYNAMIC_FREQ
@@ -96,6 +103,11 @@ void say_shaping() {
           SERIAL_ECHO_F(fxdTiCtrl.cfg.dynFreqK[Y_AXIS], 8);
           serial_ternary(F("Hz/"), z_based, F("mm"), F("g"));
         }
+=======
+      SERIAL_ECHO(p_float_t(fxdTiCtrl.cfg.baseFreq[Y_AXIS], 2), F(" Hz"));
+      #if HAS_DYNAMIC_FREQ
+        if (dynamic) SERIAL_ECHO(F(" scaling: "), p_float_t(fxdTiCtrl.cfg.dynFreqK[Y_AXIS], 8), F("Hz/"), z_based ? F("mm") : F("g"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
       SERIAL_EOL();
     #endif
@@ -103,10 +115,15 @@ void say_shaping() {
 
   #if HAS_EXTRUDERS
     SERIAL_ECHO_TERNARY(fxdTiCtrl.cfg.linearAdvEna, "Linear Advance ", "en", "dis", "abled");
+<<<<<<< HEAD
     SERIAL_ECHOPGM(". Gain: "); SERIAL_ECHO_F(fxdTiCtrl.cfg.linearAdvK, 5);
     SERIAL_EOL();
   #endif
 
+=======
+    SERIAL_ECHOLN(F(". Gain: "), p_float_t(fxdTiCtrl.cfg.linearAdvK, 5));
+  #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 void GcodeSuite::M493_report(const bool forReplay/*=true*/) {
@@ -165,12 +182,20 @@ void GcodeSuite::M493_report(const bool forReplay/*=true*/) {
 void GcodeSuite::M493() {
   struct { bool update_n:1, update_a:1, reset_ft:1, report_h:1; } flag = { false };
 
+<<<<<<< HEAD
   if (!parser.seen_any()) flag.report_h = true;
+=======
+  if (!parser.seen_any())
+    flag.report_h = true;
+  else
+    planner.synchronize();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // Parse 'S' mode parameter.
   if (parser.seenval('S')) {
     const ftMotionMode_t oldmm = fxdTiCtrl.cfg.mode,
                          newmm = (ftMotionMode_t)parser.value_byte();
+<<<<<<< HEAD
     switch (newmm) {
       #if HAS_X_AXIS
         case ftMotionMode_ZV:
@@ -208,6 +233,30 @@ void GcodeSuite::M493() {
       case ftMotionMode_ENABLED:
         flag.reset_ft = true;
         break;
+=======
+
+    if (newmm != oldmm) {
+      switch (newmm) {
+        default: SERIAL_ECHOLNPGM("?Invalid control mode [S] value."); return;
+        #if HAS_X_AXIS
+          case ftMotionMode_ZV:
+          case ftMotionMode_ZVD:
+          case ftMotionMode_EI:
+          case ftMotionMode_2HEI:
+          case ftMotionMode_3HEI:
+          case ftMotionMode_MZV:
+          //case ftMotionMode_ULENDO_FBS:
+          //case ftMotionMode_DISCTF:
+            flag.update_n = flag.update_a = true;
+        #endif
+        case ftMotionMode_DISABLED:
+        case ftMotionMode_ENABLED:
+          fxdTiCtrl.cfg.mode = newmm;
+          flag.report_h = true;
+          if (oldmm == ftMotionMode_DISABLED) flag.reset_ft = true;
+          break;
+      }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
   }
 

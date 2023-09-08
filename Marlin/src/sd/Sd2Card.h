@@ -70,7 +70,11 @@ typedef enum : uint8_t {
   SD_CARD_ERROR_WRITE_PROGRAMMING  = 0x16, // Card returned an error to a CMD13 status check after a write
   SD_CARD_ERROR_WRITE_TIMEOUT      = 0x17, // Timeout occurred during write programming
   SD_CARD_ERROR_SCK_RATE           = 0x18, // Incorrect rate selected
+<<<<<<< HEAD
   SD_CARD_ERROR_INIT_NOT_CALLED    = 0x19, // Init() not called
+=======
+  SD_CARD_ERROR_INIT_NOT_CALLED    = 0x19, // init() not called
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // 0x1A is unused now, it was: card returned an error for CMD59 (CRC_ON_OFF)
   SD_CARD_ERROR_READ_CRC = 0x1B             // Invalid read CRC
 } sd_error_code_t;
@@ -83,7 +87,11 @@ uint8_t const SD_CARD_TYPE_SD1  = 1,        // Standard capacity V1 SD card
 /**
  * Define SOFTWARE_SPI to use bit-bang SPI
  */
+<<<<<<< HEAD
 #if EITHER(MEGA_SOFT_SPI, USE_SOFTWARE_SPI)
+=======
+#if ANY(MEGA_SOFT_SPI, USE_SOFTWARE_SPI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define SOFTWARE_SPI
 #endif
 

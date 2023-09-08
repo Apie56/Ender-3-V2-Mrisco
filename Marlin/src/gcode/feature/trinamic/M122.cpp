@@ -30,6 +30,17 @@
 
 /**
  * M122: Debug TMC drivers
+<<<<<<< HEAD
+=======
+ *
+ *   I          - Flag to re-initialize stepper drivers with current settings.
+ *   X, Y, Z, E - Flags to only report the specified axes.
+ *
+ * With TMC_DEBUG:
+ *   V     - Report raw register data. Refer to the datasheet to decipher the report.
+ *   S     - Flag to enable/disable continuous debug reporting.
+ *   P<ms> - Interval between continuous debug reports, in milliseconds.
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  */
 void GcodeSuite::M122() {
   xyze_bool_t print_axis = ARRAY_N_1(LOGICAL_AXES, false);

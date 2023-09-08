@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 #
+<<<<<<< HEAD
 # Build tests for STM32F103RC BigTreeTech (SKR Mini E3)
+=======
+# Build tests for STM32F103RC_btt (BigTreeTech SKR Mini E3)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #
 
 # exit on first failure

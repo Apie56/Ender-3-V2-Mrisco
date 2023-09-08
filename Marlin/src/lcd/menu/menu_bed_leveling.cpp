@@ -43,7 +43,11 @@
   #endif
 #endif
 
+<<<<<<< HEAD
 #if EITHER(PROBE_MANUALLY, MESH_BED_LEVELING)
+=======
+#if ANY(PROBE_MANUALLY, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #include "../../module/motion.h"
   #include "../../gcode/queue.h"
@@ -138,9 +142,15 @@
   //
   void _lcd_level_bed_moving() {
     if (ui.should_draw()) {
+<<<<<<< HEAD
       char msg[10];
       sprintf_P(msg, PSTR("%i / %u"), int(manual_probe_index + 1), total_probe_points);
       MenuEditItemBase::draw_edit_screen(GET_TEXT_F(MSG_LEVEL_BED_NEXT_POINT), msg);
+=======
+      MString<9> msg;
+      msg.setf(F("%i / %u"), int(manual_probe_index + 1), total_probe_points);
+      MenuEditItemBase::draw_edit_screen(GET_TEXT_F(MSG_LEVEL_BED_NEXT_POINT), &msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
     ui.refresh(LCDVIEW_CALL_NO_REDRAW);
     if (!ui.wait_for_move) ui.goto_screen(_lcd_level_bed_get_z);
@@ -169,7 +179,11 @@
     if (ui.should_draw()) {
       MenuItem_static::draw(1, GET_TEXT_F(MSG_LEVEL_BED_WAITING));
       // Color UI needs a control to detect a touch
+<<<<<<< HEAD
       #if BOTH(TOUCH_SCREEN, HAS_GRAPHICAL_TFT)
+=======
+      #if ALL(TOUCH_SCREEN, HAS_GRAPHICAL_TFT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         touch.add_control(CLICK, 0, 0, TFT_WIDTH, TFT_HEIGHT);
       #endif
     }
@@ -249,7 +263,11 @@ void menu_bed_leveling() {
   #endif
 
   // Level Bed
+<<<<<<< HEAD
   #if EITHER(PROBE_MANUALLY, MESH_BED_LEVELING)
+=======
+  #if ANY(PROBE_MANUALLY, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     // Manual leveling uses a guided procedure
     SUBMENU(MSG_LEVEL_BED, _lcd_level_bed_continue);
   #else

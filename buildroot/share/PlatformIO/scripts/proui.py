@@ -29,7 +29,10 @@ if "MARLIN_FEATURES" in env:
     stm32f1 = _GetMarlinEnv(MarlinEnv, 'MCU_STM32F1')
     stm32f4 = _GetMarlinEnv(MarlinEnv, 'MCU_STM32F4')
     stm32g0 = _GetMarlinEnv(MarlinEnv, 'MCU_STM32G0')
+<<<<<<< HEAD
     gd32f10 = _GetMarlinEnv(MarlinEnv, 'MAPLE_STM32F1')
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     if (prouiex):
       print('ProUI extension detected')
@@ -42,9 +45,12 @@ if "MARLIN_FEATURES" in env:
       elif (stm32g0):
          arch = 'stm32g0/'
          print ('STM32G0 Architecture detected')
+<<<<<<< HEAD
       elif (gd32f10):
          arch = 'gd32f10/'
          print ('GD32F1 Architecture detected')
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       else:
          print("Error: can't detect the correct architecture")
          exit()

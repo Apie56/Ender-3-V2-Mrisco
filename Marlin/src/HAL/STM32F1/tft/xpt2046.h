@@ -65,12 +65,21 @@ private:
   static uint16_t getRawData(const XPTCoordinate coordinate);
   static bool isTouched();
 
+<<<<<<< HEAD
   static void DataTransferBegin() { WRITE(TOUCH_CS_PIN, LOW); };
   static void DataTransferEnd() { WRITE(TOUCH_CS_PIN, HIGH); };
   #if ENABLED(TOUCH_BUTTONS_HW_SPI)
     static uint16_t HardwareIO(uint16_t data);
   #endif
   static uint16_t SoftwareIO(uint16_t data);
+=======
+  static void dataTransferBegin() { WRITE(TOUCH_CS_PIN, LOW); };
+  static void dataTransferEnd() { WRITE(TOUCH_CS_PIN, HIGH); };
+  #if ENABLED(TOUCH_BUTTONS_HW_SPI)
+    static uint16_t hardwareIO(uint16_t data);
+  #endif
+  static uint16_t softwareIO(uint16_t data);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static uint16_t IO(uint16_t data = 0);
 
 public:
@@ -78,6 +87,10 @@ public:
     static SPIClass SPIx;
   #endif
 
+<<<<<<< HEAD
   static void Init();
+=======
+  static void init();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static bool getRawPoint(int16_t *x, int16_t *y);
 };

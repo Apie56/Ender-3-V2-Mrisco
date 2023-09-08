@@ -197,7 +197,11 @@
   #include "feature/runout.h"
 #endif
 
+<<<<<<< HEAD
 #if EITHER(PROBE_TARE, HAS_Z_SERVO_PROBE)
+=======
+#if ANY(PROBE_TARE, HAS_Z_SERVO_PROBE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "module/probe.h"
 #endif
 
@@ -319,7 +323,11 @@ bool pin_is_protected(const pin_t pin) {
     static constexpr size_t pincount = OnlyPins<SENSITIVE_PINS>::size;
     static const pin_t (&sensitive_pins)[pincount] PROGMEM = OnlyPins<SENSITIVE_PINS>::table;
   #endif
+<<<<<<< HEAD
   LOOP_L_N(i, pincount) {
+=======
+  for (uint8_t i = 0; i < pincount; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     const pin_t * const pptr = &sensitive_pins[i];
     if (pin == (sizeof(pin_t) == 2 ? (pin_t)pgm_read_word(pptr) : (pin_t)pgm_read_byte(pptr))) return true;
   }
@@ -354,9 +362,13 @@ void startOrResumeJob() {
     TERN_(GCODE_REPEAT_MARKERS, repeat.reset());
     TERN_(CANCEL_OBJECTS, cancelable.reset());
     TERN_(LCD_SHOW_E_TOTAL, e_move_accumulator = 0);
+<<<<<<< HEAD
     #if ENABLED(SET_REMAINING_TIME)
       ui.reset_remaining_time();
     #endif
+=======
+    TERN_(SET_REMAINING_TIME, ui.reset_remaining_time());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
   print_job_timer.start();
 }
@@ -391,7 +403,11 @@ void startOrResumeJob() {
     if (queue.enqueue_one(F("M1001"))) {  // Keep trying until it gets queued
       marlin_state = MF_RUNNING;          // Signal to stop trying
       TERN_(PASSWORD_AFTER_SD_PRINT_END, password.lock_machine());
+<<<<<<< HEAD
       TERN_(DGUS_LCD_UI_MKS, ScreenHandler.SDPrintingFinished());
+=======
+      TERN_(DGUS_LCD_UI_MKS, screen.sdPrintingFinished());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
   }
 
@@ -724,6 +740,13 @@ inline void manage_inactivity(const bool no_stepper_sleep=false) {
   #endif
 }
 
+<<<<<<< HEAD
+=======
+#if ALL(EP_BABYSTEPPING, EMERGENCY_PARSER)
+  #include "feature/babystep.h"
+#endif
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 /**
  * Standard idle routine keeps the machine alive:
  *  - Core Marlin activities
@@ -794,7 +817,11 @@ void idle(const bool no_stepper_sleep/*=false*/) {
   // Run StallGuard endstop checks
   #if ENABLED(SPI_ENDSTOPS)
     if (endstops.tmc_spi_homing.any && TERN1(IMPROVE_HOMING_RELIABILITY, ELAPSED(millis(), sg_guard_period)))
+<<<<<<< HEAD
       LOOP_L_N(i, 4) if (endstops.tmc_spi_homing_check()) break; // Read SGT 4 times per idle loop
+=======
+      for (uint8_t i = 0; i < 4; ++i) if (endstops.tmc_spi_homing_check()) break; // Read SGT 4 times per idle loop
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 
   // Handle SD Card insert / remove
@@ -813,7 +840,11 @@ void idle(const bool no_stepper_sleep/*=false*/) {
   TERN_(HAS_BEEPER, buzzer.tick());
 
   // Handle UI input / draw events
+<<<<<<< HEAD
   TERN(DWIN_CREALITY_LCD, DWIN_Update(), ui.update());
+=======
+  TERN(DWIN_CREALITY_LCD, dwinUpdate(), ui.update());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // Run i2c Position Encoders
   #if ENABLED(I2C_POSITION_ENCODERS)
@@ -846,6 +877,14 @@ void idle(const bool no_stepper_sleep/*=false*/) {
   // Handle Joystick jogging
   TERN_(POLL_JOG, joystick.inject_jog_moves());
 
+<<<<<<< HEAD
+=======
+  // Async Babystepping via the Emergency Parser
+  #if ALL(EP_BABYSTEPPING, EMERGENCY_PARSER)
+    babystep.do_ep_steps();
+  #endif
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Direct Stepping
   TERN_(DIRECT_STEPPING, page_manager.write_responses());
 
@@ -871,7 +910,11 @@ void kill(FSTR_P const lcd_error/*=nullptr*/, FSTR_P const lcd_component/*=nullp
   TERN_(HAS_CUTTER, cutter.kill()); // Full cutter shutdown including ISR control
 
   // Echo the LCD message to serial for extra context
+<<<<<<< HEAD
   if (lcd_error) { SERIAL_ECHO_START(); SERIAL_ECHOLNF(lcd_error); }
+=======
+  if (lcd_error) { SERIAL_ECHO_START(); SERIAL_ECHOLN(lcd_error); }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if HAS_DISPLAY
     ui.kill_screen(lcd_error ?: GET_TEXT_F(MSG_KILLED), lcd_component ?: FPSTR(NUL_STR));
@@ -913,7 +956,11 @@ void minkill(const bool steppers_off/*=false*/) {
 
   TERN_(HAS_SUICIDE, suicide());
 
+<<<<<<< HEAD
   #if EITHER(HAS_KILL, SOFT_RESET_ON_KILL)
+=======
+  #if ANY(HAS_KILL, SOFT_RESET_ON_KILL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     // Wait for both KILL and ENC to be released
     while (TERN0(HAS_KILL, kill_state()) || TERN0(SOFT_RESET_ON_KILL, ui.button_pressed()))
@@ -942,7 +989,11 @@ void stop() {
 
   print_job_timer.stop();
 
+<<<<<<< HEAD
   #if EITHER(PROBING_FANS_OFF, ADVANCED_PAUSE_FANS_PAUSE)
+=======
+  #if ANY(PROBING_FANS_OFF, ADVANCED_PAUSE_FANS_PAUSE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     thermalManager.set_fans_paused(false); // Un-pause fans for safety
   #endif
 
@@ -1128,7 +1179,11 @@ void setup() {
   #if ENABLED(MARLIN_DEV_MODE)
     auto log_current_ms = [&](PGM_P const msg) {
       SERIAL_ECHO_START();
+<<<<<<< HEAD
       SERIAL_CHAR('['); SERIAL_ECHO(millis()); SERIAL_ECHOPGM("] ");
+=======
+      TSS('[', millis(), F("] ")).echo();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       SERIAL_ECHOLNPGM_P(msg);
     };
     #define SETUP_LOG(M) log_current_ms(PSTR(M))
@@ -1257,7 +1312,11 @@ void setup() {
   if (mcu & RST_SOFTWARE)  SERIAL_ECHOLNPGM(STR_SOFTWARE_RESET);
 
   #if PROUI_EX
+<<<<<<< HEAD
     ProEx.C115();
+=======
+    proUIEx.C115();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #else
     // Identify myself as Marlin x.x.x
     SERIAL_ECHOLNPGM("Marlin " SHORT_BUILD_VERSION);
@@ -1308,14 +1367,22 @@ void setup() {
     #endif
   #endif
 
+<<<<<<< HEAD
   #if BOTH(HAS_MEDIA, SDCARD_EEPROM_EMULATION)
+=======
+  #if ALL(HAS_MEDIA, SDCARD_EEPROM_EMULATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     SETUP_RUN(card.mount());          // Mount media with settings before first_load
   #endif
 
   SETUP_RUN(settings.first_load());   // Load data from EEPROM if available (or use defaults)
                                       // This also updates variables in the planner, elsewhere
 
+<<<<<<< HEAD
   #if BOTH(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
+=======
+  #if ALL(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     SETUP_RUN(ui.show_bootscreen());
     const millis_t bootscreen_ms = millis();
   #endif
@@ -1332,7 +1399,11 @@ void setup() {
     SETUP_RUN(touchBt.init());
   #endif
 
+<<<<<<< HEAD
   TERN_(HAS_M206_COMMAND, current_position += home_offset); // Init current position based on home_offset
+=======
+  TERN_(HAS_HOME_OFFSET, current_position += home_offset); // Init current position based on home_offset
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   sync_plan_position();               // Vital to init stepper/planner equivalent for current_position
 
@@ -1390,7 +1461,11 @@ void setup() {
     SETUP_RUN(stepper_dac.init());
   #endif
 
+<<<<<<< HEAD
   #if EITHER(Z_PROBE_SLED, SOLENOID_PROBE) && HAS_SOLENOID_1
+=======
+  #if ANY(Z_PROBE_SLED, SOLENOID_PROBE) && HAS_SOLENOID_1
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     OUT_WRITE(SOL1_PIN, LOW); // OFF
   #endif
 
@@ -1576,7 +1651,11 @@ void setup() {
   #endif
 
   #if HAS_DWIN_E3V2_BASIC
+<<<<<<< HEAD
     SETUP_RUN(DWIN_InitScreen());
+=======
+    SETUP_RUN(dwinInitScreen());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 
   #if HAS_SERVICE_INTERVALS && !HAS_DWIN_E3V2_BASIC
@@ -1598,7 +1677,11 @@ void setup() {
     SETUP_RUN(tft_lvgl_init());
   #endif
 
+<<<<<<< HEAD
   #if BOTH(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
+=======
+  #if ALL(HAS_WIRED_LCD, SHOW_BOOTSCREEN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     const millis_t elapsed = millis() - bootscreen_ms;
     #if ENABLED(MARLIN_DEV_MODE)
       SERIAL_ECHOLNPGM("elapsed=", elapsed);
@@ -1610,7 +1693,11 @@ void setup() {
     SETUP_RUN(password.lock_machine());      // Will not proceed until correct password provided
   #endif
 
+<<<<<<< HEAD
   #if BOTH(HAS_MARLINUI_MENU, TOUCH_SCREEN_CALIBRATION) && EITHER(TFT_CLASSIC_UI, TFT_COLOR_UI)
+=======
+  #if ALL(HAS_MARLINUI_MENU, TOUCH_SCREEN_CALIBRATION) && ANY(TFT_CLASSIC_UI, TFT_COLOR_UI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     SETUP_RUN(ui.check_touch_calibration());
   #endif
 
@@ -1667,7 +1754,11 @@ void loop() {
 
     queue.advance();
 
+<<<<<<< HEAD
     #if EITHER(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+=======
+    #if ANY(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       powerManager.checkAutoPowerOff();
     #endif
 

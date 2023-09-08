@@ -86,7 +86,11 @@ millis_t GcodeSuite::previous_move_ms = 0,
 // Relative motion mode for each logical axis
 relative_t GcodeSuite::axis_relative; // Init in constructor
 
+<<<<<<< HEAD
 #if EITHER(HAS_AUTO_REPORTING, HOST_KEEPALIVE_FEATURE)
+=======
+#if ANY(HAS_AUTO_REPORTING, HOST_KEEPALIVE_FEATURE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   bool GcodeSuite::autoreport_paused; // = false
 #endif
 
@@ -109,8 +113,12 @@ void GcodeSuite::report_heading(const bool forReplay, FSTR_P const fstr, const b
   if (forReplay) return;
   if (fstr) {
     SERIAL_ECHO_START();
+<<<<<<< HEAD
     SERIAL_ECHOPGM("; ");
     SERIAL_ECHOF(fstr);
+=======
+    SERIAL_ECHO(F("; "), fstr);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
   if (eol) { SERIAL_CHAR(':'); SERIAL_EOL(); }
 }
@@ -208,13 +216,21 @@ void GcodeSuite::get_destination_from_command() {
     TERN_(LASER_FEATURE, cutter.feedrate_mm_m = MMS_TO_MMM(feedrate_mm_s));
   }
 
+<<<<<<< HEAD
   #if BOTH(PRINTCOUNTER, HAS_EXTRUDERS)
+=======
+  #if ALL(PRINTCOUNTER, HAS_EXTRUDERS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (!DEBUGGING(DRYRUN) && !skip_move)
       print_job_timer.incFilamentUsed(destination.e - current_position.e);
   #endif
 
   // Get ABCDHI mixing factors
+<<<<<<< HEAD
   #if BOTH(MIXING_EXTRUDER, DIRECT_MIXING_IN_G1)
+=======
+  #if ALL(MIXING_EXTRUDER, DIRECT_MIXING_IN_G1)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     M165();
   #endif
 
@@ -457,7 +473,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 61: G61(); break;                                    // G61:  Apply/restore saved coordinates.
       #endif
 
+<<<<<<< HEAD
       #if BOTH(PTC_PROBE, PTC_BED)
+=======
+      #if ALL(PTC_PROBE, PTC_BED)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 76: G76(); break;                                    // G76: Calibrate first layer compensation values
       #endif
 
@@ -499,11 +519,19 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 7: M7(); break;                                      // M7: Coolant Mist ON
       #endif
 
+<<<<<<< HEAD
       #if EITHER(AIR_ASSIST, COOLANT_FLOOD)
         case 8: M8(); break;                                      // M8: Air Assist / Coolant Flood ON
       #endif
 
       #if EITHER(AIR_ASSIST, COOLANT_CONTROL)
+=======
+      #if ANY(AIR_ASSIST, COOLANT_FLOOD)
+        case 8: M8(); break;                                      // M8: Air Assist / Coolant Flood ON
+      #endif
+
+      #if ANY(AIR_ASSIST, COOLANT_CONTROL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 9: M9(); break;                                      // M9: Air Assist / Coolant OFF
       #endif
 
@@ -543,7 +571,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
           case 33: M33(); break;                                  // M33: Get the long full path to a file or folder
         #endif
 
+<<<<<<< HEAD
         #if BOTH(SDCARD_SORT_ALPHA, SDSORT_GCODE)
+=======
+        #if ALL(SDCARD_SORT_ALPHA, SDSORT_GCODE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           case 34: M34(); break;                                  // M34: Set SD card sorting options
         #endif
 
@@ -647,7 +679,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 154: M154(); break;                                  // M154: Set position auto-report interval
       #endif
 
+<<<<<<< HEAD
       #if BOTH(AUTO_REPORT_TEMPERATURES, HAS_TEMP_SENSOR)
+=======
+      #if ALL(AUTO_REPORT_TEMPERATURES, HAS_TEMP_SENSOR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 155: M155(); break;                                  // M155: Set temperature auto-report interval
       #endif
 
@@ -678,8 +714,20 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 82: M82(); break;                                    // M82: Set E axis normal mode (same as other axes)
         case 83: M83(); break;                                    // M83: Set E axis relative mode
       #endif
+<<<<<<< HEAD
       case 18: case 84: M18_M84(); break;                         // M18/M84: Disable Steppers / Set Timeout
       case 85: M85(); break;                                      // M85: Set inactivity stepper shutdown timeout
+=======
+
+      case 18: case 84: M18_M84(); break;                         // M18/M84: Disable Steppers / Set Timeout
+      case 85: M85(); break;                                      // M85: Set inactivity stepper shutdown timeout
+
+      #if ENABLED(HOTEND_IDLE_TIMEOUT)
+        case 86: M86(); break;                                    // M86: Set Hotend Idle Timeout
+        case 87: M87(); break;                                    // M87: Cancel Hotend Idle Timeout
+      #endif
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       case 92: M92(); break;                                      // M92: Set the steps-per-unit for one or more axes
       case 114: M114(); break;                                    // M114: Report current position
       case 115: M115(); break;                                    // M115: Report capabilities
@@ -728,7 +776,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 204: M204(); break;                                    // M204: Set acceleration
       case 205: M205(); break;                                    // M205: Set advanced settings
 
+<<<<<<< HEAD
       #if HAS_M206_COMMAND
+=======
+      #if HAS_HOME_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 206: M206(); break;                                  // M206: Set home offsets
       #endif
 
@@ -776,6 +828,13 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       #if ENABLED(BABYSTEPPING)
         case 290: M290(); break;                                  // M290: Babystepping
+<<<<<<< HEAD
+=======
+        #if ENABLED(EP_BABYSTEPPING)
+          case 293: IF_DISABLED(EMERGENCY_PARSER, M293()); break; // M293: Babystep up
+          case 294: IF_DISABLED(EMERGENCY_PARSER, M294()); break; // M294: Babystep down
+        #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
 
       #if HAS_SOUND
@@ -843,7 +902,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 364: if (M364()) return; break;                      // M364: SCARA Psi pos3 (90 deg to Theta)
       #endif
 
+<<<<<<< HEAD
       #if EITHER(EXT_SOLENOID, MANUAL_SOLENOID_CONTROL)
+=======
+      #if ANY(EXT_SOLENOID, MANUAL_SOLENOID_CONTROL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 380: M380(); break;                                  // M380: Activate solenoid on active (or specified) extruder
         case 381: M381(); break;                                  // M381: Disable all solenoids or, if MANUAL_SOLENOID_CONTROL, active (or specified) solenoid
       #endif
@@ -890,7 +953,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 425: M425(); break;                                  // M425: Tune backlash compensation
       #endif
 
+<<<<<<< HEAD
       #if HAS_M206_COMMAND
+=======
+      #if HAS_HOME_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 428: M428(); break;                                  // M428: Apply current_position to home_offset
       #endif
 
@@ -961,7 +1028,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 665: M665(); break;                                  // M665: Set Kinematics parameters
       #endif
 
+<<<<<<< HEAD
       #if EITHER(DELTA, HAS_EXTRA_ENDSTOPS)
+=======
+      #if ANY(DELTA, HAS_EXTRA_ENDSTOPS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case 666: M666(); break;                                  // M666: Set delta or multiple endstop adjustment
       #endif
 
@@ -1002,7 +1073,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       #if ANY(HAS_MOTOR_CURRENT_SPI, HAS_MOTOR_CURRENT_PWM, HAS_MOTOR_CURRENT_I2C, HAS_MOTOR_CURRENT_DAC)
         case 907: M907(); break;                                  // M907: Set digital trimpot motor current using axis codes.
+<<<<<<< HEAD
         #if EITHER(HAS_MOTOR_CURRENT_SPI, HAS_MOTOR_CURRENT_DAC)
+=======
+        #if ANY(HAS_MOTOR_CURRENT_SPI, HAS_MOTOR_CURRENT_DAC)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           case 908: M908(); break;                                // M908: Control digital trimpot directly.
           #if HAS_MOTOR_CURRENT_DAC
             case 909: M909(); break;                              // M909: Print digipot/DAC current value
@@ -1126,8 +1201,13 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 'S': case 'P': case 'R': break;                        // Invalid S, P, R commands already filtered
     #endif
 
+<<<<<<< HEAD
     #if BOTH(DWIN_LCD_PROUI, HAS_CGCODE)
       case 'C' : DWIN_Gcode(parser.codenum); break;               // PROUI_EX Cn: Custom Gcodes
+=======
+    #if ALL(DWIN_LCD_PROUI, HAS_CGCODE)
+      case 'C' : dwinGcode(parser.codenum); break;               // PROUI_EX Cn: Custom Gcodes
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #endif
 
     default:
@@ -1139,7 +1219,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
   if (!no_ok) queue.ok_to_send();
 
+<<<<<<< HEAD
   SERIAL_OUT(msgDone); // Call the msgDone serial hook to signal command processing done
+=======
+  SERIAL_IMPL.msgDone(); // Call the msgDone serial hook to signal command processing done
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #if ENABLED(M100_FREE_MEMORY_DUMPER)
@@ -1186,10 +1270,14 @@ void GcodeSuite::process_subcommands_now(FSTR_P fgcode) {
   for (;;) {
     PGM_P const delim = strchr_P(pgcode, '\n');       // Get address of next newline
     const size_t len = delim ? delim - pgcode : strlen_P(pgcode); // Get the command length
+<<<<<<< HEAD
     char cmd[len + 1];                                // Allocate a stack buffer
     strncpy_P(cmd, pgcode, len);                      // Copy the command to the stack
     cmd[len] = '\0';                                  // End with a nul
     parser.parse(cmd);                                // Parse the command
+=======
+    parser.parse(MString<MAX_CMD_SIZE>().setn_P(pgcode, len));    // Parse the command
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     process_parsed_command(true);                     // Process it (no "ok")
     if (!delim) break;                                // Last command?
     pgcode = delim + 1;                               // Get the next command

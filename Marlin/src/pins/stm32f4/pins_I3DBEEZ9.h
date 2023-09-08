@@ -33,8 +33,13 @@
 
 //#define MOTOR_EXPANSION
 
+<<<<<<< HEAD
 #if BOTH(HAS_WIRED_LCD, MOTOR_EXPANSION)
   #if EITHER(CR10_STOCKDISPLAY, ENDER2_STOCKDISPLAY)
+=======
+#if ALL(HAS_WIRED_LCD, MOTOR_EXPANSION)
+  #if ANY(CR10_STOCKDISPLAY, ENDER2_STOCKDISPLAY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define EXP_MOT_USE_EXP2_ONLY 1
   #else
     #error "You can't use both an LCD and a Motor Expansion Module on EXP1/EXP2 at the same time."
@@ -560,7 +565,11 @@
       #define DOGLCD_A0              EXP1_04_PIN
       //#define LCD_BACKLIGHT_PIN           -1
       #define LCD_RESET_PIN          EXP1_05_PIN  // Must be high or open for LCD to operate normally.
+<<<<<<< HEAD
       #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+=======
+      #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         #ifndef RGB_LED_R_PIN
           #define RGB_LED_R_PIN      EXP1_06_PIN
         #endif

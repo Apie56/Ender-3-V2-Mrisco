@@ -22,7 +22,11 @@
 
 #include "../../inc/MarlinConfig.h"
 
+<<<<<<< HEAD
 #if HAS_M206_COMMAND
+=======
+#if HAS_HOME_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../gcode.h"
 #include "../../module/motion.h"
@@ -101,4 +105,8 @@ void GcodeSuite::M428() {
   OKAY_BUZZ();
 }
 
+<<<<<<< HEAD
 #endif // HAS_M206_COMMAND
+=======
+#endif // HAS_HOME_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

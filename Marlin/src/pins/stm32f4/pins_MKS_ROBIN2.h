@@ -121,7 +121,11 @@
   #define TFT_CS_PIN                 FSMC_CS_PIN
   #define TFT_RS_PIN                 FSMC_RS_PIN
 
+<<<<<<< HEAD
   #define TFT_BUFFER_SIZE                  14400
+=======
+  #define TFT_BUFFER_WORDS                 14400
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define BEEPER_PIN                        PG2
 

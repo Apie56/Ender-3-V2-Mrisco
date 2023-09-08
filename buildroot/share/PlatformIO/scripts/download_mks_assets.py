@@ -14,7 +14,11 @@ if pioutil.is_pio_build():
     assets_path = Path(env.Dictionary("PROJECT_BUILD_DIR"), env.Dictionary("PIOENV"), "assets")
 
     def download_mks_assets():
+<<<<<<< HEAD
         print("Downloading MKS Assets")
+=======
+        print("Downloading MKS Assets for TFT_LVGL_UI")
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         r = requests.get(url, stream=True)
         # the user may have a very clean workspace,
         # so create the PROJECT_LIBDEPS_DIR directory if not exits
@@ -25,7 +29,11 @@ if pioutil.is_pio_build():
                 fd.write(chunk)
 
     def copy_mks_assets():
+<<<<<<< HEAD
         print("Copying MKS Assets")
+=======
+        print("Copying MKS Assets for TFT_LVGL_UI")
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         output_path = Path(tempfile.mkdtemp())
         zip_obj = zipfile.ZipFile(zip_path, 'r')
         zip_obj.extractall(output_path)

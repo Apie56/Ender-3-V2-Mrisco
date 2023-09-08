@@ -12,14 +12,23 @@ on:
 jobs:
   bump_date:
     name: Bump Distribution Date
+<<<<<<< HEAD
     if: github.repository == 'MarlinFirmware/Marlin'
+=======
+    if: github.repository == 'mriscoc/Ender3V2S1'
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     runs-on: ubuntu-latest
 
     steps:
 
+<<<<<<< HEAD
     - name: Check out bugfix-2.1.x
       uses: actions/checkout@v2
+=======
+    - name: Check out bugfix-2.0.x
+      uses: actions/checkout@v3
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       with:
         ref: bugfix-2.1.x
 
@@ -39,7 +48,11 @@ jobs:
         exit 0
 
     - name: Check out bugfix-2.1.x
+<<<<<<< HEAD
       uses: actions/checkout@v2
+=======
+      uses: actions/checkout@v3
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       with:
         ref: bugfix-2.1.x
 

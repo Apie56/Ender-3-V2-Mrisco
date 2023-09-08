@@ -82,7 +82,11 @@
 #define _MSERIAL(X) MSerial##X
 #define MSERIAL(X) _MSERIAL(X)
 
+<<<<<<< HEAD
 #if EITHER(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+=======
+#if ANY(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define NUM_UARTS 5
 #else
   #define NUM_UARTS 3
@@ -140,7 +144,11 @@
     static_assert(false, "LCD_SERIAL_PORT must be from 1 to " STRINGIFY(NUM_UARTS) ". You can also use -1 if the board supports Native USB.")
   #endif
   #if HAS_DGUS_LCD
+<<<<<<< HEAD
     #define SERIAL_GET_TX_BUFFER_FREE() LCD_SERIAL.availableForWrite()
+=======
+    #define LCD_SERIAL_TX_BUFFER_FREE() LCD_SERIAL.availableForWrite()
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
@@ -190,7 +198,11 @@ typedef int8_t pin_t;
   #define HAL_ADC_RESOLUTION 12
 #endif
 
+<<<<<<< HEAD
 #define HAL_ADC_VREF         3.3
+=======
+#define HAL_ADC_VREF_MV   3300
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 uint16_t analogRead(const pin_t pin); // need hal.adc_enable() first
 void analogWrite(const pin_t pin, int pwm_val8); // PWM only! mul by 257 in maple!?

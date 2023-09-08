@@ -129,7 +129,11 @@
  * Added as necessary or if I feel like it- not a comprehensive list!
  */
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Some of these share the same source and so can't be used in the same time
  */
 #define PWM_PIN(P)        (WITHIN(P, 2, 13) || WITHIN(P, 22, 23) || WITHIN(P, 44, 45) || P == 48)

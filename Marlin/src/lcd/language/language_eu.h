@@ -31,7 +31,11 @@
 #define DISPLAY_CHARSET_ISO10646_1
 #define NOT_EXTENDED_ISO10646_1_5X7
 
+<<<<<<< HEAD
 namespace Language_eu {
+=======
+namespace LanguageNarrow_eu {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 1;
@@ -56,6 +60,7 @@ namespace Language_eu {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Berdintzea eginda");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Etxe. offset eza.");
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Offsetak ezarrita");
+<<<<<<< HEAD
   #if HAS_PREHEAT
     LSTR MSG_PREHEAT_1                    = _UxGT("Berotu ") PREHEAT_1_LABEL;
     LSTR MSG_PREHEAT_1_H                  = _UxGT("Berotu ") PREHEAT_1_LABEL " ~";
@@ -73,6 +78,25 @@ namespace Language_eu {
     LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Berotu $ Ohea");
     LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Berotu $ Ezarp.");
   #endif
+=======
+
+  LSTR MSG_PREHEAT_1                      = _UxGT("Berotu ") PREHEAT_1_LABEL;
+  LSTR MSG_PREHEAT_1_H                    = _UxGT("Berotu ") PREHEAT_1_LABEL " ~";
+  LSTR MSG_PREHEAT_1_END                  = _UxGT("Berotu ") PREHEAT_1_LABEL _UxGT(" Amaia");
+  LSTR MSG_PREHEAT_1_END_E                = _UxGT("Berotu ") PREHEAT_1_LABEL _UxGT(" Amaia ~");
+  LSTR MSG_PREHEAT_1_ALL                  = _UxGT("Berotu ") PREHEAT_1_LABEL _UxGT(" Guztia");
+  LSTR MSG_PREHEAT_1_BEDONLY              = _UxGT("Berotu ") PREHEAT_1_LABEL _UxGT(" Ohea");
+  LSTR MSG_PREHEAT_1_SETTINGS             = _UxGT("Berotu ") PREHEAT_1_LABEL _UxGT(" Ezarp.");
+
+  LSTR MSG_PREHEAT_M                      = _UxGT("Berotu $");
+  LSTR MSG_PREHEAT_M_H                    = _UxGT("Berotu $ ~");
+  LSTR MSG_PREHEAT_M_END                  = _UxGT("Berotu $ Amaia");
+  LSTR MSG_PREHEAT_M_END_E                = _UxGT("Berotu $ Amaia ~");
+  LSTR MSG_PREHEAT_M_ALL                  = _UxGT("Berotu $ Guztia");
+  LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Berotu $ Ohea");
+  LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Berotu $ Ezarp.");
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Hoztu");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Energia piztu");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Energia itzali");
@@ -99,10 +123,15 @@ namespace Language_eu {
   LSTR MSG_UBL_MESH_EDIT                  = _UxGT("Sarea editatu");
   LSTR MSG_UBL_DONE_EDITING_MESH          = _UxGT("Sarea editatzea eginda");
   LSTR MSG_UBL_BUILD_MESH_MENU            = _UxGT("Sarea sortu");
+<<<<<<< HEAD
   #if HAS_PREHEAT
     LSTR MSG_UBL_BUILD_MESH_M             = _UxGT("$ sarea sortu");
     LSTR MSG_UBL_VALIDATE_MESH_M          = _UxGT("$ sarea balioetsi");
   #endif
+=======
+  LSTR MSG_UBL_BUILD_MESH_M               = _UxGT("$ sarea sortu");
+  LSTR MSG_UBL_VALIDATE_MESH_M            = _UxGT("$ sarea balioetsi");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_UBL_BUILD_COLD_MESH            = _UxGT("Sare hotza sortu");
   LSTR MSG_UBL_MESH_HEIGHT_ADJUST         = _UxGT("Sarearen altuera doitu");
   LSTR MSG_UBL_VALIDATE_MESH_MENU         = _UxGT("Sarea balioetsi");
@@ -194,7 +223,11 @@ namespace Language_eu {
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Kargatu memoria");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Larri. berriz.");
   LSTR MSG_INIT_EEPROM                    = _UxGT("EEPROM-a hasieratu");
+<<<<<<< HEAD
   LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Berriz kargatu");
+=======
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Berriz kargatu");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_SCREEN                    = _UxGT("Pantaila info");
   LSTR MSG_PREPARE                        = _UxGT("Prestatu");
   LSTR MSG_TUNE                           = _UxGT("Doitu");
@@ -276,6 +309,7 @@ namespace Language_eu {
   LSTR MSG_INFO_PROTOCOL                  = _UxGT("Protokoloa");
   LSTR MSG_CASE_LIGHT                     = _UxGT("Kabina Argia");
   LSTR MSG_CASE_LIGHT_BRIGHTNESS          = _UxGT("Argiaren Distira");
+<<<<<<< HEAD
   #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
     LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Inprim. Zenbaketa");
     LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Burututa");
@@ -289,6 +323,15 @@ namespace Language_eu {
     LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Luzeena");
     LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Estrusio");
   #endif
+=======
+
+  LSTR MSG_INFO_PRINT_COUNT               = _UxGT("Inprimatze");
+  LSTR MSG_INFO_COMPLETED_PRINTS          = _UxGT("Burututa");
+  LSTR MSG_INFO_PRINT_TIME                = _UxGT("Guztira");
+  LSTR MSG_INFO_PRINT_LONGEST             = _UxGT("Luzeena");
+  LSTR MSG_INFO_PRINT_FILAMENT            = _UxGT("Estrusio");
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_MIN_TEMP                  = _UxGT("Tenp. Minimoa");
   LSTR MSG_INFO_MAX_TEMP                  = _UxGT("Tenp. Maximoa");
   LSTR MSG_INFO_PSU                       = _UxGT("Elikadura-iturria");
@@ -316,3 +359,28 @@ namespace Language_eu {
   LSTR MSG_FILAMENT_CHANGE_HEATING        = _UxGT(MSG_1_LINE("Berotzen..."));
   LSTR MSG_FILAMENT_CHANGE_LOAD           = _UxGT(MSG_1_LINE("Kargatzen..."));
 }
+<<<<<<< HEAD
+=======
+
+namespace LanguageWide_eu {
+  using namespace LanguageNarrow_eu;
+  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Inprim. Zenbaketa");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Burututa");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Inprim. denbora");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Imprimatze luzeena");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Estruituta guztira");
+  #endif
+}
+
+namespace LanguageTall_eu {
+  using namespace LanguageWide_eu;
+  #if LCD_HEIGHT >= 4
+    // Filament Change screens show up to 3 lines on a 4-line display
+  #endif
+}
+
+namespace Language_eu {
+  using namespace LanguageTall_eu;
+}
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

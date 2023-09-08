@@ -27,7 +27,11 @@
 #define USES_DIAG_JUMPERS
 
 // Onboard I2C EEPROM
+<<<<<<< HEAD
 #if EITHER(NO_EEPROM_SELECTED, I2C_EEPROM)
+=======
+#if ANY(NO_EEPROM_SELECTED, I2C_EEPROM)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #undef NO_EEPROM_SELECTED
   #define I2C_EEPROM
   #define MARLIN_EEPROM_SIZE              0x1000  // 4K (AT24C32)
@@ -45,11 +49,14 @@
 #define SERVO0_PIN                          PB6
 
 //
+<<<<<<< HEAD
 // Misc. Functions
 //
 #define LED_PIN                             PA13
 
 //
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Trinamic Stallguard pins
 //
 #define X_DIAG_PIN                          PG6   // X-STOP
@@ -62,6 +69,7 @@
 #define E3_DIAG_PIN                         PG15  // E3DET
 
 //
+<<<<<<< HEAD
 // Z Probe (when not Z_MIN_PIN)
 //
 #ifndef Z_MIN_PROBE_PIN
@@ -69,6 +77,8 @@
 #endif
 
 //
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Limit Switches
 //
 #ifdef X_STALL_SENSITIVITY
@@ -126,6 +136,16 @@
 #endif
 
 //
+<<<<<<< HEAD
+=======
+// Z Probe (when not Z_MIN_PIN)
+//
+#ifndef Z_MIN_PROBE_PIN
+  #define Z_MIN_PROBE_PIN                   PB7
+#endif
+
+//
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Filament Runout Sensor
 //
 #define FIL_RUNOUT_PIN                      PG12  // E0DET
@@ -148,6 +168,14 @@
 #endif
 
 //
+<<<<<<< HEAD
+=======
+// Misc. Functions
+//
+#define LED_PIN                             PA13
+
+//
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Steppers
 //
 #define X_STEP_PIN                          PF13  // MOTOR 0
@@ -467,7 +495,11 @@
       #define DOGLCD_A0              EXP1_04_PIN
       //#define LCD_BACKLIGHT_PIN           -1
       #define LCD_RESET_PIN          EXP1_05_PIN  // Must be high or open for LCD to operate normally.
+<<<<<<< HEAD
       #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+=======
+      #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         #ifndef RGB_LED_R_PIN
           #define RGB_LED_R_PIN      EXP1_06_PIN
         #endif

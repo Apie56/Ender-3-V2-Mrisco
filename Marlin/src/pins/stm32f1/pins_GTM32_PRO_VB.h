@@ -56,7 +56,11 @@
 //#define BOGUS_TEMPERATURE_GRACE_PERIOD    2000
 
 // Enable EEPROM Emulation for this board as it doesn't have EEPROM
+<<<<<<< HEAD
 #if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
+=======
+#if ANY(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define FLASH_EEPROM_EMULATION
   #define MARLIN_EEPROM_SIZE              0x1000  // 4K
 #endif

@@ -199,7 +199,11 @@ void GcodeSuite::M702() {
   #if HAS_PRUSA_MMU2
     mmu2.unload();
   #else
+<<<<<<< HEAD
     #if BOTH(HAS_MULTI_EXTRUDER, FILAMENT_UNLOAD_ALL_EXTRUDERS)
+=======
+    #if ALL(HAS_MULTI_EXTRUDER, FILAMENT_UNLOAD_ALL_EXTRUDERS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       if (!parser.seenval('T')) {
         HOTEND_LOOP() {
           if (e != active_extruder) tool_change(e);

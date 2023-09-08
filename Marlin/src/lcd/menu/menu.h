@@ -242,6 +242,7 @@ void _lcd_draw_homing();
   #else
     void lcd_babystep_z();
   #endif
+<<<<<<< HEAD
 
   #if ENABLED(BABYSTEP_MILLIMETER_UNITS)
     #define BABYSTEP_SIZE_X int32_t((BABYSTEP_MULTIPLICATOR_XY) * planner.settings.axis_steps_per_mm[X_AXIS])
@@ -253,6 +254,8 @@ void _lcd_draw_homing();
     #define BABYSTEP_SIZE_Z BABYSTEP_MULTIPLICATOR_Z
   #endif
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 #if ENABLED(TOUCH_SCREEN_CALIBRATION)

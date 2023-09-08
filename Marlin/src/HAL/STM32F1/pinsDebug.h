@@ -94,7 +94,11 @@ void pwm_details(const pin_t pin) {
     timer_dev * const tdev = PIN_MAP[pin].timer_device;
     const uint8_t channel = PIN_MAP[pin].timer_channel;
     const char num = (
+<<<<<<< HEAD
       #if EITHER(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+=======
+      #if ANY(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         tdev == &timer8 ? '8' :
         tdev == &timer5 ? '5' :
       #endif

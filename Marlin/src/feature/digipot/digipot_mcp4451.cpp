@@ -94,7 +94,11 @@ void DigipotI2C::init() {
       DIGIPOT_I2C_MOTOR_CURRENTS
     #endif
   ;
+<<<<<<< HEAD
   LOOP_L_N(i, COUNT(digipot_motor_current))
+=======
+  for (uint8_t i = 0; i < COUNT(digipot_motor_current); ++i)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     set_current(i, pgm_read_float(&digipot_motor_current[i]));
 }
 
