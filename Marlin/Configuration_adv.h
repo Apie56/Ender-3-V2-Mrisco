@@ -4372,11 +4372,7 @@
 //#define WIFISUPPORT         // Marlin embedded WiFi management
 //#define ESP3D_WIFISUPPORT   // ESP3D Library WiFi management (https://github.com/luc-github/ESP3DLib)
 
-<<<<<<< HEAD
 #if EITHER(WIFISUPPORT, ESP3D_WIFISUPPORT)
-=======
-#if ANY(WIFISUPPORT, ESP3D_WIFISUPPORT)
->>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define WEBSUPPORT          // Start a webserver (which may include auto-discovery)
   //#define OTASUPPORT          // Support over-the-air firmware updates
   //#define WIFI_CUSTOM_COMMAND // Accept feature config commands (e.g., WiFi ESP3D) from the host
