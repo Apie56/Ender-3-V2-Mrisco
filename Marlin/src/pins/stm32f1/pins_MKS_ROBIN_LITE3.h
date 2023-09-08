@@ -152,7 +152,11 @@
 //
 // SPI
 //
+<<<<<<< HEAD
 #define SPI_DEVICE                             2
+=======
+#define SPI_DEVICE                             2  // Maple
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #define SD_SCK_PIN                          PB13
 #define SD_MISO_PIN                         PB14
 #define SD_MOSI_PIN                         PB15

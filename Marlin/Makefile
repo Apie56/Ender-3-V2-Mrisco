@@ -63,8 +63,13 @@ HARDWARE_MOTHERBOARD ?= 5040
 
 ifeq ($(OS),Windows_NT)
   # Windows
+<<<<<<< HEAD
   ARDUINO_INSTALL_DIR ?= ${HOME}/Arduino
   ARDUINO_USER_DIR ?= ${HOME}/Arduino
+=======
+  ARDUINO_INSTALL_DIR ?= ${HOME}/AppData/Local/Arduino
+  ARDUINO_USER_DIR ?= ${HOME}/Documents/Arduino
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 else
   UNAME_S := $(shell uname -s)
   ifeq ($(UNAME_S),Linux)
@@ -82,11 +87,19 @@ endif
 
 # Arduino source install directory, and version number
 # On most linuxes this will be /usr/share/arduino
+<<<<<<< HEAD
 ARDUINO_INSTALL_DIR  ?= ${HOME}/Arduino
 ARDUINO_VERSION      ?= 106
 
 # The installed Libraries are in the User folder
 ARDUINO_USER_DIR ?= ${HOME}/Arduino
+=======
+ARDUINO_INSTALL_DIR  ?= ${HOME}/AppData/Local/Arduino       # C:/Users/${USERNAME}/AppData/Local/Arduino
+ARDUINO_VERSION      ?= 10819
+
+# The installed Libraries are in the User folder
+ARDUINO_USER_DIR ?= ${HOME}/Documents/Arduino
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 # You can optionally set a path to the avr-gcc tools.
 # Requires a trailing slash. For example, /usr/local/avr-gcc/bin/
@@ -656,18 +669,31 @@ ifeq ($(HARDWARE_VARIANT), $(filter $(HARDWARE_VARIANT),arduino Teensy Sanguino)
   # Old libraries (avr-core 1.6.21 < / Arduino < 1.6.8)
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SPI
   # New libraries (avr-core >= 1.6.21 / Arduino >= 1.6.8)
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SPI/src
 endif
 
 ifeq ($(IS_MCU),1)
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/cores/arduino
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/arduino/avr/1.8.6/libraries/SPI/src
+endif
+
+ifeq ($(IS_MCU),1)
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/arduino/avr/1.8.6/cores/arduino
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   # Old libraries (avr-core 1.6.21 < / Arduino < 1.6.8)
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SPI
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SoftwareSerial
   # New libraries (avr-core >= 1.6.21 / Arduino >= 1.6.8)
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SPI/src
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/SoftwareSerial/src
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/arduino/avr/1.8.6/libraries/SPI/src
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/arduino/avr/1.8.6/libraries/SoftwareSerial/src
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/LiquidCrystal/src
@@ -681,17 +707,29 @@ ifeq ($(WIRE), 1)
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/Wire
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/Wire/utility
   # New libraries (avr-core >= 1.6.21 / Arduino >= 1.6.8)
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/Wire/src
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/libraries/Wire/src/utility
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src/utility
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 ifeq ($(NEOPIXEL), 1)
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/Adafruit_NeoPixel
 endif
 ifeq ($(U8GLIB), 1)
+<<<<<<< HEAD
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib/csrc
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib/cppsrc
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib/fntsrc
+=======
+VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib-HAL
+VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib-HAL/src
+# VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib
+# VPATH += $(ARDUINO_INSTALL_DIR)/libraries/U8glib/src
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 ifeq ($(TMC), 1)
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/TMCStepper/src
@@ -700,9 +738,15 @@ endif
 
 ifeq ($(HARDWARE_VARIANT), arduino)
   HARDWARE_SUB_VARIANT ?= mega
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/arduino/avr/variants/$(HARDWARE_SUB_VARIANT)
 else ifeq ($(HARDWARE_VARIANT), Sanguino)
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/marlin/avr/variants/sanguino
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/avr/1.8.6/variants/$(HARDWARE_SUB_VARIANT)
+else ifeq ($(HARDWARE_VARIANT), Sanguino)
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/avr/1.8.6/variants/sanguino
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 else ifeq ($(HARDWARE_VARIANT), archim)
   VPATH   += $(ARDUINO_INSTALL_DIR)/packages/ultimachine/hardware/sam/1.6.9-b/system/libsam
   VPATH   += $(ARDUINO_INSTALL_DIR)/packages/ultimachine/hardware/sam/1.6.9-b/system/CMSIS/CMSIS/Include/
@@ -718,7 +762,11 @@ else ifeq ($(HARDWARE_VARIANT), archim)
   LDLIBS   = $(ARDUINO_INSTALL_DIR)/packages/ultimachine/hardware/sam/1.6.9-b/variants/archim/libsam_sam3x8e_gcc_rel.a
 else
   HARDWARE_SUB_VARIANT ?= standard
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/$(HARDWARE_VARIANT)/variants/$(HARDWARE_SUB_VARIANT)
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/avr/1.8.6/variants/$(HARDWARE_SUB_VARIANT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 
 LIB_SRC = wiring.c \
@@ -733,7 +781,11 @@ endif
 
 ifeq ($(HARDWARE_VARIANT), Teensy)
   LIB_SRC = wiring.c
+<<<<<<< HEAD
   VPATH += $(ARDUINO_INSTALL_DIR)/hardware/teensy/cores/teensy
+=======
+  VPATH += $(ARDUINO_INSTALL_DIR)/packages/arduino/hardware/teensy/cores/teensy
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 
 LIB_CXXSRC = WMath.cpp WString.cpp Print.cpp SPI.cpp
@@ -880,7 +932,11 @@ AVRDUDE_WRITE_FLASH = -Uflash:w:$(BUILD_DIR)/$(TARGET).hex:i
 ifeq ($(shell uname -s), Linux)
   AVRDUDE_CONF = /etc/avrdude/avrdude.conf
 else
+<<<<<<< HEAD
   AVRDUDE_CONF = $(ARDUINO_INSTALL_DIR)/hardware/tools/avr/etc/avrdude.conf
+=======
+  AVRDUDE_CONF = $(ARDUINO_INSTALL_DIR)/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 endif
 AVRDUDE_FLAGS = -D -C$(AVRDUDE_CONF) \
   -p$(PROG_MCU) -P$(AVRDUDE_PORT) -c$(AVRDUDE_PROGRAMMER) \

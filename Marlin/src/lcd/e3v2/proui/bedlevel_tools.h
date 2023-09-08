@@ -1,9 +1,15 @@
 /**
  * Bed Level Tools for Pro UI
  * Extended by: Miguel A. Risco-Castillo (MRISCOC)
+<<<<<<< HEAD
  * Version: 3.2.0
  * Date: 2023/05/03
  * 
+=======
+ * Version: 5.1.0
+ * Date: 2023/08/22
+ *
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Based on the original work of: Henri-J-Norden
  * https://github.com/Jyers/Marlin/pull/126
  *
@@ -28,6 +34,7 @@
 #define UBL_Z_OFFSET_MIN -3.0
 #define UBL_Z_OFFSET_MAX  3.0
 
+<<<<<<< HEAD
 class BedLevelToolsClass {
 public:
   #if ENABLED(USE_GRID_MESHVIEWER)
@@ -61,3 +68,27 @@ public:
 };
 
 extern BedLevelToolsClass bedLevelTools;
+=======
+class BedLevelTools {
+public:
+  static bool goto_mesh_value;
+  static uint8_t mesh_x, mesh_y;
+  static uint8_t tilt_grid;
+
+  #if ENABLED(AUTO_BED_LEVELING_UBL)
+    static void manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y, bool undefined=false);
+    static bool createPlaneFromMesh();
+  #else
+    static void manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y);
+  #endif
+  static void manualMove(const uint8_t mesh_x, const uint8_t mesh_y, bool zmove=false);
+  static void moveToXYZ();
+  static void moveToXY();
+  static void moveToZ();
+  static void probeXY();
+  static void meshReset();
+  static bool meshValidate();
+};
+
+extern BedLevelTools bedLevelTools;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

@@ -51,9 +51,15 @@
 #if ENABLED(IIC_BL24CXX_EEPROM)
   #define IIC_EEPROM_SDA                    PA11
   #define IIC_EEPROM_SCL                    PA12
+<<<<<<< HEAD
   #define MARLIN_EEPROM_SIZE             0x800  // 2K (24C16)
 #elif EITHER(SDCARD_EEPROM_EMULATION, FLASH_EEPROM_EMULATION)
   #define MARLIN_EEPROM_SIZE             0x800  // 2K
+=======
+  #define MARLIN_EEPROM_SIZE               0x800  // 2K (24C16)
+#elif ANY(SDCARD_EEPROM_EMULATION, FLASH_EEPROM_EMULATION)
+  #define MARLIN_EEPROM_SIZE               0x800  // 2K
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 //
@@ -61,6 +67,7 @@
 //
 #define X_STOP_PIN                          PC4
 #define Y_STOP_PIN                          PC5
+<<<<<<< HEAD
 
 #if ENABLED(BLTOUCH)
   #define Z_STOP_PIN                        -1
@@ -74,6 +81,15 @@
     #define PROBE_TARE_PIN                  PC14
     #define PROBE_ACTIVATION_SWITCH_PIN     PB2
   #endif
+=======
+#define Z_STOP_PIN                          PC15
+
+#if ENABLED(BLTOUCH)
+  #define SERVO0_PIN                        PC14  // BLTouch OUT PIN
+#elif ENABLED(PROBE_ACTIVATION_SWITCH)
+  #define PROBE_TARE_PIN                    PC14
+  #define PROBE_ACTIVATION_SWITCH_PIN       PB2
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 //

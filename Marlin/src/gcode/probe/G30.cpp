@@ -75,6 +75,7 @@ void GcodeSuite::G30() {
 
     const ProbePtRaise raise_after = parser.boolval('E', true) ? PROBE_PT_STOW : PROBE_PT_NONE;
 
+<<<<<<< HEAD
     TERN_(HAS_PTC, ptc.set_enabled(!parser.seen('C') || parser.value_bool()));
     const float measured_z = probe.probe_at_point(probepos, raise_after);
     TERN_(HAS_PTC, ptc.set_enabled(true));
@@ -87,6 +88,20 @@ void GcodeSuite::G30() {
           dtostrf(probepos.y, 1, 1, str_2),
           dtostrf(measured_z, 1, 3, str_3)
         );
+=======
+    TERN_(HAS_PTC, ptc.set_enabled(parser.boolval('C', true)));
+    const float measured_z = probe.probe_at_point(probepos, raise_after);
+    TERN_(HAS_PTC, ptc.set_enabled(true));
+    if (!isnan(measured_z)) {
+      const xy_pos_t lpos = probepos.asLogical();
+      SString<30> msg(
+        F("Bed X:"), p_float_t(lpos.x, 1),
+        F(  " Y:"), p_float_t(lpos.y, 1),
+        F(  " Z:"), p_float_t(measured_z, 3)
+      );
+      msg.echoln();
+      #if ANY(DWIN_LCD_PROUI, DWIN_CREALITY_LCD_JYERSUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         ui.set_status(msg);
       #endif
     }
@@ -101,7 +116,11 @@ void GcodeSuite::G30() {
     report_current_position();
   }
   else {
+<<<<<<< HEAD
     SERIAL_ECHOLNF(GET_EN_TEXT_F(MSG_ZPROBE_OUT));
+=======
+    SERIAL_ECHOLN(GET_EN_TEXT_F(MSG_ZPROBE_OUT));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     LCD_MESSAGE(MSG_ZPROBE_OUT);
   }
 

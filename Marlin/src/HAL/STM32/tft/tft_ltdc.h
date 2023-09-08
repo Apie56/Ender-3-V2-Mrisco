@@ -32,7 +32,11 @@
 #define DATASIZE_8BIT  SPI_DATASIZE_8BIT
 #define DATASIZE_16BIT SPI_DATASIZE_16BIT
 #define TFT_IO_DRIVER  TFT_LTDC
+<<<<<<< HEAD
 #define DMA_MAX_SIZE   0xFFFF
+=======
+#define DMA_MAX_WORDS  0xFFFF
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #define TFT_DATASIZE DATASIZE_16BIT
 typedef uint16_t tft_data_t;
@@ -43,6 +47,7 @@ class TFT_LTDC {
     static uint16_t x_min, x_max, y_min, y_max, x_cur, y_cur;
     static uint8_t reg;
 
+<<<<<<< HEAD
     static uint32_t ReadID(tft_data_t Reg);
 
     static uint16_t ReadPoint(uint16_t x, uint16_t y);
@@ -73,11 +78,47 @@ class TFT_LTDC {
       while (Count > 0) {
         Transmit(DMA_PINC_DISABLE, &Color, Count > DMA_MAX_SIZE ? DMA_MAX_SIZE : Count);
         Count = Count > DMA_MAX_SIZE ? Count - DMA_MAX_SIZE : 0;
+=======
+    static uint32_t readID(const tft_data_t inReg);
+
+    static uint16_t readPoint(uint16_t x, uint16_t y);
+    static void drawPoint(uint16_t x, uint16_t y, uint16_t color);
+    static void drawRect(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t color);
+    static void drawImage(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, uint16_t *colors);
+    static void transmit(tft_data_t data);
+    static void transmit(uint32_t memoryIncrease, uint16_t *data, uint16_t count);
+
+  public:
+    static void init();
+    static uint32_t getID();
+    static bool isBusy();
+    static void abort() { /*__HAL_DMA_DISABLE(&DMAtx);*/ }
+
+    static void dataTransferBegin(uint16_t dataWidth=TFT_DATASIZE) {}
+    static void dataTransferEnd() {};
+
+    static void writeData(uint16_t data);
+    static void writeReg(const uint16_t inReg) { reg = inReg; }
+
+    // Non-blocking DMA data transfer is not implemented for LTDC interface
+    inline static void writeSequence_DMA(uint16_t *data, uint16_t count) { writeSequence(data, count); }
+    inline static void writeMultiple_DMA(uint16_t color, uint16_t count) { writeMultiple(color, count); }
+
+    static void writeSequence(uint16_t *data, uint16_t count) { transmit(DMA_PINC_ENABLE, data, count); }
+    static void writeMultiple(uint16_t color, uint32_t count) {
+      while (count > 0) {
+        transmit(DMA_PINC_DISABLE, &color, count > DMA_MAX_WORDS ? DMA_MAX_WORDS : count);
+        count = count > DMA_MAX_WORDS ? count - DMA_MAX_WORDS : 0;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
     }
 };
 
+<<<<<<< HEAD
 const PinMap PinMap_LTDC[] = {
+=======
+const PinMap pinMap_LTDC[] = {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   {PF_10, LTDC, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF14_LTDC)}, // LCD_DE
   {PG_7,  LTDC, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF14_LTDC)}, // LCD_CLK
   {PI_9,  LTDC, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF14_LTDC)}, // LCD_VSYNC
@@ -104,7 +145,11 @@ const PinMap PinMap_LTDC[] = {
   {NC,    NP,    0}
 };
 
+<<<<<<< HEAD
 const PinMap PinMap_SDRAM[] = {
+=======
+const PinMap pinMap_SDRAM[] = {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   {PC_0,  FMC_Bank1_R, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF12_FMC)}, // FMC_SDNWE
   {PC_2,  FMC_Bank1_R, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF12_FMC)}, // FMC_SDNE0
   {PC_3,  FMC_Bank1_R, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF12_FMC)}, // FMC_SDCKE0

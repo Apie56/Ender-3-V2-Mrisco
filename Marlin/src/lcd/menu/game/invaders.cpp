@@ -166,6 +166,7 @@ inline void update_invader_data() {
   uint8_t inv_mask = 0;
   // Get a list of all active invaders
   uint8_t sc = 0;
+<<<<<<< HEAD
   LOOP_L_N(y, INVADER_ROWS) {
     uint8_t m = idat.bugs[y];
     if (m) idat.botmost = y + 1;
@@ -175,20 +176,39 @@ inline void update_invader_data() {
   }
   idat.leftmost = 0;
   LOOP_L_N(i, INVADER_COLS)            { if (TEST(inv_mask, i)) break; idat.leftmost -= INVADER_COL_W; }
+=======
+  for (uint8_t y = 0; y < INVADER_ROWS; ++y) {
+    uint8_t m = idat.bugs[y];
+    if (m) idat.botmost = y + 1;
+    inv_mask |= m;
+    for (uint8_t x = 0; x < INVADER_COLS; ++x)
+      if (TEST(m, x)) idat.shooters[sc++] = (y << 4) | x;
+  }
+  idat.leftmost = 0;
+  for (uint8_t i = 0; i < INVADER_COLS; ++i) { if (TEST(inv_mask, i)) break; idat.leftmost -= INVADER_COL_W; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   idat.rightmost = LCD_PIXEL_WIDTH - (INVADERS_WIDE);
   for (uint8_t i = INVADER_COLS; i--;) { if (TEST(inv_mask, i)) break; idat.rightmost += INVADER_COL_W; }
   if (idat.count == 2) idat.dir = idat.dir > 0 ? INVADER_VEL + 1 : -(INVADER_VEL + 1);
 }
 
 inline void reset_bullets() {
+<<<<<<< HEAD
   LOOP_L_N(i, COUNT(idat.bullet)) idat.bullet[i].v = 0;
+=======
+  for (uint8_t i = 0; i < COUNT(idat.bullet); ++i) idat.bullet[i].v = 0;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 inline void reset_invaders() {
   idat.pos.x = 0; idat.pos.y = INVADER_TOP;
   idat.dir = INVADER_VEL;
   idat.count = (INVADER_COLS) * (INVADER_ROWS);
+<<<<<<< HEAD
   LOOP_L_N(i, INVADER_ROWS) idat.bugs[i] = _BV(INVADER_COLS) - 1;
+=======
+  for (uint8_t i = 0; i < INVADER_ROWS; ++i) idat.bugs[i] = _BV(INVADER_COLS) - 1;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   update_invader_data();
   reset_bullets();
 }
@@ -274,7 +294,11 @@ void InvadersGame::game_screen() {
 
           // Find a free bullet
           laser_t *b = nullptr;
+<<<<<<< HEAD
           LOOP_L_N(i, COUNT(idat.bullet)) if (!idat.bullet[i].v) { b = &idat.bullet[i]; break; }
+=======
+          for (uint8_t i = 0; i < COUNT(idat.bullet); ++i) if (!idat.bullet[i].v) { b = &idat.bullet[i]; break; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           if (b) {
             // Pick a random shooter and update the bullet
             //SERIAL_ECHOLNPGM("free bullet found");
@@ -322,7 +346,11 @@ void InvadersGame::game_screen() {
       } // laser in invader zone
 
       // Handle alien bullets
+<<<<<<< HEAD
       LOOP_L_N(s, COUNT(idat.bullet)) {
+=======
+      for (uint8_t s = 0; s < COUNT(idat.bullet); ++s) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         laser_t *b = &idat.bullet[s];
         if (b->v) {
           // Update alien bullet position
@@ -371,11 +399,19 @@ void InvadersGame::game_screen() {
   // Draw invaders
   if (PAGE_CONTAINS(idat.pos.y, idat.pos.y + idat.botmost * (INVADER_ROW_H) - 2 - 1)) {
     int8_t yy = idat.pos.y;
+<<<<<<< HEAD
     LOOP_L_N(y, INVADER_ROWS) {
       const uint8_t type = inv_type[y];
       if (PAGE_CONTAINS(yy, yy + INVADER_H - 1)) {
         int8_t xx = idat.pos.x;
         LOOP_L_N(x, INVADER_COLS) {
+=======
+    for (uint8_t y = 0; y < INVADER_ROWS; ++y) {
+      const uint8_t type = inv_type[y];
+      if (PAGE_CONTAINS(yy, yy + INVADER_H - 1)) {
+        int8_t xx = idat.pos.x;
+        for (uint8_t x = 0; x < INVADER_COLS; ++x) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           if (TEST(idat.bugs[y], x))
             u8g.drawBitmapP(xx, yy, 2, INVADER_H, invader[type][idat.game_blink]);
           xx += INVADER_COL_W;
@@ -398,7 +434,11 @@ void InvadersGame::game_screen() {
     u8g.drawVLine(idat.laser.x, idat.laser.y, LASER_H);
 
   // Draw invader bullets
+<<<<<<< HEAD
   LOOP_L_N (i, COUNT(idat.bullet)) {
+=======
+  for (uint8_t i = 0; i < COUNT(idat.bullet); ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (idat.bullet[i].v && PAGE_CONTAINS(idat.bullet[i].y - (SHOT_H - 1), idat.bullet[i].y))
       u8g.drawVLine(idat.bullet[i].x, idat.bullet[i].y - (SHOT_H - 1), SHOT_H);
   }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Marlin 3D Printer Firmware
  * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
@@ -21,7 +25,11 @@
  */
 #pragma once
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Driver for the PCA9533 LED controller found on the MightyBoard
  * used by FlashForge Creator Pro, MakerBot, etc.
  * Written 2020 APR 01 by grauerfuchs

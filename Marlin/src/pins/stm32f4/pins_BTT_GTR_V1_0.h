@@ -464,7 +464,11 @@
 
       //#define LCD_BACKLIGHT_PIN           -1
       #define LCD_RESET_PIN          EXP1_05_PIN  // Must be high or open for LCD to operate normally.
+<<<<<<< HEAD
       #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+=======
+      #if ANY(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         #ifndef RGB_LED_R_PIN
           #define RGB_LED_R_PIN      EXP1_06_PIN
         #endif

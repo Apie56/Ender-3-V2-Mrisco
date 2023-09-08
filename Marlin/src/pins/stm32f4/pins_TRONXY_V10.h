@@ -73,9 +73,15 @@
 #if ENABLED(SPI_FLASH)
   #define SPI_FLASH_SIZE                0x200000  // 2MB
   #define SPI_FLASH_CS_PIN                  PG15  // SPI2
+<<<<<<< HEAD
   #define SPI_FLASH_MOSI_PIN                PB5
   #define SPI_FLASH_MISO_PIN                PB4
   #define SPI_FLASH_SCK_PIN                 PB3
+=======
+  #define SPI_FLASH_SCK_PIN                 PB3
+  #define SPI_FLASH_MISO_PIN                PB4
+  #define SPI_FLASH_MOSI_PIN                PB5
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 //
@@ -209,7 +215,11 @@
   //#define TFT_PIXEL_OFFSET_X                48
   //#define TFT_PIXEL_OFFSET_Y                32
   //#define TFT_DRIVER                   ILI9488
+<<<<<<< HEAD
   //#define TFT_BUFFER_SIZE                14400
+=======
+  //#define TFT_BUFFER_WORDS               14400
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if NEED_TOUCH_PINS
     #define TOUCH_CS_PIN                    PD11  // SPI1_NSS

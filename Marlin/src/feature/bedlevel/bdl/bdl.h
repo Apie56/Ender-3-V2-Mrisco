@@ -23,6 +23,7 @@
 
 #include <stdint.h>
 
+<<<<<<< HEAD
 class BDS_Leveling {
 public:
   static int8_t config_state;
@@ -31,6 +32,28 @@ public:
   static void init(uint8_t _sda, uint8_t _scl, uint16_t delay_s);
   static void process();
   static float read();
+=======
+enum BDS_State : int8_t {
+  BDS_IDLE,
+  BDS_VERSION         = -1,
+  BDS_READ_MM         = -2,
+  BDS_HOMING_Z        = -3,
+  BDS_READ_RAW        = -5,
+  BDS_CALIBRATE_START = -6,
+  BDS_CALIBRATING     = -7
+};
+
+class BDS_Leveling {
+public:
+  static int8_t config_state;
+  static float pos_zero_offset;
+  static void init(uint8_t _sda, uint8_t _scl, uint16_t delay_s);
+  static void process();
+  static float read();
+  static float interpret(const uint16_t data);
+  static float good_data(const uint16_t data) { return (data & 0x3FF) < 1016; }
+  static bool check(const uint16_t data, const bool raw_data=false, const bool hicheck=false);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 };
 
 extern BDS_Leveling bdl;

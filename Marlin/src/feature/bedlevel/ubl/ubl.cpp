@@ -51,8 +51,12 @@ void unified_bed_leveling::report_current_mesh() {
   GRID_LOOP(x, y)
     if (!isnan(z_values[x][y])) {
       SERIAL_ECHO_START();
+<<<<<<< HEAD
       SERIAL_ECHOPGM("  M421 I", x, " J", y);
       SERIAL_ECHOLNPAIR_F_P(SP_Z_STR, z_values[x][y], 4);
+=======
+      SERIAL_ECHOLN(F("  M421 I"), x, F(" J"), y, FPSTR(SP_Z_STR), p_float_t(z_values[x][y], 4));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       serial_delay(75); // Prevent Printrun from exploding
     }
 }
@@ -156,7 +160,11 @@ static void serial_echo_xy(const uint8_t sp, const int16_t x, const int16_t y) {
 
 static void serial_echo_column_labels(const uint8_t sp) {
   SERIAL_ECHO_SP(7);
+<<<<<<< HEAD
   LOOP_L_N(i, GRID_MAX_POINTS_X) {
+=======
+  for (uint8_t i = 0; i < GRID_MAX_POINTS_X; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (i < 10) SERIAL_CHAR(' ');
     SERIAL_ECHO(i);
     SERIAL_ECHO_SP(sp);
@@ -206,7 +214,11 @@ void unified_bed_leveling::display_map(const uint8_t map_type) {
     }
 
     // Row Values (I indexes)
+<<<<<<< HEAD
     LOOP_L_N(i, GRID_MAX_POINTS_X) {
+=======
+    for (uint8_t i = 0; i < GRID_MAX_POINTS_X; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
       // Opening Brace or Space
       const bool is_current = i == curr.x && j == curr.y;
@@ -218,10 +230,17 @@ void unified_bed_leveling::display_map(const uint8_t map_type) {
         // TODO: Display on Graphical LCD
       }
       else if (isnan(f))
+<<<<<<< HEAD
         SERIAL_ECHOF(human ? F("  .   ") : F("NAN"));
       else if (human || csv) {
         if (human && f >= 0) SERIAL_CHAR(f > 0 ? '+' : ' ');  // Display sign also for positive numbers (' ' for 0)
         SERIAL_DECIMAL(f);                                    // Positive: 5 digits, Negative: 6 digits
+=======
+        SERIAL_ECHO(human ? F("  .   ") : F("NAN"));
+      else if (human || csv) {
+        if (human && f >= 0) SERIAL_CHAR(f > 0 ? '+' : ' ');  // Display sign also for positive numbers (' ' for 0)
+        SERIAL_ECHO(p_float_t(f, 3));                         // Positive: 5 digits, Negative: 6 digits
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
       if (csv && i < (GRID_MAX_POINTS_X) - 1) SERIAL_CHAR('\t');
 

@@ -27,6 +27,7 @@
 
 #include "../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
 #if ENABLED(HOST_PROMPT_SUPPORT)
   #include "host_actions.h"
 #endif
@@ -45,6 +46,8 @@ extern bool wait_for_user, wait_for_heatup;
   void HAL_reboot();
 #endif
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 class EmergencyParser {
 
 public:
@@ -61,6 +64,12 @@ public:
     #if HAS_MEDIA
       EP_M5, EP_M52, EP_M524,
     #endif
+<<<<<<< HEAD
+=======
+    #if ENABLED(EP_BABYSTEPPING)
+      EP_M2, EP_M29, EP_M293, EP_M294,
+    #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #if ENABLED(HOST_PROMPT_SUPPORT)
       EP_M8, EP_M87, EP_M876, EP_M876S, EP_M876SN,
     #endif
@@ -92,6 +101,7 @@ public:
   FORCE_INLINE static void enable()  { enabled = true; }
   FORCE_INLINE static void disable() { enabled = false; }
 
+<<<<<<< HEAD
   FORCE_INLINE static void update(State &state, const uint8_t c) {
     switch (state) {
       case EP_RESET:
@@ -235,6 +245,9 @@ public:
         }
     }
   }
+=======
+  static void update(State &state, const uint8_t c);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 private:
   static bool enabled;

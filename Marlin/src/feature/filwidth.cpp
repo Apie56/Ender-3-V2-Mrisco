@@ -42,7 +42,11 @@ int8_t FilamentWidthSensor::ratios[MAX_MEASUREMENT_DELAY + 1],          // Ring 
 
 void FilamentWidthSensor::init() {
   const int8_t ratio = sample_to_size_ratio();
+<<<<<<< HEAD
   LOOP_L_N(i, COUNT(ratios)) ratios[i] = ratio;
+=======
+  for (uint8_t i = 0; i < COUNT(ratios); ++i) ratios[i] = ratio;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   index_r = index_w = 0;
 }
 

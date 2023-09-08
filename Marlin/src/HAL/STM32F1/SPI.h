@@ -58,7 +58,11 @@
 #define SPI_CLOCK_DIV128 SPI_BAUD_PCLK_DIV_128
 #define SPI_CLOCK_DIV256 SPI_BAUD_PCLK_DIV_256
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Roger Clark. 20150106
  * Commented out redundant AVR defined
  *
@@ -153,7 +157,11 @@ private:
   friend class SPIClass;
 };
 
+<<<<<<< HEAD
 /*
+=======
+/**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Kept for compat.
  */
 static const uint8_t ff = 0xFF;
@@ -233,7 +241,11 @@ public:
   void onReceive(void(*)());
   void onTransmit(void(*)());
 
+<<<<<<< HEAD
   /*
+=======
+  /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * I/O
    */
 
@@ -314,7 +326,11 @@ public:
   uint8_t dmaSendRepeat(uint16_t length);
 
   uint8_t dmaSendAsync(const void * transmitBuf, uint16_t length, bool minc = 1);
+<<<<<<< HEAD
   /*
+=======
+  /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * Pin accessors
    */
 
@@ -398,7 +414,11 @@ private:
 
   void updateSettings();
 
+<<<<<<< HEAD
   /*
+=======
+  /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * Functions added for DMA transfers with Callback.
    * Experimental.
    */

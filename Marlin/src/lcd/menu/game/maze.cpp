@@ -83,7 +83,11 @@ void MazeGame::game_screen() {
   if (PAGE_UNDER(HEADER_H)) lcd_put_int(0, HEADER_H - 1, score);
 
   // Draw the maze
+<<<<<<< HEAD
   // LOOP_L_N(n, head_ind) {
+=======
+  // for (uint8_t n = 0; n < head_ind; ++n) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //   const pos_t &p = maze_walls[n], &q = maze_walls[n + 1];
   //   if (p.x == q.x) {
   //     const int8_t y1 = GAMEY(_MIN(p.y, q.y)), y2 = GAMEY(_MAX(p.y, q.y));

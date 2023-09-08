@@ -22,7 +22,11 @@
 
 #include "../../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
 #if EITHER(Z_MULTI_ENDSTOPS, Z_STEPPER_AUTO_ALIGN)
+=======
+#if ANY(Z_MULTI_ENDSTOPS, Z_STEPPER_AUTO_ALIGN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../../feature/z_stepper_align.h"
 
@@ -204,7 +208,11 @@ void GcodeSuite::G34() {
         float z_measured_max = -100000.0f;
 
         // Probe all positions (one per Z-Stepper)
+<<<<<<< HEAD
         LOOP_L_N(i, NUM_Z_STEPPERS) {
+=======
+        for (uint8_t i = 0; i < NUM_Z_STEPPERS; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           // iteration odd/even --> downward / upward stepper sequence
           const uint8_t iprobe = (iteration & 1) ? NUM_Z_STEPPERS - 1 - i : i;
 
@@ -255,14 +263,22 @@ void GcodeSuite::G34() {
           // This allows the actual adjustment logic to be shared by both algorithms.
           linear_fit_data lfd;
           incremental_LSF_reset(&lfd);
+<<<<<<< HEAD
           LOOP_L_N(i, NUM_Z_STEPPERS) {
+=======
+          for (uint8_t i = 0; i < NUM_Z_STEPPERS; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             SERIAL_ECHOLNPGM("PROBEPT_", i, ": ", z_measured[i]);
             incremental_LSF(&lfd, z_stepper_align.xy[i], z_measured[i]);
           }
           finish_incremental_LSF(&lfd);
 
           z_measured_min = 100000.0f;
+<<<<<<< HEAD
           LOOP_L_N(i, NUM_Z_STEPPERS) {
+=======
+          for (uint8_t i = 0; i < NUM_Z_STEPPERS; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             z_measured[i] = -(lfd.A * z_stepper_align.stepper_xy[i].x + lfd.B * z_stepper_align.stepper_xy[i].y + lfd.D);
             z_measured_min = _MIN(z_measured_min, z_measured[i]);
           }
@@ -277,6 +293,7 @@ void GcodeSuite::G34() {
           );
         #endif
 
+<<<<<<< HEAD
         SERIAL_ECHOLNPGM("\n"
           "Z2-Z1=", ABS(z_measured[1] - z_measured[0])
           #if TRIPLE_Z
@@ -313,6 +330,23 @@ void GcodeSuite::G34() {
           );
           ui.set_status(msg);
         #endif
+=======
+        SERIAL_EOL();
+
+        SString<15 + TERN0(TRIPLE_Z, 30) + TERN0(QUAD_Z, 45)> msg(F("1:2="), p_float_t(ABS(z_measured[1] - z_measured[0]), 3));
+        #if TRIPLE_Z
+          msg.append(F(" 3-2="), p_float_t(ABS(z_measured[2] - z_measured[1]), 3))
+             .append(F(" 3-1="), p_float_t(ABS(z_measured[2] - z_measured[0]), 3));
+        #endif
+        #if QUAD_Z
+          msg.append(F(" 4-3="), p_float_t(ABS(z_measured[3] - z_measured[2]), 3))
+             .append(F(" 4-2="), p_float_t(ABS(z_measured[3] - z_measured[1]), 3))
+             .append(F(" 4-1="), p_float_t(ABS(z_measured[3] - z_measured[0]), 3));
+        #endif
+
+        msg.echoln();
+        ui.set_status(msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         auto decreasing_accuracy = [](const_float_t v1, const_float_t v2) {
           if (v1 < v2 * 0.7f) {
@@ -330,12 +364,20 @@ void GcodeSuite::G34() {
 
           // Calculate mean value as a reference
           float z_measured_mean = 0.0f;
+<<<<<<< HEAD
           LOOP_L_N(zstepper, NUM_Z_STEPPERS) z_measured_mean += z_measured[zstepper];
+=======
+          for (uint8_t zstepper = 0; zstepper < NUM_Z_STEPPERS; ++zstepper) z_measured_mean += z_measured[zstepper];
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           z_measured_mean /= NUM_Z_STEPPERS;
 
           // Calculate the sum of the absolute deviations from the mean value
           float z_align_level_indicator = 0.0f;
+<<<<<<< HEAD
           LOOP_L_N(zstepper, NUM_Z_STEPPERS)
+=======
+          for (uint8_t zstepper = 0; zstepper < NUM_Z_STEPPERS; ++zstepper)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             z_align_level_indicator += ABS(z_measured[zstepper] - z_measured_mean);
 
           // If it's getting worse, stop and throw an error
@@ -350,7 +392,11 @@ void GcodeSuite::G34() {
 
         bool success_break = true;
         // Correct the individual stepper offsets
+<<<<<<< HEAD
         LOOP_L_N(zstepper, NUM_Z_STEPPERS) {
+=======
+        for (uint8_t zstepper = 0; zstepper < NUM_Z_STEPPERS; ++zstepper) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           // Calculate current stepper move
           float z_align_move = z_measured[zstepper] - z_measured_min;
           const float z_align_abs = ABS(z_align_move);
@@ -411,7 +457,11 @@ void GcodeSuite::G34() {
         SERIAL_ECHOLNPGM("G34 aborted.");
       else {
         SERIAL_ECHOLNPGM("Did ", iteration + (iteration != z_auto_align_iterations), " of ", z_auto_align_iterations);
+<<<<<<< HEAD
         SERIAL_ECHOLNPAIR_F("Accuracy: ", z_maxdiff);
+=======
+        SERIAL_ECHOLNPGM("Accuracy: ", p_float_t(z_maxdiff, 2));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
 
       // Stow the probe because the last call to probe.probe_at_point(...)
@@ -431,7 +481,11 @@ void GcodeSuite::G34() {
 
       probe.use_probing_tool(false);
 
+<<<<<<< HEAD
       #if BOTH(HAS_LEVELING, RESTORE_LEVELING_AFTER_G34)
+=======
+      #if ALL(HAS_LEVELING, RESTORE_LEVELING_AFTER_G34)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         set_bed_leveling_enabled(leveling_was_active);
       #endif
 
@@ -501,8 +555,12 @@ void GcodeSuite::M422() {
   }
 
   if (!WITHIN(position_index, 1, NUM_Z_STEPPERS)) {
+<<<<<<< HEAD
     SERIAL_ECHOF(err_string);
     SERIAL_ECHOLNPGM(" index invalid (1.." STRINGIFY(NUM_Z_STEPPERS) ").");
+=======
+    SERIAL_ECHOLN(err_string, F(" index invalid (1.." STRINGIFY(NUM_Z_STEPPERS) ")."));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     return;
   }
 
@@ -529,7 +587,11 @@ void GcodeSuite::M422() {
 
 void GcodeSuite::M422_report(const bool forReplay/*=true*/) {
   report_heading(forReplay, F(STR_Z_AUTO_ALIGN));
+<<<<<<< HEAD
   LOOP_L_N(i, NUM_Z_STEPPERS) {
+=======
+  for (uint8_t i = 0; i < NUM_Z_STEPPERS; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     report_echo_start(forReplay);
     SERIAL_ECHOLNPGM_P(
       PSTR("  M422 S"), i + 1,
@@ -538,7 +600,11 @@ void GcodeSuite::M422_report(const bool forReplay/*=true*/) {
     );
   }
   #if HAS_Z_STEPPER_ALIGN_STEPPER_XY
+<<<<<<< HEAD
     LOOP_L_N(i, NUM_Z_STEPPERS) {
+=======
+    for (uint8_t i = 0; i < NUM_Z_STEPPERS; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       report_echo_start(forReplay);
       SERIAL_ECHOLNPGM_P(
         PSTR("  M422 W"), i + 1,

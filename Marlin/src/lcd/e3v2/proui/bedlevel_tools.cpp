@@ -1,9 +1,15 @@
 /**
  * Bed Level Tools for Pro UI
  * Extended by: Miguel A. Risco-Castillo (MRISCOC)
+<<<<<<< HEAD
  * Version: 3.2.0
  * Date: 2023/05/03
  * 
+=======
+ * Version: 5.1.0
+ * Date: 2023/08/22
+ *
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Based on the original work of: Henri-J-Norden
  * https://github.com/Jyers/Marlin/pull/126
  *
@@ -24,7 +30,11 @@
 
 #include "../../../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
 #if BOTH(DWIN_LCD_PROUI, HAS_LEVELING)
+=======
+#if ALL(DWIN_LCD_PROUI, HAS_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../../marlinui.h"
 #include "../../../core/types.h"
@@ -41,6 +51,7 @@
 #include "dwin_popup.h"
 #include "bedlevel_tools.h"
 
+<<<<<<< HEAD
 BedLevelToolsClass bedLevelTools;
 
 #if ENABLED(USE_GRID_MESHVIEWER)
@@ -59,11 +70,32 @@ char cmd[MAX_CMD_SIZE+16], str_1[16], str_2[16], str_3[16];
 
   void BedLevelToolsClass::manual_value_update(const uint8_t mesh_x, const uint8_t mesh_y, bool undefined/*=false*/) {
     sprintf_P(cmd, PSTR("M421 I%i J%i Z%s %s"), mesh_x, mesh_y, dtostrf(current_position.z, 1, 3, str_1), undefined ? "N" : "");
+=======
+BedLevelTools bedLevelTools;
+
+bool BedLevelTools::goto_mesh_value = false;
+uint8_t BedLevelTools::mesh_x = 0;
+uint8_t BedLevelTools::mesh_y = 0;
+uint8_t BedLevelTools::tilt_grid = 1;
+
+bool drawing_mesh = false;
+
+#if ENABLED(AUTO_BED_LEVELING_UBL)
+
+  void BedLevelTools::manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y, bool undefined/*=false*/) {
+    MString<MAX_CMD_SIZE> cmd;
+    cmd.set(F("M421 I"), mesh_x, 'J', mesh_y, 'Z', p_float_t(current_position.z, 3));
+    if (undefined) cmd += F(" N");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     gcode.process_subcommands_now(cmd);
     planner.synchronize();
   }
 
+<<<<<<< HEAD
   bool BedLevelToolsClass::create_plane_from_mesh() {
+=======
+  bool BedLevelTools::createPlaneFromMesh() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     struct linear_fit_data lsf_results;
     incremental_LSF_reset(&lsf_results);
     GRID_LOOP(x, y) {
@@ -82,6 +114,7 @@ char cmd[MAX_CMD_SIZE+16], str_1[16], str_2[16], str_3[16];
 
     matrix_3x3 rotation = matrix_3x3::create_look_at(vector_3(lsf_results.A, lsf_results.B, 1));
     GRID_LOOP(i, j) {
+<<<<<<< HEAD
       float mx = bedlevel.get_mesh_x(i),
             my = bedlevel.get_mesh_y(j),
             mz = bedlevel.z_values[i][j];
@@ -93,18 +126,28 @@ char cmd[MAX_CMD_SIZE+16], str_1[16], str_2[16], str_3[16];
         DEBUG_CHAR(',');
         DEBUG_ECHO_F(mz, 7);
         DEBUG_ECHOPGM("]   ---> ");
+=======
+      float mx = bedlevel.get_mesh_x(i), my = bedlevel.get_mesh_y(j), mz = bedlevel.z_values[i][j];
+
+      if (DEBUGGING(LEVELING)) {
+        DEBUG_ECHOLN(F("before rotation = ["), p_float_t(mx, 7), AS_CHAR(','), p_float_t(my, 7), AS_CHAR(','), p_float_t(mz, 7), F("]   ---> "));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         DEBUG_DELAY(20);
       }
 
       rotation.apply_rotation_xyz(mx, my, mz);
 
       if (DEBUGGING(LEVELING)) {
+<<<<<<< HEAD
         DEBUG_ECHOPAIR_F("after rotation = [", mx, 7);
         DEBUG_CHAR(',');
         DEBUG_ECHO_F(my, 7);
         DEBUG_CHAR(',');
         DEBUG_ECHO_F(mz, 7);
         DEBUG_ECHOLNPGM("]");
+=======
+        DEBUG_ECHOLN(F("after rotation = ["), p_float_t(mx, 7), AS_CHAR(','), p_float_t(my, 7), AS_CHAR(','), p_float_t(mz, 7), F("]   ---> "));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         DEBUG_DELAY(20);
       }
 
@@ -115,15 +158,26 @@ char cmd[MAX_CMD_SIZE+16], str_1[16], str_2[16], str_3[16];
 
 #else
 
+<<<<<<< HEAD
   void BedLevelToolsClass::manual_value_update(const uint8_t mesh_x, const uint8_t mesh_y) {
     sprintf_P(cmd, PSTR("G29 I%i J%i Z%s"), mesh_x, mesh_y, dtostrf(current_position.z, 1, 3, str_1));
     gcode.process_subcommands_now(cmd);
+=======
+  void BedLevelTools::manualValueUpdate(const uint8_t mesh_x, const uint8_t mesh_y) {
+    gcode.process_subcommands_now(
+      TS(F("G29 I"), mesh_x, 'J', mesh_y, 'Z', p_float_t(current_position.z, 3))
+    );
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     planner.synchronize();
   }
 
 #endif
 
+<<<<<<< HEAD
 void BedLevelToolsClass::manual_move(const uint8_t mesh_x, const uint8_t mesh_y, bool zmove/*=false*/) {
+=======
+void BedLevelTools::manualMove(const uint8_t mesh_x, const uint8_t mesh_y, bool zmove/*=false*/) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   gcode.process_subcommands_now(F("G28O"));
   if (zmove) {
     planner.synchronize();
@@ -132,16 +186,24 @@ void BedLevelToolsClass::manual_move(const uint8_t mesh_x, const uint8_t mesh_y,
     planner.synchronize();
   }
   else {
+<<<<<<< HEAD
     DWIN_Show_Popup(ICON_BLTouch, F("Moving to Point"), F("Please wait until done."));
     HMI_SaveProcessID(NothingToDo);
     sprintf_P(cmd, PSTR("G0 F300 Z%s"), dtostrf(Z_CLEARANCE_BETWEEN_PROBES, 1, 3, str_1));
     gcode.process_subcommands_now(cmd);
     sprintf_P(cmd, PSTR("G42 F4000 I%i J%i"), mesh_x, mesh_y);
     gcode.process_subcommands_now(cmd);
+=======
+    dwinShowPopup(ICON_BLTouch, F("Moving to Point"), F("Please wait until done."));
+    hmiSaveProcessID(ID_NothingToDo);
+    gcode.process_subcommands_now(TS(F("G0 F300 Z"), p_float_t(Z_CLEARANCE_BETWEEN_PROBES, 3)));
+    gcode.process_subcommands_now(TS(F("G42 F4000 I"), mesh_x, F(" J"), mesh_y));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     planner.synchronize();
     current_position.z = goto_mesh_value ? bedlevel.z_values[mesh_x][mesh_y] : Z_CLEARANCE_BETWEEN_PROBES;
     planner.buffer_line(current_position, homing_feedrate(Z_AXIS), active_extruder);
     planner.synchronize();
+<<<<<<< HEAD
     HMI_ReturnScreen();
   }
 }
@@ -172,12 +234,46 @@ void BedLevelToolsClass::ProbeXY() {
 }
 
 void BedLevelToolsClass::mesh_reset() {
+=======
+    hmiReturnScreen();
+  }
+}
+
+// Move / Probe methods. As examples, not yet used.
+void BedLevelTools::moveToXYZ() {
+  goto_mesh_value = true;
+  manualMove(mesh_x, mesh_y, false);
+}
+
+void BedLevelTools::moveToXY() {
+  goto_mesh_value = false;
+  manualMove(mesh_x, mesh_y, false);
+}
+
+void BedLevelTools::moveToZ() {
+  goto_mesh_value = true;
+  manualMove(mesh_x, mesh_y, true);
+}
+
+void BedLevelTools::probeXY() {
+  gcode.process_subcommands_now(
+    MString<MAX_CMD_SIZE>(
+      F("G0Z"), uint16_t(Z_CLEARANCE_DEPLOY_PROBE),
+      F("\nG30X"), p_float_t(bedlevel.get_mesh_x(mesh_x), 2),
+      F("Y"), p_float_t(bedlevel.get_mesh_y(mesh_y), 2)
+    )
+  );
+}
+
+void BedLevelTools::meshReset() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   ZERO(bedlevel.z_values);
   #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
     bedlevel.refresh_bed_level();
   #endif
 }
 
+<<<<<<< HEAD
 float BedLevelToolsClass::get_max_value() {
   float max = __FLT_MAX__ * -1;
   GRID_LOOP(x, y) {
@@ -198,6 +294,10 @@ float BedLevelToolsClass::get_min_value() {
 
 // Return 'true' if mesh is good and within LCD limits
 bool BedLevelToolsClass::meshvalidate() {
+=======
+// Return 'true' if mesh is good and within LCD limits
+bool BedLevelTools::meshValidate() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   GRID_LOOP(x, y) {
     const float v = bedlevel.z_values[x][y];
     if (isnan(v) || !WITHIN(v, UBL_Z_OFFSET_MIN, UBL_Z_OFFSET_MAX)) return false;
@@ -205,6 +305,7 @@ bool BedLevelToolsClass::meshvalidate() {
   return true;
 }
 
+<<<<<<< HEAD
 #if ENABLED(USE_GRID_MESHVIEWER)
 
   #if ENABLED(TJC_DISPLAY)
@@ -292,4 +393,6 @@ bool BedLevelToolsClass::meshvalidate() {
 
 #endif // USE_GRID_MESHVIEWER
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif // DWIN_LCD_PROUI && HAS_LEVELING

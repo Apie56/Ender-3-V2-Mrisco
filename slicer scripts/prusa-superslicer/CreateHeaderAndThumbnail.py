@@ -4,8 +4,13 @@
 # Prusa / Super Slicer post-processor script for the Professional Firmware
 # URL: https://github.com/mriscoc/Ender3V2S1
 # Miguel A. Risco-Castillo
+<<<<<<< HEAD
 # version: 1.6
 # date: 2023/05/28
+=======
+# version: 1.7
+# date: 2023/08/02
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #
 # Contains code from the jpg re-encoder thumbnail post processor script:
 # github.com/alexqzd/Marlin/blob/Gcode-preview/Display%20firmware/gcode_thumb_to_jpg.py
@@ -109,8 +114,13 @@ try:
         of.write(';MAXY:{:.3f}\n'.format(maxy))
         of.write(';MAXZ:{:.3f}\n'.format(maxz))
         of.write(';POSTPROCESSED\n')
+<<<<<<< HEAD
         of.write(';Header generated for The Ender3v2 Professional Firmware\n')
         of.write(';https://github.com/mriscoc/Marlin_Ender3v2\n\n')
+=======
+        of.write(';Header generated for the MRiscoC Professional Firmware\n')
+        of.write(';https://github.com/mriscoc/Ender3V2S1\n\n')
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         of.write(lines)
 except:
     print('Error writing output file')

@@ -38,7 +38,11 @@
   #include "../feature/ammeter.h"
 #endif
 
+<<<<<<< HEAD
 #if BOTH(DWIN_LCD_PROUI, CV_LASER_MODULE)
+=======
+#if ALL(DWIN_LCD_PROUI, CV_LASER_MODULE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../lcd/e3v2/proui/dwin.h"
 #endif
 

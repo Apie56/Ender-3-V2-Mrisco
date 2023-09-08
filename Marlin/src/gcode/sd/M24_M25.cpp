@@ -45,7 +45,11 @@
   #include "../../lcd/extui/dgus/DGUSDisplayDef.h"
 #endif
 
+<<<<<<< HEAD
 #if BOTH(DWIN_LCD_PROUI, CV_LASER_MODULE)
+=======
+#if ALL(DWIN_LCD_PROUI, CV_LASER_MODULE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../lcd/e3v2/proui/dwin.h"
   #include "../../feature/spindle_laser.h"
 #endif
@@ -78,13 +82,21 @@ void GcodeSuite::M24() {
     if(laser_device.is_laser_device()) // 107011-20210925 激光模式。
     {
       cutter.apply_power(laser_device.save_power); // 恢复激光功率
+<<<<<<< HEAD
       //暂停后恢复时先跑到之前的位置。专业固件是最好的 
+=======
+      //暂停后恢复时先跑到之前的位置。专业固件是最好的
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       //if(print_job_timer.isPaused()) do_blocking_move_to_xy(laser_device.pause_before_position_x, laser_device.pause_before_position_y, homing_feedrate(X_AXIS));//107011- 20211105 暂停逻辑改为了，停在最后执行位置， 因此屏蔽掉此行
     }
   #endif
 
   if (card.isFileOpen()) {
+<<<<<<< HEAD
     card.startOrResumeFilePrinting();            // SD card will now be read for commands
+=======
+    card.startOrResumeFilePrinting(); // SD card will now be read for commands
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     startOrResumeJob();               // Start (or resume) the print job timer
     TERN_(POWER_LOSS_RECOVERY, recovery.prepare());
   }

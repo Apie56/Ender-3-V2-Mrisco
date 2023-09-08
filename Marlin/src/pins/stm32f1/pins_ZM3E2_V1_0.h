@@ -205,7 +205,11 @@
   #define BOARD_ST7920_DELAY_2               200
   #define BOARD_ST7920_DELAY_3               125
 
+<<<<<<< HEAD
 #elif EITHER(ZONESTAR_12864OLED, ZONESTAR_12864OLED_SSD1306)
+=======
+#elif ANY(ZONESTAR_12864OLED, ZONESTAR_12864OLED_SSD1306)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   //================================================================================
   // OLED 128x64

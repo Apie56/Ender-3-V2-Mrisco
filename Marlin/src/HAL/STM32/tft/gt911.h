@@ -90,7 +90,11 @@ class GT911 {
     static void read_reg(uint16_t reg, uint8_t reg_len, uint8_t* r_data, uint8_t r_len);
 
   public:
+<<<<<<< HEAD
     static void Init();
+=======
+    static void init();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     static bool getFirstTouchPoint(int16_t *x, int16_t *y);
     static bool getPoint(int16_t *x, int16_t *y);
 };

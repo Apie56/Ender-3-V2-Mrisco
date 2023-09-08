@@ -48,10 +48,19 @@ void W25QXXFlash::init(uint8_t spiRate) {
    * STM32F1 has 3 SPI ports, SPI1 in APB2, SPI2/SPI3 in APB1
    * so the minimum prescale of SPI1 is DIV4, SPI2/SPI3 is DIV2
    */
+<<<<<<< HEAD
   #if SPI_DEVICE == 1
     #define SPI_CLOCK_MAX SPI_CLOCK_DIV4
   #else
     #define SPI_CLOCK_MAX SPI_CLOCK_DIV2
+=======
+  #ifndef SPI_CLOCK_MAX
+    #if SPI_DEVICE == 1
+      #define SPI_CLOCK_MAX SPI_CLOCK_DIV4
+    #else
+      #define SPI_CLOCK_MAX SPI_CLOCK_DIV2
+    #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
   uint8_t clock;
   switch (spiRate) {

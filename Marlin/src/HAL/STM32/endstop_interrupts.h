@@ -34,7 +34,11 @@ void setup_endstop_interrupts() {
   TERN_(USE_Y_MAX,       _ATTACH(Y_MAX_PIN));
   TERN_(USE_Y_MIN,       _ATTACH(Y_MIN_PIN));
   TERN_(USE_Z_MAX,       _ATTACH(Z_MAX_PIN));
+<<<<<<< HEAD
   TERN_(HAS_Z_MIN_PIN,   _ATTACH(Z_MIN_PIN));
+=======
+  TERN_(USE_Z_MIN,       _ATTACH(Z_MIN_PIN));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   TERN_(USE_X2_MAX,      _ATTACH(X2_MAX_PIN));
   TERN_(USE_X2_MIN,      _ATTACH(X2_MIN_PIN));
   TERN_(USE_Y2_MAX,      _ATTACH(Y2_MAX_PIN));

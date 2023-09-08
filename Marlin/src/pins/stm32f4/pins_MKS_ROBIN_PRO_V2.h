@@ -271,6 +271,7 @@
 #endif
 */
 
+<<<<<<< HEAD
 //
 // LCD / Controller
 #define SPI_FLASH
@@ -284,6 +285,21 @@
   #define SPI_FLASH_SCK_PIN                 PB13
 #endif
 
+=======
+#define SPI_FLASH
+#if ENABLED(SPI_FLASH)
+  #define SPI_DEVICE                           2  // Maple
+  #define SPI_FLASH_SIZE               0x1000000  // 16MB
+  #define SPI_FLASH_CS_PIN                  PB12
+  #define SPI_FLASH_SCK_PIN                 PB13
+  #define SPI_FLASH_MISO_PIN                PB14
+  #define SPI_FLASH_MOSI_PIN                PB15
+#endif
+
+//
+// LCD / Controller
+//
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if ANY(TFT_COLOR_UI, TFT_LVGL_UI, TFT_CLASSIC_UI)
   #ifndef TOUCH_CALIBRATION_X
     #define TOUCH_CALIBRATION_X           -17253
@@ -336,7 +352,11 @@
   #define LCD_USE_DMA_SPI
 
   //#define TFT_DRIVER                    ST7796
+<<<<<<< HEAD
   #define TFT_BUFFER_SIZE                  14400
+=======
+  #define TFT_BUFFER_WORDS                 14400
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #elif HAS_WIRED_LCD
 

@@ -102,7 +102,11 @@ extern "C" {
 // UART Definitions
 //#define ENABLE_HWSERIAL1        done automatically by the #define SERIAL_UART_INSTANCE below
 #define ENABLE_HWSERIAL2
+<<<<<<< HEAD
 
+=======
+#define ENABLE_HWSERIAL6
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 // Define here Serial instance number to map on Serial generic name (if not already used by SerialUSB)
 #define SERIAL_UART_INSTANCE    1 //1 for Serial = Serial1 (USART1)
@@ -119,6 +123,11 @@ extern "C" {
 #define PIN_SERIAL1_TX          PA9
 #define PIN_SERIAL2_RX          PA3
 #define PIN_SERIAL2_TX          PA2
+<<<<<<< HEAD
+=======
+#define PIN_SERIAL6_RX          PC7
+#define PIN_SERIAL6_TX          PC6
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #ifdef __cplusplus
 } // extern "C"

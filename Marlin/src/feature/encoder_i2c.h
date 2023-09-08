@@ -90,7 +90,11 @@
 #define I2CPE_PARSE_ERR               1
 #define I2CPE_PARSE_OK                0
 
+<<<<<<< HEAD
 #define LOOP_PE(VAR) LOOP_L_N(VAR, I2CPE_ENCODER_CNT)
+=======
+#define LOOP_PE(VAR) for (uint8_t VAR = 0; VAR < I2CPE_ENCODER_CNT; ++VAR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #define CHECK_IDX() do{ if (!WITHIN(idx, 0, I2CPE_ENCODER_CNT - 1)) return; }while(0)
 
 typedef union {

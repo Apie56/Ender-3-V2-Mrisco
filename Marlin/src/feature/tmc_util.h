@@ -144,7 +144,11 @@ class TMCMarlin : public TMC, public TMCStorage<AXIS_LETTER, DRIVER_ID> {
       #endif
     #endif
 
+<<<<<<< HEAD
     #if EITHER(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+=======
+    #if ANY(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       void refresh_stepper_current() { rms_current(this->val_mA); }
 
       #if ENABLED(HYBRID_THRESHOLD)
@@ -207,7 +211,11 @@ class TMCMarlin<TMC2208Stepper, AXIS_LETTER, DRIVER_ID, AXIS_ID> : public TMC220
       }
     #endif
 
+<<<<<<< HEAD
     #if EITHER(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+=======
+    #if ANY(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       void refresh_stepper_current() { rms_current(this->val_mA); }
 
       #if ENABLED(HYBRID_THRESHOLD)
@@ -269,7 +277,11 @@ class TMCMarlin<TMC2209Stepper, AXIS_LETTER, DRIVER_ID, AXIS_ID> : public TMC220
       }
     #endif
 
+<<<<<<< HEAD
     #if EITHER(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+=======
+    #if ANY(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       void refresh_stepper_current() { rms_current(this->val_mA); }
 
       #if ENABLED(HYBRID_THRESHOLD)
@@ -315,7 +327,11 @@ class TMCMarlin<TMC2660Stepper, AXIS_LETTER, DRIVER_ID, AXIS_ID> : public TMC266
       }
     #endif
 
+<<<<<<< HEAD
     #if EITHER(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+=======
+    #if ANY(HAS_MARLINUI_MENU, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       void refresh_stepper_current() { rms_current(this->val_mA); }
 
       #if USE_SENSORLESS

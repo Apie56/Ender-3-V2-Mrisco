@@ -29,6 +29,16 @@
 
 #if ENABLED(EEPROM_SETTINGS)
   #include "../HAL/shared/eeprom_api.h"
+<<<<<<< HEAD
+=======
+  enum EEPROM_Error : uint8_t {
+    ERR_EEPROM_NOERR,
+    ERR_EEPROM_VERSION,
+    ERR_EEPROM_SIZE,
+    ERR_EEPROM_CRC,
+    ERR_EEPROM_CORRUPT
+  };
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 class MarlinSettings {
@@ -98,7 +108,11 @@ class MarlinSettings {
 
     #if ENABLED(EEPROM_SETTINGS)
 
+<<<<<<< HEAD
       static bool eeprom_error, validating;
+=======
+      static bool validating;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
       #if ENABLED(AUTO_BED_LEVELING_UBL)  // Eventually make these available if any leveling system
                                           // That can store is enabled
@@ -106,8 +120,13 @@ class MarlinSettings {
                                           // live at the very end of the eeprom
       #endif
 
+<<<<<<< HEAD
       static bool _load();
       static bool size_error(const uint16_t size);
+=======
+      static EEPROM_Error _load();
+      static EEPROM_Error size_error(const uint16_t size);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
       static int eeprom_index;
       static uint16_t working_crc;
@@ -130,16 +149,28 @@ class MarlinSettings {
       }
 
       template<typename T>
+<<<<<<< HEAD
       static void EEPROM_READ(T &VAR) {
         persistentStore.read_data(eeprom_index, (uint8_t *) &VAR, sizeof(VAR), &working_crc, !validating);
       }
 
       static void EEPROM_READ(uint8_t *VAR, size_t sizeof_VAR) {
+=======
+      static void EEPROM_READ_(T &VAR) {
+        persistentStore.read_data(eeprom_index, (uint8_t *) &VAR, sizeof(VAR), &working_crc, !validating);
+      }
+
+      static void EEPROM_READ_(uint8_t *VAR, size_t sizeof_VAR) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         persistentStore.read_data(eeprom_index, VAR, sizeof_VAR, &working_crc, !validating);
       }
 
       template<typename T>
+<<<<<<< HEAD
       static void EEPROM_READ_ALWAYS(T &VAR) {
+=======
+      static void EEPROM_READ_ALWAYS_(T &VAR) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         persistentStore.read_data(eeprom_index, (uint8_t *) &VAR, sizeof(VAR), &working_crc);
       }
 

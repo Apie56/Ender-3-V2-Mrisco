@@ -152,12 +152,15 @@ inline float home_bump_mm(const AxisEnum axis) {
   return pgm_read_any(&home_bump_mm_P[axis]);
 }
 
+<<<<<<< HEAD
 #if HAS_WORKSPACE_OFFSET
   void update_workspace_offset(const AxisEnum axis);
 #else
   inline void update_workspace_offset(const AxisEnum) {}
 #endif
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if HAS_HOTEND_OFFSET
   extern xyz_pos_t hotend_offset[HOTENDS];
   void reset_hotend_offsets();
@@ -276,7 +279,11 @@ void report_current_position_projected();
   extern AutoReporter<PositionReport> position_auto_reporter;
 #endif
 
+<<<<<<< HEAD
 #if EITHER(FULL_REPORT_TO_HOST_FEATURE, REALTIME_REPORTING_COMMANDS)
+=======
+#if ANY(FULL_REPORT_TO_HOST_FEATURE, REALTIME_REPORTING_COMMANDS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_GRBL_STATE 1
   /**
    * Machine states for GRBL or TinyG
@@ -367,7 +374,11 @@ void do_blocking_move_to(const xyz_pos_t &raw, const_feedRate_t fr_mm_s=0.0f);
 void do_blocking_move_to(const xyze_pos_t &raw, const_feedRate_t fr_mm_s=0.0f);
 
 #if HAS_X_AXIS
+<<<<<<< HEAD
     void do_blocking_move_to_x(const_float_t rx, const_feedRate_t fr_mm_s=0.0f);
+=======
+  void do_blocking_move_to_x(const_float_t rx, const_feedRate_t fr_mm_s=0.0f);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 #if HAS_Y_AXIS
   void do_blocking_move_to_y(const_float_t ry, const_feedRate_t fr_mm_s=0.0f);
@@ -419,7 +430,11 @@ void restore_feedrate_and_scaling();
 #if HAS_Z_AXIS
   #if ALL(DWIN_LCD_PROUI, INDIVIDUAL_AXIS_HOMING_SUBMENU, MESH_BED_LEVELING)
     #include "../lcd/e3v2/proui/dwin.h"
+<<<<<<< HEAD
     #define Z_POST_CLEARANCE HMI_data.z_after_homing
+=======
+    #define Z_POST_CLEARANCE hmiData.zAfterHoming
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #elif defined(Z_AFTER_HOMING)
     #define Z_POST_CLEARANCE Z_AFTER_HOMING
   #else
@@ -440,9 +455,12 @@ void restore_feedrate_and_scaling();
 typedef bits_t(NUM_AXES) main_axes_bits_t;
 constexpr main_axes_bits_t main_axes_mask = _BV(NUM_AXES) - 1;
 
+<<<<<<< HEAD
 typedef bits_t(NUM_AXES + EXTRUDERS) e_axis_bits_t;
 constexpr e_axis_bits_t e_axis_mask = (_BV(EXTRUDERS) - 1) << NUM_AXES;
 
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 void set_axis_is_at_home(const AxisEnum axis);
 
 #if HAS_ENDSTOPS
@@ -493,6 +511,7 @@ void home_if_needed(const bool keeplev=false);
 
 #define BABYSTEP_ALLOWED() ((ENABLED(BABYSTEP_WITHOUT_HOMING) || all_axes_trusted()) && (ENABLED(BABYSTEP_ALWAYS_AVAILABLE) || printer_busy()))
 
+<<<<<<< HEAD
 /**
  * Workspace offsets
  */
@@ -519,6 +538,25 @@ void home_if_needed(const bool keeplev=false);
   FORCE_INLINE void toNative(xy_pos_t &raw)    { raw -= _WS; }
   FORCE_INLINE void toNative(xyz_pos_t &raw)   { raw -= _WS; }
   FORCE_INLINE void toNative(xyze_pos_t &raw)  { raw -= _WS; }
+=======
+#if HAS_HOME_OFFSET
+  extern xyz_pos_t home_offset;
+#endif
+
+/**
+ * Workspace offsets
+ */
+#if HAS_WORKSPACE_OFFSET
+  extern xyz_pos_t workspace_offset;
+  #define NATIVE_TO_LOGICAL(POS, AXIS) ((POS) + workspace_offset[AXIS])
+  #define LOGICAL_TO_NATIVE(POS, AXIS) ((POS) - workspace_offset[AXIS])
+  FORCE_INLINE void toLogical(xy_pos_t &raw)   { raw += workspace_offset; }
+  FORCE_INLINE void toLogical(xyz_pos_t &raw)  { raw += workspace_offset; }
+  FORCE_INLINE void toLogical(xyze_pos_t &raw) { raw += workspace_offset; }
+  FORCE_INLINE void toNative(xy_pos_t &raw)    { raw -= workspace_offset; }
+  FORCE_INLINE void toNative(xyz_pos_t &raw)   { raw -= workspace_offset; }
+  FORCE_INLINE void toNative(xyze_pos_t &raw)  { raw -= workspace_offset; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #else
   #define NATIVE_TO_LOGICAL(POS, AXIS) (POS)
   #define LOGICAL_TO_NATIVE(POS, AXIS) (POS)
@@ -642,7 +680,11 @@ void home_if_needed(const bool keeplev=false);
 
 #endif
 
+<<<<<<< HEAD
 #if HAS_M206_COMMAND
+=======
+#if HAS_HOME_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   void set_home_offset(const AxisEnum axis, const_float_t v);
 #endif
 

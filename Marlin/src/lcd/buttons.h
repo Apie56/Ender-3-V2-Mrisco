@@ -38,7 +38,11 @@
   #define HAS_SLOW_BUTTONS 1
 #endif
 
+<<<<<<< HEAD
 #if EITHER(HAS_DIGITAL_BUTTONS, HAS_DWIN_E3V2)
+=======
+#if ANY(HAS_DIGITAL_BUTTONS, HAS_DWIN_E3V2)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Wheel spin pins where BA is 00, 10, 11, 01 (1 bit always changes)
   #define BLEN_A 0
   #define BLEN_B 1
@@ -149,7 +153,11 @@
 #ifndef EN_C
   #define EN_C 0
 #endif
+<<<<<<< HEAD
 #if BUTTON_EXISTS(BACK) || EITHER(HAS_TOUCH_BUTTONS, IS_TFTGLCD_PANEL)
+=======
+#if BUTTON_EXISTS(BACK) || ANY(HAS_TOUCH_BUTTONS, IS_TFTGLCD_PANEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define BLEN_D 3
   #define EN_D _BV(BLEN_D)
 #else

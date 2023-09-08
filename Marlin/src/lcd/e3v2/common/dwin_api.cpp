@@ -30,25 +30,43 @@
 
 #include <string.h> // for memset
 
+<<<<<<< HEAD
 // Make sure DWIN_SendBuf is large enough to hold the largest string plus draw command and tail.
 // Assume the narrowest (6 pixel) font and 2-byte gb2312-encoded characters.
 uint8_t DWIN_SendBuf[11 + DWIN_WIDTH / 6 * 2] = { 0xAA };
 uint8_t DWIN_BufTail[4] = { 0xCC, 0x33, 0xC3, 0x3C };
+=======
+// Make sure dwinSendBuf is large enough to hold the largest string plus draw command and tail.
+// Assume the narrowest (6 pixel) font and 2-byte gb2312-encoded characters.
+uint8_t dwinSendBuf[11 + DWIN_WIDTH / 6 * 2] = { 0xAA };
+uint8_t dwinBufTail[4] = { 0xCC, 0x33, 0xC3, 0x3C };
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 uint8_t databuf[26] = { 0 };
 bool need_lcd_update = true;
 
 // Send the data in the buffer plus the packet tail
+<<<<<<< HEAD
 void DWIN_Send(size_t &i) {
   ++i;
   LOOP_L_N(n, i) { LCD_SERIAL.write(DWIN_SendBuf[n]); delayMicroseconds(1); }
   LOOP_L_N(n, 4) { LCD_SERIAL.write(DWIN_BufTail[n]); delayMicroseconds(1); }
+=======
+void dwinSend(size_t &i) {
+  ++i;
+  for (uint8_t n = 0; n < i; ++n) { LCD_SERIAL.write(dwinSendBuf[n]); delayMicroseconds(1); }
+  for (uint8_t n = 0; n < 4; ++n) { LCD_SERIAL.write(dwinBufTail[n]); delayMicroseconds(1); }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   need_lcd_update = true;
 }
 
 /*-------------------------------------- System variable function --------------------------------------*/
 
 // Handshake (1: Success, 0: Fail)
+<<<<<<< HEAD
 bool DWIN_Handshake() {
+=======
+bool dwinHandshake() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static int recnum = 0;
   #ifndef LCD_BAUDRATE
     #define LCD_BAUDRATE 115200
@@ -58,8 +76,13 @@ bool DWIN_Handshake() {
   while (!LCD_SERIAL.connected() && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
 
   size_t i = 0;
+<<<<<<< HEAD
   DWIN_Byte(i, 0x00);
   DWIN_Send(i);
+=======
+  dwinByte(i, 0x00);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   delay(10);
 
   while (LCD_SERIAL.available() > 0 && recnum < (signed)sizeof(databuf)) {
@@ -86,16 +109,25 @@ bool DWIN_Handshake() {
 #if HAS_LCD_BRIGHTNESS
   // Set LCD backlight (from DWIN Enhanced)
   //  brightness: 0x00-0xFF
+<<<<<<< HEAD
   void DWIN_LCD_Brightness(const uint8_t brightness) {
     size_t i = 0;
     DWIN_Byte(i, 0x30);
     DWIN_Byte(i, brightness);
     DWIN_Send(i);
+=======
+  void dwinLCDBrightness(const uint8_t brightness) {
+    size_t i = 0;
+    dwinByte(i, 0x30);
+    dwinByte(i, brightness);
+    dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 #endif
 
 // Set screen display direction
 //  dir: 0=0°, 1=90°, 2=180°, 3=270°
+<<<<<<< HEAD
 void DWIN_Frame_SetDir(uint8_t dir) {
   size_t i = 0;
   DWIN_Byte(i, 0x34);
@@ -111,6 +143,23 @@ void DWIN_UpdateLCD() {
     size_t i = 0;
     DWIN_Byte(i, 0x3D);
     DWIN_Send(i);
+=======
+void dwinFrameSetDir(uint8_t dir) {
+  size_t i = 0;
+  dwinByte(i, 0x34);
+  dwinByte(i, 0x5A);
+  dwinByte(i, 0xA5);
+  dwinByte(i, dir);
+  dwinSend(i);
+}
+
+// Update display
+void dwinUpdateLCD() {
+  if (need_lcd_update) {
+    size_t i = 0;
+    dwinByte(i, 0x3D);
+    dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     need_lcd_update = false;
   }
 }
@@ -119,11 +168,19 @@ void DWIN_UpdateLCD() {
 
 // Clear screen
 //  color: Clear screen color
+<<<<<<< HEAD
 void DWIN_Frame_Clear(const uint16_t color) {
   size_t i = 0;
   DWIN_Byte(i, 0x01);
   DWIN_Word(i, color);
   DWIN_Send(i);
+=======
+void dwinFrameClear(const uint16_t color) {
+  size_t i = 0;
+  dwinByte(i, 0x01);
+  dwinWord(i, color);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #if DISABLED(TJC_DISPLAY)
@@ -132,6 +189,7 @@ void DWIN_Frame_Clear(const uint16_t color) {
   //  width: point width   0x01-0x0F
   //  height: point height 0x01-0x0F
   //  x,y: upper left point
+<<<<<<< HEAD
   void DWIN_Draw_Point(uint16_t color, uint8_t width, uint8_t height, uint16_t x, uint16_t y) {
     size_t i = 0;
     DWIN_Byte(i, 0x02);
@@ -141,6 +199,17 @@ void DWIN_Frame_Clear(const uint16_t color) {
     DWIN_Word(i, x);
     DWIN_Word(i, y);
     DWIN_Send(i);
+=======
+  void dwinDrawPoint(uint16_t color, uint8_t width, uint8_t height, uint16_t x, uint16_t y) {
+    size_t i = 0;
+    dwinByte(i, 0x02);
+    dwinWord(i, color);
+    dwinByte(i, width);
+    dwinByte(i, height);
+    dwinWord(i, x);
+    dwinWord(i, y);
+    dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 #endif
 
@@ -148,6 +217,7 @@ void DWIN_Frame_Clear(const uint16_t color) {
 //  color: Line segment color
 //  xStart/yStart: Start point
 //  xEnd/yEnd: End point
+<<<<<<< HEAD
 void DWIN_Draw_Line(uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
   size_t i = 0;
   DWIN_Byte(i, 0x03);
@@ -157,6 +227,17 @@ void DWIN_Draw_Line(uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t x
   DWIN_Word(i, xEnd);
   DWIN_Word(i, yEnd);
   DWIN_Send(i);
+=======
+void dwinDrawLine(uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
+  size_t i = 0;
+  dwinByte(i, 0x03);
+  dwinWord(i, color);
+  dwinWord(i, xStart);
+  dwinWord(i, yStart);
+  dwinWord(i, xEnd);
+  dwinWord(i, yEnd);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Draw a rectangle
@@ -164,6 +245,7 @@ void DWIN_Draw_Line(uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t x
 //  color: Rectangle color
 //  xStart/yStart: upper left point
 //  xEnd/yEnd: lower right point
+<<<<<<< HEAD
 void DWIN_Draw_Rectangle(uint8_t mode, uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
   size_t i = 0;
   DWIN_Byte(i, 0x05);
@@ -174,6 +256,18 @@ void DWIN_Draw_Rectangle(uint8_t mode, uint16_t color, uint16_t xStart, uint16_t
   DWIN_Word(i, xEnd);
   DWIN_Word(i, yEnd);
   DWIN_Send(i);
+=======
+void dwinDrawRectangle(uint8_t mode, uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
+  size_t i = 0;
+  dwinByte(i, 0x05);
+  dwinByte(i, mode);
+  dwinWord(i, color);
+  dwinWord(i, xStart);
+  dwinWord(i, yStart);
+  dwinWord(i, xEnd);
+  dwinWord(i, yEnd);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Move a screen area
@@ -183,6 +277,7 @@ void DWIN_Draw_Rectangle(uint8_t mode, uint16_t color, uint16_t xStart, uint16_t
 //  color: Fill color
 //  xStart/yStart: upper left point
 //  xEnd/yEnd: bottom right point
+<<<<<<< HEAD
 void DWIN_Frame_AreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
                          uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
   size_t i = 0;
@@ -195,6 +290,20 @@ void DWIN_Frame_AreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
   DWIN_Word(i, xEnd);
   DWIN_Word(i, yEnd);
   DWIN_Send(i);
+=======
+void dwinFrameAreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
+                         uint16_t color, uint16_t xStart, uint16_t yStart, uint16_t xEnd, uint16_t yEnd) {
+  size_t i = 0;
+  dwinByte(i, 0x09);
+  dwinByte(i, (mode << 7) | dir);
+  dwinWord(i, dis);
+  dwinWord(i, color);
+  dwinWord(i, xStart);
+  dwinWord(i, yStart);
+  dwinWord(i, xEnd);
+  dwinWord(i, yEnd);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 /*---------------------------------------- Text related functions ----------------------------------------*/
@@ -208,15 +317,24 @@ void DWIN_Frame_AreaMove(uint8_t mode, uint8_t dir, uint16_t dis,
 //  x/y: Upper-left coordinate of the string
 //  *string: The string
 //  rlimit: To limit the drawn string length
+<<<<<<< HEAD
 void DWIN_Draw_String(bool bShow, uint8_t size, uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, const char * const string, uint16_t rlimit/*=0xFFFF*/) {
 
   constexpr uint8_t widthAdjust = 0;
   size_t i = 0;
   DWIN_Byte(i, 0x11);
+=======
+void dwinDrawString(bool bShow, uint8_t size, uint16_t color, uint16_t bColor, uint16_t x, uint16_t y, const char * const string, uint16_t rlimit/*=0xFFFF*/) {
+
+  constexpr uint8_t widthAdjust = 0;
+  size_t i = 0;
+  dwinByte(i, 0x11);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Bit 7: widthAdjust
   // Bit 6: bShow
   // Bit 5-4: Unused (0)
   // Bit 3-0: size
+<<<<<<< HEAD
   DWIN_Byte(i, (widthAdjust * 0x80) | (bShow * 0x40) | size);
   DWIN_Word(i, color);
   DWIN_Word(i, bColor);
@@ -224,17 +342,34 @@ void DWIN_Draw_String(bool bShow, uint8_t size, uint16_t color, uint16_t bColor,
   DWIN_Word(i, y);
   DWIN_Text(i, string, rlimit);
   DWIN_Send(i);
+=======
+  dwinByte(i, (widthAdjust * 0x80) | (bShow * 0x40) | size);
+  dwinWord(i, color);
+  dwinWord(i, bColor);
+  dwinWord(i, x);
+  dwinWord(i, y);
+  dwinText(i, string, rlimit);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 /*---------------------------------------- Picture related functions ----------------------------------------*/
 
 // Draw JPG and cached in #0 virtual display area
 //  id: Picture ID
+<<<<<<< HEAD
 void DWIN_JPG_ShowAndCache(const uint8_t id) {
   size_t i = 0;
   DWIN_Word(i, 0x2200);
   DWIN_Byte(i, id);
   DWIN_Send(i);     // AA 23 00 00 00 00 08 00 01 02 03 CC 33 C3 3C
+=======
+void dwinJPGShowAndCache(const uint8_t id) {
+  size_t i = 0;
+  dwinWord(i, 0x2200);
+  dwinByte(i, id);
+  dwinSend(i);     // AA 23 00 00 00 00 08 00 01 02 03 CC 33 C3 3C
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Draw an Icon
@@ -244,6 +379,7 @@ void DWIN_JPG_ShowAndCache(const uint8_t id) {
 //  libID: Icon library ID
 //  picID: Icon ID
 //  x/y: Upper-left point
+<<<<<<< HEAD
 void DWIN_ICON_Show(bool IBD, bool BIR, bool BFI, uint8_t libID, uint8_t picID, uint16_t x, uint16_t y) {
   NOMORE(x, DWIN_WIDTH - 1);
   NOMORE(y, DWIN_HEIGHT - 1); // -- ozy -- srl
@@ -254,6 +390,18 @@ void DWIN_ICON_Show(bool IBD, bool BIR, bool BFI, uint8_t libID, uint8_t picID, 
   DWIN_Byte(i, (IBD << 7) | (BIR << 6) | (BFI << 5) | libID);
   DWIN_Byte(i, picID);
   DWIN_Send(i);
+=======
+void dwinIconShow(bool IBD, bool BIR, bool BFI, uint8_t libID, uint8_t picID, uint16_t x, uint16_t y) {
+  NOMORE(x, DWIN_WIDTH - 1);
+  NOMORE(y, DWIN_HEIGHT - 1); // -- ozy -- srl
+  size_t i = 0;
+  dwinByte(i, 0x23);
+  dwinWord(i, x);
+  dwinWord(i, y);
+  dwinByte(i, (IBD << 7) | (BIR << 6) | (BFI << 5) | libID);
+  dwinByte(i, picID);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Draw an Icon from SRAM
@@ -262,6 +410,7 @@ void DWIN_ICON_Show(bool IBD, bool BIR, bool BFI, uint8_t libID, uint8_t picID, 
 //  BFI: Background filtering strength: 0=normal, 1=enhanced, (only valid when the icon background display=0)
 //  x/y: Upper-left point
 //  addr: SRAM address
+<<<<<<< HEAD
 void DWIN_ICON_Show(bool IBD, bool BIR, bool BFI, uint16_t x, uint16_t y, uint16_t addr) {
   NOMORE(x, DWIN_WIDTH - 1);
   NOMORE(y, DWIN_HEIGHT - 1);
@@ -272,17 +421,38 @@ void DWIN_ICON_Show(bool IBD, bool BIR, bool BFI, uint16_t x, uint16_t y, uint16
   DWIN_Byte(i, (IBD << 7) | (BIR << 6) | (BFI << 5) | 0x00);
   DWIN_Word(i, addr);
   DWIN_Send(i);
+=======
+void dwinIconShow(bool IBD, bool BIR, bool BFI, uint16_t x, uint16_t y, uint16_t addr) {
+  NOMORE(x, DWIN_WIDTH - 1);
+  NOMORE(y, DWIN_HEIGHT - 1);
+  size_t i = 0;
+  dwinByte(i, 0x24);
+  dwinWord(i, x);
+  dwinWord(i, y);
+  dwinByte(i, (IBD << 7) | (BIR << 6) | (BFI << 5) | 0x00);
+  dwinWord(i, addr);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Unzip the JPG picture to a virtual display area
 //  n: Cache index
 //  id: Picture ID
+<<<<<<< HEAD
 void DWIN_JPG_CacheToN(uint8_t n, uint8_t id) {
   size_t i = 0;
   DWIN_Byte(i, 0x25);
   DWIN_Byte(i, n);
   DWIN_Byte(i, id);
   DWIN_Send(i);
+=======
+void dwinJPGCacheToN(uint8_t n, uint8_t id) {
+  size_t i = 0;
+  dwinByte(i, 0x25);
+  dwinByte(i, n);
+  dwinByte(i, id);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Animate a series of icons
@@ -293,6 +463,7 @@ void DWIN_JPG_CacheToN(uint8_t n, uint8_t id) {
 //  picIDe: Icon ending ID
 //  x/y: Upper-left point
 //  interval: Display time interval, unit 10mS
+<<<<<<< HEAD
 void DWIN_ICON_Animation(uint8_t animID, bool animate, uint8_t libID, uint8_t picIDs, uint8_t picIDe, uint16_t x, uint16_t y, uint16_t interval) {
   NOMORE(x, DWIN_WIDTH - 1);
   NOMORE(y, DWIN_HEIGHT - 1); // -- ozy -- srl
@@ -300,25 +471,51 @@ void DWIN_ICON_Animation(uint8_t animID, bool animate, uint8_t libID, uint8_t pi
   DWIN_Byte(i, 0x28);
   DWIN_Word(i, x);
   DWIN_Word(i, y);
+=======
+void dwinIconAnimation(uint8_t animID, bool animate, uint8_t libID, uint8_t picIDs, uint8_t picIDe, uint16_t x, uint16_t y, uint16_t interval) {
+  NOMORE(x, DWIN_WIDTH - 1);
+  NOMORE(y, DWIN_HEIGHT - 1); // -- ozy -- srl
+  size_t i = 0;
+  dwinByte(i, 0x28);
+  dwinWord(i, x);
+  dwinWord(i, y);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Bit 7: animation on or off
   // Bit 6: start from begin or end
   // Bit 5-4: unused (0)
   // Bit 3-0: animID
+<<<<<<< HEAD
   DWIN_Byte(i, (animate * 0x80) | 0x40 | animID);
   DWIN_Byte(i, libID);
   DWIN_Byte(i, picIDs);
   DWIN_Byte(i, picIDe);
   DWIN_Byte(i, interval);
   DWIN_Send(i);
+=======
+  dwinByte(i, (animate * 0x80) | 0x40 | animID);
+  dwinByte(i, libID);
+  dwinByte(i, picIDs);
+  dwinByte(i, picIDe);
+  dwinByte(i, interval);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Animation Control
 //  state: 16 bits, each bit is the state of an animation id
+<<<<<<< HEAD
 void DWIN_ICON_AnimationControl(uint16_t state) {
   size_t i = 0;
   DWIN_Byte(i, 0x29);
   DWIN_Word(i, state);
   DWIN_Send(i);
+=======
+void dwinIconAnimationControl(uint16_t state) {
+  size_t i = 0;
+  dwinByte(i, 0x29);
+  dwinWord(i, state);
+  dwinSend(i);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #endif // HAS_DWIN_E3V2 || IS_DWIN_MARLINUI

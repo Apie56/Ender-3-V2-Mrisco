@@ -31,7 +31,11 @@
 
 #if ENABLED(EXTENSIBLE_UI)
   #include "../../lcd/extui/ui_api.h"
+<<<<<<< HEAD
 #elif ENABLED(DWIN_LCD_PROUI)
+=======
+#elif ENABLED(PROUI_PID_TUNE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../lcd/e3v2/proui/dwin.h"
 #endif
 
@@ -69,7 +73,11 @@ void GcodeSuite::M303() {
       SERIAL_ECHOPGM(STR_PID_AUTOTUNE);
       SERIAL_ECHOLNPGM(STR_PID_BAD_HEATER_ID);
       TERN_(EXTENSIBLE_UI, ExtUI::onPidTuning(ExtUI::result_t::PID_BAD_HEATER_ID));
+<<<<<<< HEAD
       TERN_(DWIN_LCD_PROUI, DWIN_PidTuning(PID_BAD_HEATER_ID));
+=======
+      TERN_(DWIN_LCD_PROUI, dwinPidTuning(PID_BAD_HEATER_ID));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       return;
   }
 
@@ -79,7 +87,11 @@ void GcodeSuite::M303() {
   const celsius_t temp = seenS ? parser.value_celsius() : default_temp;
   const bool u = parser.boolval('U');
 
+<<<<<<< HEAD
   TERN_(DWIN_LCD_PROUI, DWIN_M303(seenC, c, seenS, hid, temp));
+=======
+  TERN_(DWIN_LCD_PROUI, dwinM303(seenC, c, seenS, hid, temp));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   IF_DISABLED(BUSY_WHILE_HEATING, KEEPALIVE_STATE(NOT_BUSY));
 

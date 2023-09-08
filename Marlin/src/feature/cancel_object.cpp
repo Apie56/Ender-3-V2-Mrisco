@@ -44,9 +44,15 @@ void CancelObject::set_active_object(const int8_t obj) {
   else
     skipping = false;
 
+<<<<<<< HEAD
   #if BOTH(HAS_STATUS_MESSAGE, CANCEL_OBJECTS_REPORTING)
     if (active_object >= 0)
       ui.status_printf(0, F(S_FMT " %i"), GET_TEXT(MSG_PRINTING_OBJECT), int(active_object));
+=======
+  #if ALL(HAS_STATUS_MESSAGE, CANCEL_OBJECTS_REPORTING)
+    if (active_object >= 0)
+      ui.set_status(MString<30>(GET_TEXT_F(MSG_PRINTING_OBJECT), ' ', active_object));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     else
       ui.reset_status();
   #endif

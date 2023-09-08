@@ -67,7 +67,11 @@ uint8_t ServoCount = 0;                         // the total number of attached 
 
 static bool anyTimerChannelActive(const timer16_Sequence_t timer) {
   // returns true if any servo is active on this timer
+<<<<<<< HEAD
   LOOP_L_N(channel, SERVOS_PER_TIMER) {
+=======
+  for (uint8_t channel = 0; channel < SERVOS_PER_TIMER; ++channel) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (SERVO(timer, channel).Pin.isActive)
       return true;
   }
