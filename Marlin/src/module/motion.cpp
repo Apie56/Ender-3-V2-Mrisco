@@ -33,10 +33,13 @@
 #include "../lcd/marlinui.h"
 #include "../inc/MarlinConfig.h"
 
+<<<<<<< HEAD
+=======
 #if ENABLED(FT_MOTION)
   #include "ft_motion.h"
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if IS_SCARA
   #include "../libs/buzzer.h"
   #include "../lcd/marlinui.h"
@@ -81,11 +84,14 @@
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../core/debug_out.h"
 
+<<<<<<< HEAD
+=======
 
 #if ENABLED(BD_SENSOR)
   #include "../feature/bedlevel/bdl/bdl.h"
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Relative Mode. Enable with G91, disable with G90.
 bool relative_mode; // = false;
 
@@ -181,12 +187,23 @@ xyz_pos_t cartes;
  * The workspace can be offset by some commands, or
  * these offsets may be omitted to save on computation.
  */
+<<<<<<< HEAD
+#if HAS_POSITION_SHIFT
+  // The distance that XYZ has been offset by G92. Reset by G28.
+  xyz_pos_t position_shift{0};
+#endif
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if HAS_HOME_OFFSET
   // This offset is added to the configured home position.
   // Set by M206, M428, or menu item. Saved to EEPROM.
   xyz_pos_t home_offset{0};
 #endif
+<<<<<<< HEAD
+#if HAS_HOME_OFFSET && HAS_POSITION_SHIFT
+=======
 #if HAS_WORKSPACE_OFFSET
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // The above two are combined to save on computes
   xyz_pos_t workspace_offset{0};
 #endif
@@ -266,7 +283,11 @@ void report_current_position_projected() {
   AutoReporter<PositionReport> position_auto_reporter;
 #endif
 
+<<<<<<< HEAD
+#if EITHER(FULL_REPORT_TO_HOST_FEATURE, REALTIME_REPORTING_COMMANDS)
+=======
 #if ANY(FULL_REPORT_TO_HOST_FEATURE, REALTIME_REPORTING_COMMANDS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   M_StateEnum M_State_grbl = M_INIT;
 
@@ -577,9 +598,13 @@ void _internal_move_to_destination(const_feedRate_t fr_mm_s/*=0.0f*/
  */
 void do_blocking_move_to(NUM_AXIS_ARGS_(const_float_t) const_feedRate_t fr_mm_s/*=0.0f*/) {
   DEBUG_SECTION(log_move, "do_blocking_move_to", DEBUGGING(LEVELING));
+<<<<<<< HEAD
+  if (DEBUGGING(LEVELING)) DEBUG_XYZ("> ", NUM_AXIS_ARGS());
+=======
   #if NUM_AXES
     if (DEBUGGING(LEVELING)) DEBUG_XYZ("> ", NUM_AXIS_ARGS());
   #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   const feedRate_t xy_feedrate = fr_mm_s ?: feedRate_t(XY_PROBE_FEEDRATE_MM_S);
 
@@ -869,7 +894,11 @@ void restore_feedrate_and_scaling() {
 
     #if PROUI_EX
 
+<<<<<<< HEAD
+      ProEx.UpdateAxis(axis);
+=======
       proUIEx.updateAxis(axis);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     #elif ENABLED(DUAL_X_CARRIAGE)
       if (axis == X_AXIS) {
@@ -955,7 +984,11 @@ void restore_feedrate_and_scaling() {
 
       if (TERN0(DELTA, !all_axes_homed())) return;
 
+<<<<<<< HEAD
+      #if BOTH(HAS_HOTEND_OFFSET, DELTA)
+=======
       #if ALL(HAS_HOTEND_OFFSET, DELTA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         // The effector center position will be the target minus the hotend offset.
         const xy_pos_t offs = hotend_offset[active_extruder];
       #elif ENABLED(POLARGRAPH)
@@ -1246,7 +1279,11 @@ float get_move_distance(const xyze_pos_t &diff OPTARG(HAS_ROTATIONAL_AXES, bool 
 
     // Minimum number of seconds to move the given distance
     const float seconds = cartesian_mm / (
+<<<<<<< HEAD
+      #if BOTH(HAS_ROTATIONAL_AXES, INCH_MODE_SUPPORT)
+=======
       #if ALL(HAS_ROTATIONAL_AXES, INCH_MODE_SUPPORT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         cartes_move ? scaled_fr_mm_s : LINEAR_UNIT(scaled_fr_mm_s)
       #else
         scaled_fr_mm_s
@@ -1556,7 +1593,11 @@ float get_move_distance(const xyze_pos_t &diff OPTARG(HAS_ROTATIONAL_AXES, bool 
 void prepare_line_to_destination() {
   apply_motion_limits(destination);
 
+<<<<<<< HEAD
+  #if EITHER(PREVENT_COLD_EXTRUSION, PREVENT_LENGTHY_EXTRUDE)
+=======
   #if ANY(PREVENT_COLD_EXTRUSION, PREVENT_LENGTHY_EXTRUDE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     if (!DEBUGGING(DRYRUN) && destination.e != current_position.e) {
       bool ignore_e = thermalManager.tooColdToExtrude(active_extruder);
@@ -1628,6 +1669,24 @@ void prepare_line_to_destination() {
   }
 
   bool homing_needed_error(main_axes_bits_t axis_bits/*=main_axes_mask*/) {
+<<<<<<< HEAD
+    if ((axis_bits &= axes_should_home(axis_bits))) {
+      char all_axes[] = STR_AXES_MAIN, need[NUM_AXES + 1];
+      uint8_t n = 0;
+      LOOP_NUM_AXES(i) if (TEST(axis_bits, i)) need[n++] = all_axes[i];
+      need[n] = '\0';
+
+      char msg[30];
+      sprintf_P(msg, GET_EN_TEXT(MSG_HOME_FIRST), need);
+      SERIAL_ECHO_START();
+      SERIAL_ECHOLN(msg);
+
+      sprintf_P(msg, GET_TEXT(MSG_HOME_FIRST), need);
+      ui.set_status(msg);
+      return true;
+    }
+    return false;
+=======
     if (!(axis_bits &= axes_should_home(axis_bits))) return false;
 
     char all_axes[] = STR_AXES_MAIN, need[NUM_AXES + 1];
@@ -1643,6 +1702,7 @@ void prepare_line_to_destination() {
     msg.setf(GET_TEXT_F(MSG_HOME_FIRST), need);
     ui.set_status(msg);
     return true;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 
   /**
@@ -1725,6 +1785,40 @@ void prepare_line_to_destination() {
         #endif
       }
 
+<<<<<<< HEAD
+      #if ENABLED(SPI_ENDSTOPS)
+        switch (axis) {
+          #if HAS_X_AXIS
+            case X_AXIS: if (ENABLED(X_SPI_SENSORLESS)) endstops.tmc_spi_homing.x = true; break;
+          #endif
+          #if HAS_Y_AXIS
+            case Y_AXIS: if (ENABLED(Y_SPI_SENSORLESS)) endstops.tmc_spi_homing.y = true; break;
+          #endif
+          #if HAS_Z_AXIS
+            case Z_AXIS: if (ENABLED(Z_SPI_SENSORLESS)) endstops.tmc_spi_homing.z = true; break;
+          #endif
+          #if HAS_I_AXIS
+            case I_AXIS: if (ENABLED(I_SPI_SENSORLESS)) endstops.tmc_spi_homing.i = true; break;
+          #endif
+          #if HAS_J_AXIS
+            case J_AXIS: if (ENABLED(J_SPI_SENSORLESS)) endstops.tmc_spi_homing.j = true; break;
+          #endif
+          #if HAS_K_AXIS
+            case K_AXIS: if (ENABLED(K_SPI_SENSORLESS)) endstops.tmc_spi_homing.k = true; break;
+          #endif
+          #if HAS_U_AXIS
+            case U_AXIS: if (ENABLED(U_SPI_SENSORLESS)) endstops.tmc_spi_homing.u = true; break;
+          #endif
+          #if HAS_V_AXIS
+            case V_AXIS: if (ENABLED(V_SPI_SENSORLESS)) endstops.tmc_spi_homing.v = true; break;
+          #endif
+          #if HAS_W_AXIS
+            case W_AXIS: if (ENABLED(W_SPI_SENSORLESS)) endstops.tmc_spi_homing.w = true; break;
+          #endif
+          default: break;
+        }
+      #endif
+=======
       switch (axis) {
         #if X_SPI_SENSORLESS
           case X_AXIS: endstops.tmc_spi_homing.x = true; break;
@@ -1755,6 +1849,7 @@ void prepare_line_to_destination() {
         #endif
         default: break;
       }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
       TERN_(IMPROVE_HOMING_RELIABILITY, sg_guard_period = millis() + default_sg_guard_duration);
 
@@ -1819,6 +1914,40 @@ void prepare_line_to_destination() {
         #endif
       }
 
+<<<<<<< HEAD
+      #if ENABLED(SPI_ENDSTOPS)
+        switch (axis) {
+          #if HAS_X_AXIS
+            case X_AXIS: if (ENABLED(X_SPI_SENSORLESS)) endstops.tmc_spi_homing.x = false; break;
+          #endif
+          #if HAS_Y_AXIS
+            case Y_AXIS: if (ENABLED(Y_SPI_SENSORLESS)) endstops.tmc_spi_homing.y = false; break;
+          #endif
+          #if HAS_Z_AXIS
+            case Z_AXIS: if (ENABLED(Z_SPI_SENSORLESS)) endstops.tmc_spi_homing.z = false; break;
+          #endif
+          #if HAS_I_AXIS
+            case I_AXIS: if (ENABLED(I_SPI_SENSORLESS)) endstops.tmc_spi_homing.i = false; break;
+          #endif
+          #if HAS_J_AXIS
+            case J_AXIS: if (ENABLED(J_SPI_SENSORLESS)) endstops.tmc_spi_homing.j = false; break;
+          #endif
+          #if HAS_K_AXIS
+            case K_AXIS: if (ENABLED(K_SPI_SENSORLESS)) endstops.tmc_spi_homing.k = false; break;
+          #endif
+          #if HAS_U_AXIS
+            case U_AXIS: if (ENABLED(U_SPI_SENSORLESS)) endstops.tmc_spi_homing.u = false; break;
+          #endif
+          #if HAS_V_AXIS
+            case V_AXIS: if (ENABLED(V_SPI_SENSORLESS)) endstops.tmc_spi_homing.v = false; break;
+          #endif
+          #if HAS_W_AXIS
+            case W_AXIS: if (ENABLED(W_SPI_SENSORLESS)) endstops.tmc_spi_homing.w = false; break;
+          #endif
+          default: break;
+        }
+      #endif
+=======
       switch (axis) {
         #if X_SPI_SENSORLESS
           case X_AXIS: endstops.tmc_spi_homing.x = false; break;
@@ -1849,6 +1978,7 @@ void prepare_line_to_destination() {
         #endif
         default: break;
       }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
 
   #endif // SENSORLESS_HOMING
@@ -1882,12 +2012,20 @@ void prepare_line_to_destination() {
     if (is_home_dir) {
 
       if (TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS)) {
+<<<<<<< HEAD
+        #if BOTH(HAS_HEATED_BED, WAIT_FOR_BED_HEATER)
+=======
         #if ALL(HAS_HEATED_BED, WAIT_FOR_BED_HEATER)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           // Wait for bed to heat back up between probing points
           thermalManager.wait_for_bed_heating();
         #endif
 
+<<<<<<< HEAD
+        #if BOTH(HAS_HOTEND, WAIT_FOR_HOTEND)
+=======
         #if ALL(HAS_HOTEND, WAIT_FOR_HOTEND)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           // Wait for the hotend to heat back up between probing points
           thermalManager.wait_for_hotend_heating(active_extruder);
         #endif
@@ -1904,7 +2042,11 @@ void prepare_line_to_destination() {
       #endif
     }
 
+<<<<<<< HEAD
+    #if EITHER(MORGAN_SCARA, MP_SCARA)
+=======
     #if ANY(MORGAN_SCARA, MP_SCARA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       // Tell the planner the axis is at 0
       current_position[axis] = 0;
       sync_plan_position();
@@ -2102,6 +2244,13 @@ void prepare_line_to_destination() {
 
   void homeaxis(const AxisEnum axis) {
 
+<<<<<<< HEAD
+    #if EITHER(MORGAN_SCARA, MP_SCARA)
+      // Only Z homing (with probe) is permitted
+      if (axis != Z_AXIS) { BUZZ(100, 880); return; }
+    #else
+      #define _CAN_HOME(A) (axis == _AXIS(A) && (EITHER(A##_SPI_SENSORLESS, HAS_##A##_ENDSTOP) || TERN0(HOMING_Z_WITH_PROBE, _AXIS(A) == Z_AXIS)))
+=======
     #if ENABLED(FT_MOTION)
       // Disable ft-motion for homing
       struct OnExit {
@@ -2122,6 +2271,7 @@ void prepare_line_to_destination() {
       if (axis != Z_AXIS) { BUZZ(100, 880); return; }
     #else
       #define _CAN_HOME(A) (axis == _AXIS(A) && (ANY(A##_SPI_SENSORLESS, HAS_##A##_STATE) || TERN0(HOMING_Z_WITH_PROBE, _AXIS(A) == Z_AXIS)))
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #define _ANDCANT(N) && !_CAN_HOME(N)
       if (true MAIN_AXIS_MAP(_ANDCANT)) return;
     #endif
@@ -2155,7 +2305,10 @@ void prepare_line_to_destination() {
       if (axis == Z_AXIS) {
         if (TERN0(BLTOUCH, bltouch.deploy())) return;   // BLTouch was deployed above, but get the alarm state.
         if (TERN0(PROBE_TARE, probe.tare())) return;
+<<<<<<< HEAD
+=======
         TERN_(BD_SENSOR, bdl.config_state = BDS_HOMING_Z);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
     #endif
 
@@ -2198,7 +2351,11 @@ void prepare_line_to_destination() {
 
     // If a second homing move is configured...
     if (bump) {
+<<<<<<< HEAD
+      #if BOTH(HOMING_Z_WITH_PROBE, BLTOUCH)
+=======
       #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if (axis == Z_AXIS && !bltouch.high_speed_mode) bltouch.stow(); // Intermediate STOW (in LOW SPEED MODE)
       #endif
 
@@ -2220,7 +2377,11 @@ void prepare_line_to_destination() {
         }
       #endif
 
+<<<<<<< HEAD
+      #if BOTH(HOMING_Z_WITH_PROBE, BLTOUCH)
+=======
       #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if (axis == Z_AXIS && !bltouch.high_speed_mode && bltouch.deploy())
           return; // Intermediate DEPLOY (in LOW SPEED MODE)
       #endif
@@ -2231,7 +2392,11 @@ void prepare_line_to_destination() {
       do_homing_move(axis, rebump, get_homing_bump_feedrate(axis), true);
     }
 
+<<<<<<< HEAD
+    #if BOTH(HOMING_Z_WITH_PROBE, BLTOUCH)
+=======
     #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       if (axis == Z_AXIS) bltouch.stow(); // The final STOW
     #endif
 
@@ -2406,10 +2571,13 @@ void prepare_line_to_destination() {
 
     #endif
 
+<<<<<<< HEAD
+=======
     #if ALL(BD_SENSOR, HOMING_Z_WITH_PROBE)
       if (axis == Z_AXIS) bdl.config_state = BDS_IDLE;
     #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     // Put away the Z probe
     if (TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS && probe.stow())) return;
 
@@ -2467,17 +2635,29 @@ void set_axis_is_at_home(const AxisEnum axis) {
 
   #if ENABLED(DUAL_X_CARRIAGE)
     if (axis == X_AXIS && (active_extruder == 1 || dual_x_carriage_mode == DXC_DUPLICATION_MODE)) {
+<<<<<<< HEAD
+      current_position.x = x_home_pos(active_extruder);
+=======
       current_position.x = SUM_TERN(HAS_HOME_OFFSET, x_home_pos(active_extruder), home_offset.x);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       return;
     }
   #endif
 
+<<<<<<< HEAD
+  #if EITHER(MORGAN_SCARA, AXEL_TPARA)
+=======
   #if ANY(MORGAN_SCARA, AXEL_TPARA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     scara_set_axis_is_at_home(axis);
   #elif ENABLED(DELTA)
     current_position[axis] = (axis == Z_AXIS) ? DIFF_TERN(HAS_BED_PROBE, delta_height, probe.offset.z) : base_home_pos(axis);
   #else
+<<<<<<< HEAD
+    current_position[axis] = base_home_pos(axis);
+=======
     current_position[axis] = SUM_TERN(HAS_HOME_OFFSET, base_home_pos(axis), home_offset[axis]);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 
   /**
@@ -2498,7 +2678,14 @@ void set_axis_is_at_home(const AxisEnum axis) {
 
   TERN_(BABYSTEP_DISPLAY_TOTAL, babystep.reset_total(axis));
 
+<<<<<<< HEAD
+  #if HAS_POSITION_SHIFT
+    position_shift[axis] = 0;
+    update_workspace_offset(axis);
+  #endif
+=======
   TERN_(HAS_WORKSPACE_OFFSET, workspace_offset[axis] = 0);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   if (DEBUGGING(LEVELING)) {
     #if HAS_HOME_OFFSET
@@ -2509,11 +2696,29 @@ void set_axis_is_at_home(const AxisEnum axis) {
   }
 }
 
+<<<<<<< HEAD
+#if HAS_WORKSPACE_OFFSET
+  void update_workspace_offset(const AxisEnum axis) {
+    workspace_offset[axis] = home_offset[axis] + position_shift[axis];
+    if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Axis ", AS_CHAR(AXIS_CHAR(axis)), " home_offset = ", home_offset[axis], " position_shift = ", position_shift[axis]);
+  }
+#endif
+
+#if HAS_M206_COMMAND
+  /**
+   * Change the home offset for an axis.
+   * Also refreshes the workspace offset.
+   */
+  void set_home_offset(const AxisEnum axis, const_float_t v) {
+    home_offset[axis] = v;
+    update_workspace_offset(axis);
+=======
 #if HAS_HOME_OFFSET
   /**
    * Set the home offset for an axis.
    */
   void set_home_offset(const AxisEnum axis, const_float_t v) {
     home_offset[axis] = v;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 #endif

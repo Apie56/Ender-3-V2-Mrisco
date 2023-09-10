@@ -75,6 +75,20 @@ void GcodeSuite::G30() {
 
     const ProbePtRaise raise_after = parser.boolval('E', true) ? PROBE_PT_STOW : PROBE_PT_NONE;
 
+<<<<<<< HEAD
+    TERN_(HAS_PTC, ptc.set_enabled(!parser.seen('C') || parser.value_bool()));
+    const float measured_z = probe.probe_at_point(probepos, raise_after);
+    TERN_(HAS_PTC, ptc.set_enabled(true));
+    if (!isnan(measured_z)) {
+      SERIAL_ECHOLNPGM("Bed X: ", probepos.asLogical().x, " Y: ", probepos.asLogical().y, " Z: ", measured_z);
+      #if ENABLED(DWIN_LCD_PROUI)
+        char msg[31], str_1[6], str_2[6], str_3[6];
+        sprintf_P(msg, PSTR("X:%s, Y:%s, Z:%s"),
+          dtostrf(probepos.x, 1, 1, str_1),
+          dtostrf(probepos.y, 1, 1, str_2),
+          dtostrf(measured_z, 1, 3, str_3)
+        );
+=======
     TERN_(HAS_PTC, ptc.set_enabled(parser.boolval('C', true)));
     const float measured_z = probe.probe_at_point(probepos, raise_after);
     TERN_(HAS_PTC, ptc.set_enabled(true));
@@ -87,6 +101,7 @@ void GcodeSuite::G30() {
       );
       msg.echoln();
       #if ANY(DWIN_LCD_PROUI, DWIN_CREALITY_LCD_JYERSUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         ui.set_status(msg);
       #endif
     }
@@ -101,7 +116,11 @@ void GcodeSuite::G30() {
     report_current_position();
   }
   else {
+<<<<<<< HEAD
+    SERIAL_ECHOLNF(GET_EN_TEXT_F(MSG_ZPROBE_OUT));
+=======
     SERIAL_ECHOLN(GET_EN_TEXT_F(MSG_ZPROBE_OUT));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     LCD_MESSAGE(MSG_ZPROBE_OUT);
   }
 

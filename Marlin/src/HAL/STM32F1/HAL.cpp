@@ -224,7 +224,11 @@ void MarlinHAL::init() {
   #endif
   #if HAS_SD_HOST_DRIVE
     MSC_SD_init();
+<<<<<<< HEAD
+  #elif BOTH(SERIAL_USB, EMERGENCY_PARSER)
+=======
   #elif ALL(SERIAL_USB, EMERGENCY_PARSER)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     usb_cdcacm_set_hooks(USB_CDCACM_HOOK_RX, my_rx_callback);
   #endif
   #if PIN_EXISTS(USB_CONNECT)

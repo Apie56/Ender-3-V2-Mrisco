@@ -46,11 +46,19 @@ struct pm_lpf_t {
 class PowerMonitor {
 private:
   #if ENABLED(POWER_MONITOR_CURRENT)
+<<<<<<< HEAD
+    static constexpr float amps_adc_scale = float(ADC_VREF) / (POWER_MONITOR_VOLTS_PER_AMP * PM_SAMPLE_RANGE);
+    static pm_lpf_t<amps_adc_scale, PM_K_VALUE, PM_K_SCALE> amps;
+  #endif
+  #if ENABLED(POWER_MONITOR_VOLTAGE)
+    static constexpr float volts_adc_scale = float(ADC_VREF) / (POWER_MONITOR_VOLTS_PER_VOLT * PM_SAMPLE_RANGE);
+=======
     static constexpr float amps_adc_scale = (float(ADC_VREF_MV) / 1000.0f) / (POWER_MONITOR_VOLTS_PER_AMP * PM_SAMPLE_RANGE);
     static pm_lpf_t<amps_adc_scale, PM_K_VALUE, PM_K_SCALE> amps;
   #endif
   #if ENABLED(POWER_MONITOR_VOLTAGE)
     static constexpr float volts_adc_scale = (float(ADC_VREF_MV) / 1000.0f) / (POWER_MONITOR_VOLTS_PER_VOLT * PM_SAMPLE_RANGE);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     static pm_lpf_t<volts_adc_scale, PM_K_VALUE, PM_K_SCALE> volts;
   #endif
 

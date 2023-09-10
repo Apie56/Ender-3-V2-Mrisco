@@ -168,7 +168,11 @@
   #define EXP3_07_PIN                       PB12
   #define EXP3_08_PIN                       PB15
 
+<<<<<<< HEAD
+#elif EITHER(VET6_12864_LCD, DWIN_VET6_CREALITY_LCD)
+=======
 #elif ANY(VET6_12864_LCD, DWIN_VET6_CREALITY_LCD)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   /**
    *    VET6 12864 LCD

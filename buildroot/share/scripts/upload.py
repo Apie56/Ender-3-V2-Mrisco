@@ -7,6 +7,20 @@ import serial
 
 Import("env")
 
+<<<<<<< HEAD
+# Needed (only) for compression, but there are problems with pip install heatshrink
+#try:
+#    import heatshrink
+#except ImportError:
+#    # Install heatshrink
+#    print("Installing 'heatshrink' python module...")
+#    env.Execute(env.subst("$PYTHONEXE -m pip install heatshrink"))
+#
+# Not tested: If it's safe to install python libraries in PIO python try:
+#    env.Execute(env.subst("$PYTHONEXE -m pip install https://github.com/p3p/pyheatshrink/releases/download/0.3.3/pyheatshrink-pip.zip"))
+
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 import MarlinBinaryProtocol
 
 #-----------------#
@@ -86,7 +100,10 @@ def Upload(source, target, env):
         _Send('M21')
         Responses = _Recv()
         if len(Responses) < 1 or not any('SD card ok' in r for r in Responses):
+<<<<<<< HEAD
+=======
             debugPrint(Responses)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             raise Exception('Error accessing SD card')
         debugPrint('SD Card OK')
         return True
@@ -158,7 +175,11 @@ def Upload(source, target, env):
     marlin_string_config_h_author = _GetMarlinEnv(MarlinEnv, 'STRING_CONFIG_H_AUTHOR')
 
     # Get firmware upload params
+<<<<<<< HEAD
+    upload_firmware_source_name = str(source[0])    # Source firmware filename
+=======
     upload_firmware_source_name = env['FIRMWARE_NAME'] if env['FIRMWARE_NAME'] else str(source[0])  # Source firmware filename
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     upload_speed = env['UPLOAD_SPEED'] if 'UPLOAD_SPEED' in env else 115200
                                                     # baud rate of serial connection
     upload_port = _GetUploadPort(env)               # Serial port to use
@@ -179,6 +200,9 @@ def Upload(source, target, env):
                                                     'BOARD_CREALITY_V427', 'BOARD_CREALITY_V431',  'BOARD_CREALITY_V452', 'BOARD_CREALITY_V453',
                                                     'BOARD_CREALITY_V24S1']
     # "upload_random_name": generate a random 8.3 firmware filename to upload
+<<<<<<< HEAD
+    upload_random_filename = upload_delete_old_bins and not marlin_long_filename_host_support
+=======
     upload_random_filename = upload_delete_old_bins # and not marlin_long_filename_host_support
 
     # Heatshrink module is needed (only) for compression
@@ -195,6 +219,7 @@ def Upload(source, target, env):
             except ImportError:
                print("Installing 'heatshrink' python module...")
                env.Execute(env.subst("$PYTHONEXE -m pip install heatshrink"))
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     try:
 

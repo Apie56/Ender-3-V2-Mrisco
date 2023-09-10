@@ -91,7 +91,11 @@ constexpr xyze_float_t min_acceleration_edit_values = LOGICAL_AXIS_ARRAY_1(MIN_A
 
 constexpr xyze_float_t min_steps_edit_values = LOGICAL_AXIS_ARRAY_1(MIN_STEPS_EDIT_VALUE),
                        default_steps = DEFAULT_AXIS_STEPS_PER_UNIT,
+<<<<<<< HEAD
+                       max_steps_edit_values = 
+=======
                        max_steps_edit_values =
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                          #ifdef MAX_STEPS_EDIT_VALUES
                            MAX_STEPS_EDIT_VALUES
                          #else

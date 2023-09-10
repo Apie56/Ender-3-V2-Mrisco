@@ -42,12 +42,23 @@ enum dynFreqMode_t : uint8_t {
   dynFreqMode_MASS_BASED = 2U
 };
 
+<<<<<<< HEAD
+enum stepDirState_t {
+=======
 enum stepDirState_t : uint8_t {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   stepDirState_NOT_SET = 0U,
   stepDirState_POS     = 1U,
   stepDirState_NEG     = 2U
 };
 
+<<<<<<< HEAD
+enum {
+  FT_BIT_DIR_E, FT_BIT_STEP_E,
+  FT_BIT_DIR_Z, FT_BIT_STEP_Z,
+  FT_BIT_DIR_Y, FT_BIT_STEP_Y,
+  FT_BIT_DIR_X, FT_BIT_STEP_X,
+=======
 typedef struct XYZEarray<float, FTM_WINDOW_SIZE> xyze_trajectory_t;
 typedef struct XYZEarray<float, FTM_BATCH_SIZE> xyze_trajectoryMod_t;
 
@@ -66,6 +77,7 @@ enum {
     FT_BIT_DIR_V, FT_BIT_STEP_V,
     FT_BIT_DIR_W, FT_BIT_STEP_W
   ),
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   FT_BIT_COUNT
 };
 

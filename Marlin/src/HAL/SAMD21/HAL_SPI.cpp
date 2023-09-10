@@ -45,7 +45,11 @@
 // Public functions
 // --------------------------------------------------------------------------
 
+<<<<<<< HEAD
+#if EITHER(SOFTWARE_SPI, FORCE_SOFT_SPI)
+=======
 #if ANY(SOFTWARE_SPI, FORCE_SOFT_SPI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // ------------------------
   // Software SPI

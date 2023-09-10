@@ -26,7 +26,11 @@
 
 #include "babystep.h"
 #include "../MarlinCore.h"
+<<<<<<< HEAD
+#include "../module/motion.h"   // for axes_should_home()
+=======
 #include "../module/motion.h"   // for axes_should_home(), BABYSTEP_ALLOWED
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #include "../module/planner.h"  // for axis_steps_per_mm[]
 #include "../module/stepper.h"
 
@@ -42,10 +46,13 @@ volatile int16_t Babystep::steps[BS_AXIS_IND(Z_AXIS) + 1];
 #endif
 int16_t Babystep::accum;
 
+<<<<<<< HEAD
+=======
 #if ALL(EP_BABYSTEPPING, EMERGENCY_PARSER)
   int16_t Babystep::ep_babysteps;
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 void Babystep::step_axis(const AxisEnum axis) {
   const int16_t curTodo = steps[BS_AXIS_IND(axis)]; // get rid of volatile for performance
   if (curTodo) {
@@ -66,7 +73,11 @@ void Babystep::add_mm(const AxisEnum axis, const_float_t mm) {
     steps[BS_AXIS_IND(axis)] = distance;
     TERN_(BABYSTEP_DISPLAY_TOTAL, axis_total[BS_TOTAL_IND(axis)] = distance);
     TERN_(BABYSTEP_ALWAYS_AVAILABLE, gcode.reset_stepper_timeout());
+<<<<<<< HEAD
+    TERN_(INTEGRATED_BABYSTEPPING, if (has_steps()) stepper.initiateBabystepping());
+=======
     TERN_(BABYSTEPPING, if (has_steps()) stepper.initiateBabystepping());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 #endif
 
@@ -77,6 +88,11 @@ void Babystep::add_steps(const AxisEnum axis, const int16_t distance) {
   steps[BS_AXIS_IND(axis)] += distance;
   TERN_(BABYSTEP_DISPLAY_TOTAL, axis_total[BS_TOTAL_IND(axis)] += distance);
   TERN_(BABYSTEP_ALWAYS_AVAILABLE, gcode.reset_stepper_timeout());
+<<<<<<< HEAD
+  TERN_(INTEGRATED_BABYSTEPPING, if (has_steps()) stepper.initiateBabystepping());
+}
+
+=======
   TERN_(BABYSTEPPING, if (has_steps()) stepper.initiateBabystepping());
 }
 
@@ -86,4 +102,5 @@ void Babystep::add_steps(const AxisEnum axis, const int16_t distance) {
   void Babystep::z_down() { if (BABYSTEP_ALLOWED()) add_steps(Z_AXIS, -BABYSTEP_SIZE_Z); }
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif // BABYSTEPPING

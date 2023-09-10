@@ -27,7 +27,11 @@
  * LCD Menu Messages
  * See also https://marlinfw.org/docs/development/lcd_language.html
  */
+<<<<<<< HEAD
+namespace Language_ca {
+=======
 namespace LanguageNarrow_ca {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -53,6 +57,25 @@ namespace LanguageNarrow_ca {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Anivellament fet!");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Ajusta decalatge");
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Decalatge aplicat");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Preescalfa ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Preescalfa ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Preescalfa ") PREHEAT_1_LABEL _UxGT(" End");
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Preescalfa ") PREHEAT_1_LABEL _UxGT(" End ~");
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Preescalfa ") PREHEAT_1_LABEL _UxGT(" Tot");
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Preescalfa ") PREHEAT_1_LABEL _UxGT(" Llit");
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Preescalfa ") PREHEAT_1_LABEL _UxGT(" Conf.");
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Preescalfa $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Preescalfa $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Preescalfa $ End");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Preescalfa $ End ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Preescalfa $ Tot");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Preescalfa $ Llit");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Preescalfa $ Conf.");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Preescalfa ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Preescalfa ") PREHEAT_1_LABEL " ~";
@@ -70,6 +93,7 @@ namespace LanguageNarrow_ca {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Preescalfa $ Llit");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Preescalfa $ Conf.");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Refreda");
 
   LSTR MSG_EXTRUDE                        = _UxGT("Extrudeix");
@@ -122,7 +146,11 @@ namespace LanguageNarrow_ca {
   LSTR MSG_STORE_EEPROM                   = _UxGT("Desa memoria");
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Carrega memoria");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Restaura valors");
+<<<<<<< HEAD
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Actualitza");
+=======
   LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Actualitza");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_SCREEN                    = _UxGT("Pantalla Info.");
   LSTR MSG_PREPARE                        = _UxGT("Prepara");
   LSTR MSG_TUNE                           = _UxGT("Ajusta");
@@ -183,11 +211,27 @@ namespace LanguageNarrow_ca {
   LSTR MSG_INFO_PROTOCOL                  = _UxGT("Protocol");
   LSTR MSG_CASE_LIGHT                     = _UxGT("Llum");
 
+<<<<<<< HEAD
+  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Total impressions");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Acabades");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Temps imprimint");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Treball mes llarg");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Total extrudit");
+  #else
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Impressions");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Acabades");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Total");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Mes llarg");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Extrudit");
+  #endif
+=======
   LSTR MSG_INFO_PRINT_COUNT               = _UxGT("Impressions");
   LSTR MSG_INFO_COMPLETED_PRINTS          = _UxGT("Acabades");
   LSTR MSG_INFO_PRINT_TIME                = _UxGT("Total");
   LSTR MSG_INFO_PRINT_LONGEST             = _UxGT("Mes llarg");
   LSTR MSG_INFO_PRINT_FILAMENT            = _UxGT("Extrudit");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   LSTR MSG_INFO_MIN_TEMP                  = _UxGT("Temp. mínima");
   LSTR MSG_INFO_MAX_TEMP                  = _UxGT("Temp. màxima");
@@ -200,6 +244,12 @@ namespace LanguageNarrow_ca {
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Impressora incorrecta");
 
   //
+<<<<<<< HEAD
+  // Filament Change screens show up to 3 lines on a 4-line display
+  //                        ...or up to 2 lines on a 3-line display
+  //
+  #if LCD_HEIGHT >= 4
+=======
   // Filament Change screens show up to 2 lines on a 3-line display
   //
   LSTR MSG_FILAMENT_CHANGE_INIT           = _UxGT(MSG_1_LINE("Espereu..."));
@@ -225,6 +275,7 @@ namespace LanguageTall_ca {
   using namespace LanguageWide_ca;
   #if LCD_HEIGHT >= 4
     // Filament Change screens show up to 3 lines on a 4-line display
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_3_LINE("Esperant per", "iniciar el canvi", "de filament"));
     LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_2_LINE("Esperant per", "treure filament"));
     LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_3_LINE("Poseu filament", "i premeu el boto", "per continuar..."));
@@ -232,9 +283,20 @@ namespace LanguageTall_ca {
     LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_2_LINE("Escalfant nozzle", "Espereu..."));
     LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_2_LINE("Esperant carrega", "de filament"));
     LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_2_LINE("Esperant per", "reprendre"));
+<<<<<<< HEAD
+  #else // LCD_HEIGHT < 4
+    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_1_LINE("Espereu..."));
+    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_1_LINE("Expulsant..."));
+    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_1_LINE("Insereix i prem"));
+    LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_1_LINE("Escalfant..."));
+    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_1_LINE("Carregant..."));
+    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_1_LINE("Reprenent..."));
+  #endif // LCD_HEIGHT < 4
+=======
   #endif
 }
 
 namespace Language_ca {
   using namespace LanguageTall_ca;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }

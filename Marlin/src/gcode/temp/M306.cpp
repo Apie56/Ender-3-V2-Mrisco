@@ -92,6 +92,18 @@ void GcodeSuite::M306_report(const bool forReplay/*=true*/) {
   HOTEND_LOOP() {
     report_echo_start(forReplay);
     MPC_t &mpc = thermalManager.temp_hotend[e].mpc;
+<<<<<<< HEAD
+    SERIAL_ECHOPGM("  M306 E", e);
+    SERIAL_ECHOPAIR_F(" P", mpc.heater_power, 2);
+    SERIAL_ECHOPAIR_F(" C", mpc.block_heat_capacity, 2);
+    SERIAL_ECHOPAIR_F(" R", mpc.sensor_responsiveness, 4);
+    SERIAL_ECHOPAIR_F(" A", mpc.ambient_xfer_coeff_fan0, 4);
+    #if ENABLED(MPC_INCLUDE_FAN)
+      SERIAL_ECHOPAIR_F(" F", mpc.fanCoefficient(), 4);
+    #endif
+    SERIAL_ECHOPAIR_F(" H", mpc.filament_heat_capacity_permm, 4);
+    SERIAL_EOL();
+=======
     SERIAL_ECHOPGM("  M306 E", e,
                          " P", p_float_t(mpc.heater_power, 2),
                          " C", p_float_t(mpc.block_heat_capacity, 2),
@@ -102,6 +114,7 @@ void GcodeSuite::M306_report(const bool forReplay/*=true*/) {
       SERIAL_ECHOPGM(" F", p_float_t(mpc.fanCoefficient(), 4));
     #endif
     SERIAL_ECHOLNPGM(" H", p_float_t(mpc.filament_heat_capacity_permm, 4));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 }
 

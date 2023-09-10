@@ -30,7 +30,11 @@
 
 #define DISPLAY_CHARSET_ISO10646_5
 
+<<<<<<< HEAD
+namespace Language_bg {
+=======
 namespace LanguageNarrow_bg {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -44,6 +48,25 @@ namespace LanguageNarrow_bg {
   LSTR MSG_DISABLE_STEPPERS               = _UxGT("Изкл. двигатели");
   LSTR MSG_AUTO_HOME                      = _UxGT("Паркиране");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Задай Начало");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Подгряване ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Подгряване ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Подгряване ") PREHEAT_1_LABEL _UxGT(" Дюза");
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Подгряване ") PREHEAT_1_LABEL _UxGT(" Дюза ~");
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Подгр. ") PREHEAT_1_LABEL _UxGT(" Всички");
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Подгр. ") PREHEAT_1_LABEL _UxGT(" Легло");
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Настройки ") PREHEAT_1_LABEL;
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Подгряване $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Подгряване $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Подгряване $ Дюза");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Подгряване $ Дюза ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Подгр. $ Всички");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Подгр. $ Легло");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Настройки $");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Подгряване ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Подгряване ") PREHEAT_1_LABEL " ~";
@@ -61,6 +84,7 @@ namespace LanguageNarrow_bg {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Подгр. $ Легло");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Настройки $");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Охлаждане");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Вкл. захранване");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Изкл. захранване");
@@ -157,6 +181,8 @@ namespace LanguageNarrow_bg {
   LSTR MSG_DELTA_CALIBRATE_CENTER         = _UxGT("Калибровка Център");
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Неправилен принтер");
 }
+<<<<<<< HEAD
+=======
 
 namespace LanguageWide_bg {
   using namespace LanguageNarrow_bg;
@@ -174,3 +200,4 @@ namespace LanguageTall_bg {
 namespace Language_bg {
   using namespace LanguageTall_bg;
 }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

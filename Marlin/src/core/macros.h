@@ -192,11 +192,15 @@
 #define _DIS_1(O)           NOT(_ENA_1(O))
 #define ENABLED(V...)       DO(ENA,&&,V)
 #define DISABLED(V...)      DO(DIS,&&,V)
+<<<<<<< HEAD
+#define COUNT_ENABLED(V...) DO(ENA,+,V)
+=======
 #define ANY(V...)          !DISABLED(V)
 #define ALL                 ENABLED
 #define NONE                DISABLED
 #define COUNT_ENABLED(V...) DO(ENA,+,V)
 #define MANY(V...)          (COUNT_ENABLED(V) > 1)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #define TERN(O,A,B)         _TERN(_ENA_1(O),B,A)    // OPTION ? 'A' : 'B'
 #define TERN0(O,A)          _TERN(_ENA_1(O),0,A)    // OPTION ? 'A' : '0'
@@ -220,8 +224,21 @@
 #define SUM_TERN(O,B,A)     ((B) PLUS_TERN0(O,A))   // ((B) (OPTION ? '+ (A)' : '<nul>'))
 #define DIFF_TERN(O,B,A)    ((B) MINUS_TERN0(O,A))  // ((B) (OPTION ? '- (A)' : '<nul>'))
 
+<<<<<<< HEAD
+#define IF_ENABLED          TERN_
 #define IF_DISABLED(O,A)    TERN(O,,A)
 
+#define ANY(V...)          !DISABLED(V)
+#define NONE(V...)          DISABLED(V)
+#define ALL(V...)           ENABLED(V)
+#define BOTH(V1,V2)         ALL(V1,V2)
+#define EITHER(V1,V2)       ANY(V1,V2)
+#define MANY(V...)          (COUNT_ENABLED(V) > 1)
+
+=======
+#define IF_DISABLED(O,A)    TERN(O,,A)
+
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 // Macros to support pins/buttons exist testing
 #define PIN_EXISTS(PN)      (defined(PN##_PIN) && PN##_PIN >= 0)
 #define _PINEX_1            PIN_EXISTS
@@ -326,6 +343,14 @@
 #define _JOIN_1(O)         (O)
 #define JOIN_N(N,C,V...)   (DO(JOIN,C,LIST_N(N,V)))
 
+<<<<<<< HEAD
+#define LOOP_S_LE_N(VAR, S, N) for (uint8_t VAR=(S); VAR<=(N); VAR++)
+#define LOOP_S_L_N(VAR, S, N) for (uint8_t VAR=(S); VAR<(N); VAR++)
+#define LOOP_LE_N(VAR, N) LOOP_S_LE_N(VAR, 0, N)
+#define LOOP_L_N(VAR, N) LOOP_S_L_N(VAR, 0, N)
+
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #define NOOP (void(0))
 
 #define CEILING(x,y) (((x) + (y) - 1) / (y))
@@ -375,8 +400,11 @@
     extern "C++" {
 
       // C++11 solution that is standards compliant. Return type is deduced automatically
+<<<<<<< HEAD
+=======
       template <class N> static constexpr N _MIN(const N val) { return val; }
       template <class N> static constexpr N _MAX(const N val) { return val; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       template <class L, class R> static constexpr auto _MIN(const L lhs, const R rhs) -> decltype(lhs + rhs) {
         return lhs < rhs ? lhs : rhs;
       }
@@ -396,9 +424,15 @@
     FORCE_INLINE constexpr T operator|(T x, T y) { return static_cast<T>(static_cast<int>(x) | static_cast<int>(y)); } \
     FORCE_INLINE constexpr T operator^(T x, T y) { return static_cast<T>(static_cast<int>(x) ^ static_cast<int>(y)); } \
     FORCE_INLINE constexpr T operator~(T x)      { return static_cast<T>(~static_cast<int>(x)); } \
+<<<<<<< HEAD
+    FORCE_INLINE T & operator&=(T &x, T y) { return x &= y; } \
+    FORCE_INLINE T & operator|=(T &x, T y) { return x |= y; } \
+    FORCE_INLINE T & operator^=(T &x, T y) { return x ^= y; }
+=======
     FORCE_INLINE T & operator&=(T &x, T y) { x = x & y; return x; } \
     FORCE_INLINE T & operator|=(T &x, T y) { x = x | y; return x; } \
     FORCE_INLINE T & operator^=(T &x, T y) { x = x ^ y; return x; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // C++11 solution that is standard compliant. <type_traits> is not available on all platform
   namespace Private {
@@ -410,6 +444,9 @@
 
     template <typename T, typename ... Args> struct first_type_of { typedef T type; };
     template <typename T> struct first_type_of<T> { typedef T type; };
+<<<<<<< HEAD
+  }
+=======
 
     // remove const/volatile type qualifiers
     template<typename T> struct remove_const { typedef T type; };
@@ -445,6 +482,7 @@
     template<typename T> struct underlying_type : public _underlying_type<T> { };
   }
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // C++11 solution using SFINAE to detect the existence of a member in a class at compile time.
   // It creates a HasMember<Type> structure containing 'value' set to true if the member exists
   #define HAS_MEMBER_IMPL(Member) \
@@ -748,6 +786,9 @@
 #define _UI_MKS         104
 #define _UI_RELOADED    105
 #define _UI_IA_CREALITY 106
+<<<<<<< HEAD
+=======
 #define _UI_E3S1PRO     107
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #define _DGUS_UI_IS(N) || (CAT(_UI_, DGUS_LCD_UI) == CAT(_UI_, N))
 #define DGUS_UI_IS(V...) (0 MAP(_DGUS_UI_IS, V))

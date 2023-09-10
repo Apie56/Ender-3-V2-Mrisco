@@ -31,12 +31,20 @@
 #endif
 
 // MKS_LCD12864A/B is a variant of MKS_MINI_12864
+<<<<<<< HEAD
+#if EITHER(MKS_LCD12864A, MKS_LCD12864B)
+=======
 #if ANY(MKS_LCD12864A, MKS_LCD12864B)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define MKS_MINI_12864
 #endif
 
 // MKS_MINI_12864_V3 and BTT_MINI_12864_V1 are identical to FYSETC_MINI_12864_2_1
+<<<<<<< HEAD
+#if EITHER(MKS_MINI_12864_V3, BTT_MINI_12864_V1)
+=======
 #if ANY(MKS_MINI_12864_V3, BTT_MINI_12864_V1)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define FYSETC_MINI_12864_2_1
 #endif
 
@@ -53,8 +61,11 @@
   #define DGUS_LCD_UI_RELOADED 1
 #elif DGUS_UI_IS(IA_CREALITY)
   #define DGUS_LCD_UI_IA_CREALITY 1
+<<<<<<< HEAD
+=======
 #elif DGUS_UI_IS(E3S1PRO)
   #define DGUS_LCD_UI_E3S1PRO 1
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 /**
@@ -72,7 +83,11 @@
  *  IS_U8GLIB_ST7565_64128N : ST7565 128x64 LCD with SPI interface via U8GLib
  *  IS_U8GLIB_LM6059_AF     : LM6059 with Hardware SPI via U8GLib
  */
+<<<<<<< HEAD
+#if EITHER(MKS_MINI_12864, ENDER2_STOCKDISPLAY)
+=======
 #if ANY(MKS_MINI_12864, ENDER2_STOCKDISPLAY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define MINIPANEL
 
@@ -85,7 +100,11 @@
   #define DOGLCD
   #define IS_ULTIPANEL 1
 
+<<<<<<< HEAD
+#elif EITHER(DWIN_MARLINUI_PORTRAIT, DWIN_MARLINUI_LANDSCAPE)
+=======
 #elif ANY(DWIN_MARLINUI_PORTRAIT, DWIN_MARLINUI_LANDSCAPE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define IS_DWIN_MARLINUI 1
   #define IS_ULTIPANEL 1
@@ -218,7 +237,11 @@
   #define LCD_WIDTH 16
   #define LCD_HEIGHT 2
 
+<<<<<<< HEAD
+#elif EITHER(TFTGLCD_PANEL_SPI, TFTGLCD_PANEL_I2C)
+=======
 #elif ANY(TFTGLCD_PANEL_SPI, TFTGLCD_PANEL_I2C)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define IS_TFTGLCD_PANEL 1
   #define IS_ULTIPANEL 1                    // Note that IS_ULTIPANEL leads to HAS_WIRED_LCD
@@ -248,7 +271,11 @@
   #define LCD_ST7920_DELAY_2           125
   #define LCD_ST7920_DELAY_3           125
 
+<<<<<<< HEAD
+#elif EITHER(ANET_FULL_GRAPHICS_LCD, ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
+=======
 #elif ANY(ANET_FULL_GRAPHICS_LCD, ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define IS_RRD_FG_SC 1
   #define LCD_ST7920_DELAY_1           150
@@ -278,7 +305,11 @@
 #endif
 
 // ST7565 / 64128N graphical displays
+<<<<<<< HEAD
+#if EITHER(MAKRPANEL, MINIPANEL)
+=======
 #if ANY(MAKRPANEL, MINIPANEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define IS_ULTIPANEL 1
   #define DOGLCD
   #if ENABLED(MAKRPANEL)
@@ -339,11 +370,19 @@
   #elif ANY(SPI_GRAPHICAL_TFT, TFT_320x240_SPI, TFT_480x320_SPI, TFT_LVGL_UI_SPI)
     #define TFT_INTERFACE_SPI
   #endif
+<<<<<<< HEAD
+  #if EITHER(FSMC_GRAPHICAL_TFT, SPI_GRAPHICAL_TFT)
+    #define TFT_CLASSIC_UI
+  #elif ANY(TFT_320x240, TFT_480x320, TFT_320x240_SPI, TFT_480x320_SPI)
+    #define TFT_COLOR_UI
+  #elif EITHER(TFT_LVGL_UI_FSMC, TFT_LVGL_UI_SPI)
+=======
   #if ANY(FSMC_GRAPHICAL_TFT, SPI_GRAPHICAL_TFT)
     #define TFT_CLASSIC_UI
   #elif ANY(TFT_320x240, TFT_480x320, TFT_320x240_SPI, TFT_480x320_SPI)
     #define TFT_COLOR_UI
   #elif ANY(TFT_LVGL_UI_FSMC, TFT_LVGL_UI_SPI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define TFT_LVGL_UI
   #endif
 #endif
@@ -389,7 +428,11 @@
     #define IS_ULTIPANEL 1
   #endif
 
+<<<<<<< HEAD
+#elif EITHER(LCD_SAINSMART_I2C_1602, LCD_SAINSMART_I2C_2004)
+=======
 #elif ANY(LCD_SAINSMART_I2C_1602, LCD_SAINSMART_I2C_2004)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #define LCD_I2C_TYPE_PCF8575    // I2C Character-based 12864 display
   #define LCD_I2C_ADDRESS 0x27    // I2C Address of the port expander
@@ -427,7 +470,11 @@
 
 #endif
 
+<<<<<<< HEAD
+#if EITHER(LCD_I2C_TYPE_MCP23017, LCD_I2C_TYPE_MCP23008) && DISABLED(NO_LCD_DETECT)
+=======
 #if ANY(LCD_I2C_TYPE_MCP23017, LCD_I2C_TYPE_MCP23008) && DISABLED(NO_LCD_DETECT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define DETECT_I2C_LCD_DEVICE 1
 #endif
 
@@ -454,7 +501,11 @@
 // Shift register panels
 // ---------------------
 // 2 wire Non-latching LCD SR from:
+<<<<<<< HEAD
+// https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/schematics#!shiftregister-connection
+=======
 // https://github.com/fmalpartida/New-LiquidCrystal/wiki/schematics#user-content-ShiftRegister_connection
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if ENABLED(FF_INTERFACEBOARD)
   #define SR_LCD_3W_NL    // Non latching 3 wire shift register
   #define IS_ULTIPANEL 1
@@ -465,6 +516,17 @@
   #define IS_ULTIPANEL 1
 #endif
 
+<<<<<<< HEAD
+#if EITHER(IS_ULTIPANEL, ULTRA_LCD)
+  #define HAS_WIRED_LCD 1
+#endif
+
+#if EITHER(IS_ULTIPANEL, REPRAPWORLD_KEYPAD)
+  #define IS_NEWPANEL 1
+#endif
+
+#if EITHER(ZONESTAR_LCD, REPRAPWORLD_KEYPAD)
+=======
 #if ANY(IS_ULTIPANEL, ULTRA_LCD)
   #define HAS_WIRED_LCD 1
 #endif
@@ -474,6 +536,7 @@
 #endif
 
 #if ANY(ZONESTAR_LCD, REPRAPWORLD_KEYPAD)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define IS_RRW_KEYPAD 1
   #ifndef REPRAPWORLD_KEYPAD_MOVE_STEP
     #define REPRAPWORLD_KEYPAD_MOVE_STEP 1.0
@@ -495,7 +558,11 @@
 #endif
 
 // Aliases for LCD features
+<<<<<<< HEAD
+#if EITHER(DWIN_CREALITY_LCD, DWIN_LCD_PROUI)
+=======
 #if ANY(DWIN_CREALITY_LCD, DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_DWIN_E3V2_BASIC 1
   #define HAS_DWIN_E3V2 1
 #endif
@@ -510,7 +577,10 @@
 #if ENABLED(DWIN_LCD_PROUI)
   #define DO_LIST_BIN_FILES 1
   #define LCD_BRIGHTNESS_DEFAULT 127
+<<<<<<< HEAD
+=======
   #define LCD_BRIGHTNESS_DIM 5
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 // Serial Controllers require LCD_SERIAL_PORT
@@ -531,6 +601,9 @@
   #endif
 #endif
 
+<<<<<<< HEAD
+#if ANY(HAS_WIRED_LCD, EXTENSIBLE_UI, DWIN_LCD_PROUI)
+=======
 #if ANY(HAS_WIRED_LCD, EXTENSIBLE_UI, DWIN_LCD_PROUI, DWIN_CREALITY_LCD_JYERSUI)
   /**
    * HAS_DISPLAY indicates the display uses these MarlinUI methods...
@@ -546,6 +619,7 @@
    *  - kill_screen
    *  - draw_status_message
    */
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_DISPLAY 1
 #endif
 
@@ -557,7 +631,11 @@
   #define HAS_UTF8_UTILS 1
 #endif
 
+<<<<<<< HEAD
+#if HAS_DISPLAY || HAS_DWIN_E3V2
+=======
 #if ANY(HAS_DISPLAY, HAS_DWIN_E3V2)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_STATUS_MESSAGE 1
 #endif
 
@@ -654,10 +732,17 @@
 #define E_TERN_(N)  TERN_(HAS_MULTI_EXTRUDER, N)
 #define E_TERN0(N)  TERN0(HAS_MULTI_EXTRUDER, N)
 
+<<<<<<< HEAD
+#if EITHER(SWITCHING_EXTRUDER, MECHANICAL_SWITCHING_EXTRUDER)
+  #define HAS_SWITCHING_EXTRUDER 1
+#endif
+#if EITHER(SWITCHING_NOZZLE, MECHANICAL_SWITCHING_NOZZLE)
+=======
 #if ANY(SWITCHING_EXTRUDER, MECHANICAL_SWITCHING_EXTRUDER)
   #define HAS_SWITCHING_EXTRUDER 1
 #endif
 #if ANY(SWITCHING_NOZZLE, MECHANICAL_SWITCHING_NOZZLE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_SWITCHING_NOZZLE 1
 #endif
 
@@ -715,6 +800,16 @@
 #endif
 
 // Number of hotends...
+<<<<<<< HEAD
+#if EITHER(SINGLENOZZLE, MIXING_EXTRUDER)               // Only one for singlenozzle or mixing extruder
+  #define HOTENDS 1
+#elif HAS_SWITCHING_EXTRUDER && !HAS_SWITCHING_NOZZLE   // One for each pair of abstract "extruders"
+  #define HOTENDS E_STEPPERS
+#elif TEMP_SENSOR_0
+  #define HOTENDS EXTRUDERS                             // One per extruder if at least one heater exists
+#else
+  #define HOTENDS 0                                     // A machine with no hotends at all can still extrude
+=======
 #if ANY(SINGLENOZZLE, MIXING_EXTRUDER)                // Only one for singlenozzle or mixing extruder
   #define HOTENDS 1
 #elif HAS_SWITCHING_EXTRUDER && !HAS_SWITCHING_NOZZLE // One for each pair of abstract "extruders"
@@ -723,6 +818,7 @@
   #define HOTENDS EXTRUDERS                           // One per extruder if at least one heater exists
 #else
   #define HOTENDS 0                                   // A machine with no hotends at all can still extrude
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 // More than one hotend...
@@ -848,8 +944,13 @@
   #undef AVOID_OBSTACLES
   #undef ENDSTOPPULLUP_XMIN
   #undef ENDSTOPPULLUP_XMAX
+<<<<<<< HEAD
+  #undef X_MIN_ENDSTOP_INVERTING
+  #undef X_MAX_ENDSTOP_INVERTING
+=======
   #undef X_MIN_ENDSTOP_HIT_STATE
   #undef X_MAX_ENDSTOP_HIT_STATE
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #undef X2_DRIVER_TYPE
   #undef X_ENABLE_ON
   #undef DISABLE_X
@@ -1119,7 +1220,11 @@
 #if DISABLED(SINGLENOZZLE)
   #undef SINGLENOZZLE_STANDBY_TEMP
 #endif
+<<<<<<< HEAD
+#if !BOTH(HAS_FAN, SINGLENOZZLE)
+=======
 #if !ALL(HAS_FAN, SINGLENOZZLE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #undef SINGLENOZZLE_STANDBY_FAN
 #endif
 
@@ -1330,6 +1435,19 @@
  * Conditionals based on the type of Bed Probe
  */
 #if HAS_BED_PROBE
+<<<<<<< HEAD
+  #if DISABLED(NOZZLE_AS_PROBE)
+    #define HAS_PROBE_XY_OFFSET 1
+  #endif
+  #if BOTH(DELTA, SENSORLESS_PROBING)
+    #define HAS_DELTA_SENSORLESS_PROBING 1
+  #endif
+  #if NONE(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN, HAS_DELTA_SENSORLESS_PROBING)
+    #define USE_Z_MIN_PROBE 1
+  #endif
+  #if Z_HOME_TO_MIN && (DISABLED(USE_Z_MIN_PROBE) || ENABLED(USE_PROBE_FOR_Z_HOMING))
+    #define HOMING_Z_WITH_PROBE 1
+=======
   #if ALL(DELTA, SENSORLESS_PROBING)
     #define HAS_DELTA_SENSORLESS_PROBING 1
   #else
@@ -1346,10 +1464,17 @@
   #endif
   #if ANY(Z_PROBE_ALLEN_KEY, MAG_MOUNTED_PROBE)
     #define PROBE_TRIGGERED_WHEN_STOWED_TEST 1 // Extra test for Allen Key Probe
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
   #ifndef Z_PROBE_LOW_POINT
     #define Z_PROBE_LOW_POINT -5
   #endif
+<<<<<<< HEAD
+  #if EITHER(Z_PROBE_ALLEN_KEY, MAG_MOUNTED_PROBE)
+    #define PROBE_TRIGGERED_WHEN_STOWED_TEST 1 // Extra test for Allen Key Probe
+  #endif
+=======
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if MULTIPLE_PROBING > 1
     #if EXTRA_PROBING > 0
       #define TOTAL_PROBING (MULTIPLE_PROBING + EXTRA_PROBING)
@@ -1377,6 +1502,16 @@
  */
 #if ENABLED(AUTO_BED_LEVELING_UBL)
   #undef LCD_BED_LEVELING
+<<<<<<< HEAD
+  #if EITHER(DELTA, SEGMENT_LEVELED_MOVES)
+    #define UBL_SEGMENTED 1
+  #endif
+#endif
+#if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_3POINT)
+  #define ABL_PLANAR 1
+#endif
+#if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
+=======
   #if ANY(DELTA, SEGMENT_LEVELED_MOVES)
     #define UBL_SEGMENTED 1
   #endif
@@ -1385,6 +1520,7 @@
   #define ABL_PLANAR 1
 #endif
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define ABL_USES_GRID 1
 #endif
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_3POINT)
@@ -1393,16 +1529,27 @@
 #if ANY(AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL, MESH_BED_LEVELING)
   #define HAS_MESH 1
 #endif
+<<<<<<< HEAD
+#if EITHER(AUTO_BED_LEVELING_UBL, AUTO_BED_LEVELING_3POINT)
+  #define NEEDS_THREE_PROBE_POINTS 1
+#endif
+#if EITHER(HAS_ABL_NOT_UBL, AUTO_BED_LEVELING_UBL)
+=======
 #if ANY(AUTO_BED_LEVELING_UBL, AUTO_BED_LEVELING_3POINT)
   #define NEEDS_THREE_PROBE_POINTS 1
 #endif
 #if ANY(HAS_ABL_NOT_UBL, AUTO_BED_LEVELING_UBL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_ABL_OR_UBL 1
   #if DISABLED(PROBE_MANUALLY)
     #define HAS_AUTOLEVEL 1
   #endif
 #endif
+<<<<<<< HEAD
+#if EITHER(HAS_ABL_OR_UBL, MESH_BED_LEVELING)
+=======
 #if ANY(HAS_ABL_OR_UBL, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_LEVELING 1
   #if DISABLED(AUTO_BED_LEVELING_UBL)
     #define PLANNER_LEVELING 1
@@ -1413,7 +1560,11 @@
   #undef ENABLE_LEVELING_AFTER_G28
   #undef G29_RETRY_AND_RECOVER
 #endif
+<<<<<<< HEAD
+#if !HAS_LEVELING || EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+=======
 #if !HAS_LEVELING || ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #undef PROBE_MANUALLY
 #endif
 #if ANY(HAS_BED_PROBE, PROBE_MANUALLY, MESH_BED_LEVELING)
@@ -1422,7 +1573,11 @@
 
 #ifdef GRID_MAX_POINTS_X
   #define GRID_MAX_POINTS ((GRID_MAX_POINTS_X) * (GRID_MAX_POINTS_Y))
+<<<<<<< HEAD
+  #define GRID_LOOP(A,B) LOOP_L_N(A, GRID_MAX_POINTS_X) LOOP_L_N(B, GRID_MAX_POINTS_Y)
+=======
   #define GRID_LOOP(A,B) for (uint8_t A = 0; A < GRID_MAX_POINTS_X; ++A) for (uint8_t B = 0; B < GRID_MAX_POINTS_Y; ++B)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 // Slim menu optimizations
@@ -1433,6 +1588,15 @@
 /**
  * CoreXY, CoreXZ, and CoreYZ - and their reverse
  */
+<<<<<<< HEAD
+#if EITHER(COREXY, COREYX)
+  #define CORE_IS_XY 1
+#endif
+#if EITHER(COREXZ, COREZX)
+  #define CORE_IS_XZ 1
+#endif
+#if EITHER(COREYZ, COREZY)
+=======
 #if ANY(COREXY, COREYX)
   #define CORE_IS_XY 1
 #endif
@@ -1440,6 +1604,7 @@
   #define CORE_IS_XZ 1
 #endif
 #if ANY(COREYZ, COREZY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define CORE_IS_YZ 1
 #endif
 #if CORE_IS_XY || CORE_IS_XZ || CORE_IS_YZ
@@ -1460,7 +1625,11 @@
     #define CORE_AXIS_2 C_AXIS
   #endif
   #define CORESIGN(n) (ANY(COREYX, COREZX, COREZY) ? (-(n)) : (n))
+<<<<<<< HEAD
+#elif EITHER(MARKFORGED_XY, MARKFORGED_YX)
+=======
 #elif ANY(MARKFORGED_XY, MARKFORGED_YX)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Markforged kinematics
   #define CORE_AXIS_1 A_AXIS
   #define CORE_AXIS_2 B_AXIS
@@ -1484,7 +1653,11 @@
 #endif
 
 // This flag indicates some kind of jerk storage is needed
+<<<<<<< HEAD
+#if EITHER(CLASSIC_JERK, IS_KINEMATIC)
+=======
 #if ANY(CLASSIC_JERK, IS_KINEMATIC)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HAS_CLASSIC_JERK 1
 #endif
 
@@ -1548,12 +1721,20 @@
  *  - TFT_COLOR
  *  - GRAPHICAL_TFT_UPSCALE
  */
+<<<<<<< HEAD
+#if EITHER(MKS_TS35_V2_0, BTT_TFT35_SPI_V1_0)                                 // ST7796
+=======
 #if ANY(MKS_TS35_V2_0, BTT_TFT35_SPI_V1_0)                                    // ST7796
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define TFT_DEFAULT_DRIVER ST7796
   #define TFT_DEFAULT_ORIENTATION TFT_EXCHANGE_XY
   #define TFT_RES_480x320
   #define TFT_INTERFACE_SPI
+<<<<<<< HEAD
+#elif EITHER(LERDGE_TFT35, ANET_ET5_TFT35)                                    // ST7796
+=======
 #elif ANY(LERDGE_TFT35, ANET_ET5_TFT35)                                       // ST7796
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define TFT_DEFAULT_ORIENTATION TFT_EXCHANGE_XY
   #define TFT_RES_480x320
   #define TFT_INTERFACE_FSMC
@@ -1571,7 +1752,11 @@
   #define TFT_DEFAULT_ORIENTATION 0
   #define TFT_RES_480x272
   #define TFT_INTERFACE_FSMC
+<<<<<<< HEAD
+#elif EITHER(MKS_ROBIN_TFT_V1_1R, LONGER_LK_TFT28)                            // ILI9328 or R61505
+=======
 #elif ANY(MKS_ROBIN_TFT_V1_1R, LONGER_LK_TFT28)                               // ILI9328 or R61505
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define TFT_DEFAULT_ORIENTATION (TFT_EXCHANGE_XY | TFT_INVERT_X | TFT_INVERT_Y)
   #define TFT_RES_320x240
   #define TFT_INTERFACE_FSMC
@@ -1682,6 +1867,25 @@
   #endif
 #endif
 
+<<<<<<< HEAD
+#if EITHER(TFT_320x240, TFT_320x240_SPI)
+  #define HAS_UI_320x240 1
+#elif EITHER(TFT_480x320, TFT_480x320_SPI)
+  #define HAS_UI_480x320 1
+#elif EITHER(TFT_480x272, TFT_480x272_SPI)
+  #define HAS_UI_480x272 1
+#elif EITHER(TFT_1024x600_LTDC, TFT_1024x600_SIM)
+  #define HAS_UI_1024x600 1
+#endif
+#if ANY(HAS_UI_320x240, HAS_UI_480x320, HAS_UI_480x272)
+  #if ENABLED(TFT_COLOR_UI_PORTRAIT)
+    #define LCD_HEIGHT TERN(TOUCH_SCREEN, 8, 9) // Fewer lines with touch buttons onscreen
+  #else
+    #define LCD_HEIGHT TERN(TOUCH_SCREEN, 6, 7) // Fewer lines with touch buttons onscreen
+  #endif
+#elif HAS_UI_1024x600
+  #define LCD_HEIGHT TERN(TOUCH_SCREEN, 12, 13) // Fewer lines with touch buttons onscreen
+=======
 #if ANY(TFT_320x240, TFT_320x240_SPI)
   #define HAS_UI_320x240 1
 #elif ANY(TFT_480x320, TFT_480x320_SPI)
@@ -1708,6 +1912,7 @@
   #endif
 #elif HAS_UI_1024x600
   #define LCD_HEIGHT TERN(TOUCH_SCREEN, 12, 13)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 // This emulated DOGM has 'touch/xpt2046', not 'tft/xpt2046'

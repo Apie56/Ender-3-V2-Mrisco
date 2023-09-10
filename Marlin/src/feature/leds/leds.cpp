@@ -30,7 +30,11 @@
 
 #include "leds.h"
 
+<<<<<<< HEAD
+#if EITHER(CASE_LIGHT_USE_RGB_LED, CASE_LIGHT_USE_NEOPIXEL)
+=======
 #if ANY(CASE_LIGHT_USE_RGB_LED, CASE_LIGHT_USE_NEOPIXEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../feature/caselight.h"
 #endif
 
@@ -50,7 +54,11 @@
 LEDLights leds;
 
 void LEDLights::setup() {
+<<<<<<< HEAD
+  #if EITHER(RGB_LED, RGBW_LED)
+=======
   #if ANY(RGB_LED, RGBW_LED)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (PWM_PIN(RGB_LED_R_PIN)) SET_PWM(RGB_LED_R_PIN); else SET_OUTPUT(RGB_LED_R_PIN);
     if (PWM_PIN(RGB_LED_G_PIN)) SET_PWM(RGB_LED_G_PIN); else SET_OUTPUT(RGB_LED_G_PIN);
     if (PWM_PIN(RGB_LED_B_PIN)) SET_PWM(RGB_LED_B_PIN); else SET_OUTPUT(RGB_LED_B_PIN);
@@ -76,8 +84,13 @@ void LEDLights::setup() {
         #endif
         delay(200);
 
+<<<<<<< HEAD
+        LOOP_L_N(i, led_pin_count) {
+          LOOP_LE_N(b, 200) {
+=======
         for (uint8_t i = 0; i < led_pin_count; ++i) {
           for (uint8_t b = 0; b <= 200; ++b) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             const uint16_t led_pwm = b <= 100 ? b : 200 - b;
             if (i == 0 && PWM_PIN(RGB_LED_R_PIN)) hal.set_pwm_duty(pin_t(RGB_LED_R_PIN), led_pwm); else WRITE(RGB_LED_R_PIN, b < 100 ? HIGH : LOW);
             if (i == 1 && PWM_PIN(RGB_LED_G_PIN)) hal.set_pwm_duty(pin_t(RGB_LED_G_PIN), led_pwm); else WRITE(RGB_LED_G_PIN, b < 100 ? HIGH : LOW);
@@ -96,7 +109,11 @@ void LEDLights::setup() {
       }
     #endif // RGB_STARTUP_TEST
 
+<<<<<<< HEAD
+  #elif BOTH(PCA9632, RGB_STARTUP_TEST)   // PCA9632 RGB_STARTUP_TEST
+=======
   #elif ALL(PCA9632, RGB_STARTUP_TEST)   // PCA9632 RGB_STARTUP_TEST
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     constexpr int8_t led_pin_count = TERN(HAS_WHITE_LED, 4, 3);
 
@@ -105,7 +122,11 @@ void LEDLights::setup() {
     PCA9632_set_led_color(curColor);      // blackout
     delay(200);
 
+<<<<<<< HEAD
+    /*
+=======
     /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
      * LED Pin Counter steps -> events
      * | 0-100 | 100-200 | 200-300 | 300-400 |
      *  fade in   steady |           fade out
@@ -118,7 +139,11 @@ void LEDLights::setup() {
     while (led_pin_counters[0] != 99 || !canEnd) {
       if (led_pin_counters[0] == 99)        // End loop next time pin0 counter is 99
         canEnd = true;
+<<<<<<< HEAD
+      LOOP_L_N(i, led_pin_count) {
+=======
       for (uint8_t i = 0; i < led_pin_count; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if (led_pin_counters[i] > 0) {
           if (++led_pin_counters[i] == 400) // turn off current pin counter in led_pin_counters
             led_pin_counters[i] = 0;
@@ -140,7 +165,11 @@ void LEDLights::setup() {
     }
 
     // Fade to white
+<<<<<<< HEAD
+    LOOP_LE_N(led_pwm, 100) {
+=======
     for (uint8_t led_pwm = 0; led_pwm <= 100; ++led_pwm) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       NOLESS(curColor.r, led_pwm);
       NOLESS(curColor.g, led_pwm);
       NOLESS(curColor.b, led_pwm);
@@ -176,7 +205,11 @@ void LEDLights::set_color(const LEDColor &incol
       #endif
     #endif
 
+<<<<<<< HEAD
+    #if BOTH(CASE_LIGHT_MENU, CASE_LIGHT_USE_NEOPIXEL)
+=======
     #if ALL(CASE_LIGHT_MENU, CASE_LIGHT_USE_NEOPIXEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       // Update brightness only if caselight is ON or switching leds off
       if (caselight.on || incol.is_off())
     #endif
@@ -191,7 +224,11 @@ void LEDLights::set_color(const LEDColor &incol
       }
     #endif
 
+<<<<<<< HEAD
+    #if BOTH(CASE_LIGHT_MENU, CASE_LIGHT_USE_NEOPIXEL)
+=======
     #if ALL(CASE_LIGHT_MENU, CASE_LIGHT_USE_NEOPIXEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       // Update color only if caselight is ON or switching leds off
       if (caselight.on || incol.is_off())
     #endif
@@ -206,7 +243,11 @@ void LEDLights::set_color(const LEDColor &incol
 
   #endif
 
+<<<<<<< HEAD
+  #if EITHER(RGB_LED, RGBW_LED)
+=======
   #if ANY(RGB_LED, RGBW_LED)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     // This variant uses 3-4 separate pins for the RGB(W) components.
     // If the pins can do PWM then their intensity will be set.
@@ -228,7 +269,11 @@ void LEDLights::set_color(const LEDColor &incol
   TERN_(PCA9632, PCA9632_set_led_color(incol));
   TERN_(PCA9533, PCA9533_set_rgb(incol.r, incol.g, incol.b));
 
+<<<<<<< HEAD
+  #if EITHER(LED_CONTROL_MENU, PRINTER_EVENT_LEDS)
+=======
   #if ANY(LED_CONTROL_MENU, PRINTER_EVENT_LEDS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     // Don't update the color when OFF
     lights_on = !incol.is_off();
     if (lights_on) color = incol;

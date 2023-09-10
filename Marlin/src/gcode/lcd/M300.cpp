@@ -36,6 +36,8 @@
  *  P<duration>  - (ms) The duration of the tone.
  */
 void GcodeSuite::M300() {
+<<<<<<< HEAD
+=======
 
   #if ENABLED(SOUND_MENU_ITEM)
     if (parser.seen('E')) { 
@@ -44,6 +46,7 @@ void GcodeSuite::M300() {
     }
   #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   const uint16_t frequency = parser.ushortval('S', 260);
   uint16_t duration = parser.ushortval('P', 1000);
 

@@ -24,7 +24,11 @@
  * e_parser.cpp - Intercept special commands directly in the serial stream
  */
 
+<<<<<<< HEAD
+#include "../inc/MarlinConfigPre.h"
+=======
 #include "../inc/MarlinConfig.h"
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #if ENABLED(EMERGENCY_PARSER)
 
@@ -39,13 +43,18 @@ bool EmergencyParser::killed_by_M112, // = false
      EmergencyParser::enabled;
 
 #if ENABLED(HOST_PROMPT_SUPPORT)
+<<<<<<< HEAD
+=======
   #include "host_actions.h"
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   uint8_t EmergencyParser::M876_reason; // = 0
 #endif
 
 // Global instance
 EmergencyParser emergency_parser;
 
+<<<<<<< HEAD
+=======
 // External references
 extern bool wait_for_user, wait_for_heatup;
 
@@ -228,4 +237,5 @@ void EmergencyParser::update(EmergencyParser::State &state, const uint8_t c) {
   }
 }
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif // EMERGENCY_PARSER

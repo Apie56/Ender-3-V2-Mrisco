@@ -27,7 +27,11 @@
  */
 //#include "output_table.h"
 
+<<<<<<< HEAD
+/*
+=======
 /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Parameters:
  * A: -0.000480634
  * B: 0.00031362

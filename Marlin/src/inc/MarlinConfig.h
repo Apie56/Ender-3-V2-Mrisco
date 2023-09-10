@@ -55,9 +55,13 @@
   // Include all core headers
   #include "../core/language.h"
   #include "../core/utility.h"
+<<<<<<< HEAD
+  #include "../core/serial.h"
+=======
   #include "../core/mstring.h"
   #include "../core/serial.h"
   #include "../core/endianness.h"
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #endif
 

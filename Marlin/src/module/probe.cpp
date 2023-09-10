@@ -57,9 +57,15 @@
   float largest_sensorless_adj = 0;
 #endif
 
+<<<<<<< HEAD
+#if EITHER(HAS_QUIET_PROBING, USE_SENSORLESS)
+  #include "stepper/indirection.h"
+  #if BOTH(HAS_QUIET_PROBING, PROBING_ESTEPPERS_OFF)
+=======
 #if ANY(HAS_QUIET_PROBING, USE_SENSORLESS)
   #include "stepper/indirection.h"
   #if ALL(HAS_QUIET_PROBING, PROBING_ESTEPPERS_OFF)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #include "stepper.h"
   #endif
   #if USE_SENSORLESS
@@ -358,8 +364,13 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
 
     FSTR_P const ds_str = deploy ? GET_TEXT_F(MSG_MANUAL_DEPLOY) : GET_TEXT_F(MSG_MANUAL_STOW);
     ui.return_to_status();       // To display the new status message
+<<<<<<< HEAD
+    ui.set_status(ds_str, 99);
+    SERIAL_ECHOLNF(deploy ? GET_EN_TEXT_F(MSG_MANUAL_DEPLOY) : GET_EN_TEXT_F(MSG_MANUAL_STOW));
+=======
     ui.set_max_status(ds_str);
     SERIAL_ECHOLN(deploy ? GET_EN_TEXT_F(MSG_MANUAL_DEPLOY) : GET_EN_TEXT_F(MSG_MANUAL_STOW));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     OKAY_BUZZ();
 
@@ -377,7 +388,11 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
 
     TERN_(HOST_PROMPT_SUPPORT, hostui.continue_prompt(ds_str));
     TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired(ds_str));
+<<<<<<< HEAD
+    TERN_(DWIN_LCD_PROUI, DWIN_Popup_Confirm(ICON_BLTouch, ds_str, FPSTR(CONTINUE_STR)));
+=======
     TERN_(DWIN_LCD_PROUI, dwinPopupConfirm(ICON_BLTouch, ds_str, FPSTR(CONTINUE_STR)));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     TERN_(HAS_RESUME_CONTINUE, wait_for_user_response());
 
     ui.reset_status();
@@ -429,7 +444,11 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
   #endif
 }
 
+<<<<<<< HEAD
+#if EITHER(PREHEAT_BEFORE_PROBING, PREHEAT_BEFORE_LEVELING)
+=======
 #if ANY(PREHEAT_BEFORE_PROBING, PREHEAT_BEFORE_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if ENABLED(PREHEAT_BEFORE_PROBING)
     #ifndef PROBING_NOZZLE_TEMP
@@ -490,7 +509,11 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
 void Probe::probe_error_stop() {
   SERIAL_ERROR_START();
   SERIAL_ECHOPGM(STR_STOP_PRE);
+<<<<<<< HEAD
+  #if EITHER(Z_PROBE_SLED, Z_PROBE_ALLEN_KEY)
+=======
   #if ANY(Z_PROBE_SLED, Z_PROBE_ALLEN_KEY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     SERIAL_ECHOPGM(STR_STOP_UNHOMED);
   #elif ENABLED(BLTOUCH)
     SERIAL_ECHOPGM(STR_STOP_BLTOUCH);
@@ -515,7 +538,11 @@ bool Probe::set_deployed(const bool deploy, const bool no_return/*=false*/) {
   // Make room for probe to deploy (or stow)
   // Fix-mounted probe should only raise for deploy
   // unless PAUSE_BEFORE_DEPLOY_STOW is enabled
+<<<<<<< HEAD
+  #if EITHER(FIX_MOUNTED_PROBE, NOZZLE_AS_PROBE) && DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
+=======
   #if ANY(FIX_MOUNTED_PROBE, NOZZLE_AS_PROBE) && DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     const bool z_raise_wanted = deploy;
   #else
     constexpr bool z_raise_wanted = true;
@@ -527,7 +554,11 @@ bool Probe::set_deployed(const bool deploy, const bool no_return/*=false*/) {
     do_z_clearance(zdest);
   }
 
+<<<<<<< HEAD
+  #if EITHER(Z_PROBE_SLED, Z_PROBE_ALLEN_KEY)
+=======
   #if ANY(Z_PROBE_SLED, Z_PROBE_ALLEN_KEY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (homing_needed_error(TERN_(Z_PROBE_SLED, _BV(X_AXIS)))) {
       probe_error_stop();
       return true;
@@ -588,6 +619,20 @@ bool Probe::set_deployed(const bool deploy, const bool no_return/*=false*/) {
 bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
   DEBUG_SECTION(log_probe, "Probe::probe_down_to_z", DEBUGGING(LEVELING));
 
+<<<<<<< HEAD
+  #if BOTH(HAS_HEATED_BED, WAIT_FOR_BED_HEATER)
+    thermalManager.wait_for_bed_heating();
+  #endif
+
+  #if BOTH(HAS_TEMP_HOTEND, WAIT_FOR_HOTEND)
+    thermalManager.wait_for_hotend_heating(active_extruder);
+  #endif
+
+  #if ENABLED(BLTOUCH)
+    if (!bltouch.high_speed_mode && bltouch.deploy())
+      return true; // Deploy in LOW SPEED MODE on every probe action
+  #endif
+=======
   #if ALL(HAS_HEATED_BED, WAIT_FOR_BED_HEATER)
     thermalManager.wait_for_bed_heating();
   #endif
@@ -598,6 +643,7 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
 
   // Ensure the BLTouch is deployed. Does nothing if already deployed.
   if (TERN0(BLTOUCH, bltouch.deploy())) return true;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if HAS_Z_SERVO_PROBE && (ENABLED(Z_SERVO_INTERMEDIATE_STOW) || defined(Z_SERVO_MEASURE_ANGLE))
     probe_specific_action(true);  //  Always re-deploy in this case
@@ -610,6 +656,10 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
       if (test_sensitivity.x) stealth_states.x = tmc_enable_stallguard(stepperX); // Delta watches all DIAG pins for a stall
       if (test_sensitivity.y) stealth_states.y = tmc_enable_stallguard(stepperY);
     #endif
+<<<<<<< HEAD
+    if (test_sensitivity.z) stealth_states.z = tmc_enable_stallguard(stepperZ);   // All machines will check Z-DIAG for stall
+    endstops.set_homing_current(true);                                            // The "homing" current also applies to probing
+=======
     if (test_sensitivity.z) {
       stealth_states.z = tmc_enable_stallguard(stepperZ);                         // All machines will check Z-DIAG for stall
       #if ENABLED(Z_MULTI_ENDSTOPS)
@@ -623,6 +673,7 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
       #endif
     }
     endstops.set_z_sensorless_current(true);                                            // The "homing" current also applies to probing
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     endstops.enable(true);
   #endif // SENSORLESS_PROBING
 
@@ -654,6 +705,11 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
       if (test_sensitivity.x) tmc_disable_stallguard(stepperX, stealth_states.x);
       if (test_sensitivity.y) tmc_disable_stallguard(stepperY, stealth_states.y);
     #endif
+<<<<<<< HEAD
+    if (test_sensitivity.z) tmc_disable_stallguard(stepperZ, stealth_states.z);
+    endstops.set_homing_current(false);
+  #endif
+=======
     if (test_sensitivity.z) {
       tmc_disable_stallguard(stepperZ, stealth_states.z);
       #if ENABLED(Z_MULTI_ENDSTOPS)
@@ -668,13 +724,18 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
     }
     endstops.set_z_sensorless_current(false);
   #endif // SENSORLESS_PROBING
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if ENABLED(BLTOUCH)
     if (probe_triggered && !bltouch.high_speed_mode && bltouch.stow())
       return true; // Stow in LOW SPEED MODE on every trigger
   #endif
 
+<<<<<<< HEAD
+  #if BOTH(HAS_Z_SERVO_PROBE, Z_SERVO_INTERMEDIATE_STOW)
+=======
   #if ALL(HAS_Z_SERVO_PROBE, Z_SERVO_INTERMEDIATE_STOW)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     probe_specific_action(false);  //  Always stow
   #endif
 
@@ -709,7 +770,11 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
    * @return TRUE if the tare cold not be completed
    */
   bool Probe::tare() {
+<<<<<<< HEAD
+    #if BOTH(PROBE_ACTIVATION_SWITCH, PROBE_TARE_ONLY_WHILE_INACTIVE)
+=======
     #if ALL(PROBE_ACTIVATION_SWITCH, PROBE_TARE_ONLY_WHILE_INACTIVE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       if (endstops.probe_switch_activated()) {
         if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Cannot tare an active probe");
         return true;
@@ -832,7 +897,11 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
 
         #if EXTRA_PROBING > 0
           // Insert Z measurement into probes[]. Keep it sorted ascending.
+<<<<<<< HEAD
+          LOOP_LE_N(i, p) {                                             // Iterate the saved Zs to insert the new Z
+=======
           for (uint8_t i = 0; i <= p; ++i) {                                             // Iterate the saved Zs to insert the new Z
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             if (i == p || probes[i] > z) {                              // Last index or new Z is smaller than this Z
               for (int8_t m = p; --m >= i;) probes[m + 1] = probes[m];  // Shift items down after the insertion point
               probes[i] = z;                                            // Insert the new Z measurement
@@ -870,7 +939,11 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
             max_avg_idx--; else min_avg_idx++;
 
         // Return the average value of all remaining probes.
+<<<<<<< HEAD
+        LOOP_S_LE_N(i, min_avg_idx, max_avg_idx)
+=======
         for (uint8_t i = min_avg_idx; i <= max_avg_idx; ++i)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           probes_z_sum += probes[i];
 
       #endif
@@ -1078,10 +1151,13 @@ float Probe::probe_at_point(const_float_t rx, const_float_t ry, const ProbePtRai
 
 #endif
 
+<<<<<<< HEAD
+=======
 #if ENABLED(DWIN_LCD_PROUI)
   float probe_at_point(const_float_t rx, const_float_t ry, const bool raise_after) {
     return probe.probe_at_point(rx, ry, raise_after ? PROBE_PT_STOW : PROBE_PT_RAISE);
   }
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif // HAS_BED_PROBE

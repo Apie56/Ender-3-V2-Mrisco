@@ -67,9 +67,15 @@ float lcd_probe_pt(const xy_pos_t &xy);
 
 void ac_home() {
   endstops.enable(true);
+<<<<<<< HEAD
+  TERN_(SENSORLESS_HOMING, endstops.set_homing_current(true));
+  home_delta();
+  TERN_(SENSORLESS_HOMING, endstops.set_homing_current(false));
+=======
   TERN_(SENSORLESS_HOMING, endstops.set_z_sensorless_current(true));
   home_delta();
   TERN_(SENSORLESS_HOMING, endstops.set_z_sensorless_current(false));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   endstops.not_homing();
 }
 
@@ -92,7 +98,12 @@ void ac_cleanup(TERN_(HAS_MULTI_HOTEND, const uint8_t old_tool_index)) {
 }
 
 void print_signed_float(FSTR_P const prefix, const_float_t f) {
+<<<<<<< HEAD
+  SERIAL_ECHOPGM("  ");
+  SERIAL_ECHOF(prefix, AS_CHAR(':'));
+=======
   SERIAL_ECHO(F("  "), prefix, AS_CHAR(':'));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   serial_offset(f);
 }
 
@@ -635,6 +646,18 @@ void GcodeSuite::G33() {
           else
         #endif
           {
+<<<<<<< HEAD
+            SERIAL_ECHOPAIR_F("std dev:", zero_std_dev_min, 3);
+          }
+        SERIAL_EOL();
+        char mess[21];
+        strcpy_P(mess, PSTR("Calibration sd:"));
+        if (zero_std_dev_min < 1)
+          sprintf_P(&mess[15], PSTR("0.%03i"), (int)LROUND(zero_std_dev_min * 1000.0f));
+        else
+          sprintf_P(&mess[15], PSTR("%03i.x"), (int)LROUND(zero_std_dev_min));
+        ui.set_status(mess);
+=======
             SERIAL_ECHOPGM("std dev:", p_float_t(zero_std_dev_min, 3));
           }
         SERIAL_EOL();
@@ -645,10 +668,22 @@ void GcodeSuite::G33() {
         else
           msg.appendf(F("%03i.x"), (int)LROUND(zero_std_dev_min));
         ui.set_status(msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         print_calibration_settings(_endstop_results, _angle_results);
         SERIAL_ECHOLNPGM("Save with M500 and/or copy to Configuration.h");
       }
       else { // !end iterations
+<<<<<<< HEAD
+        char mess[15];
+        if (iterations < 31)
+          sprintf_P(mess, PSTR("Iteration : %02i"), (unsigned int)iterations);
+        else
+          strcpy_P(mess, PSTR("No convergence"));
+        SERIAL_ECHO(mess);
+        SERIAL_ECHO_SP(32);
+        SERIAL_ECHOLNPAIR_F("std dev:", zero_std_dev, 3);
+        ui.set_status(mess);
+=======
         SString<15> msg;
         if (iterations < 31)
           msg.setf(F("Iteration : %02i"), (unsigned int)iterations);
@@ -658,12 +693,27 @@ void GcodeSuite::G33() {
         SERIAL_ECHO_SP(32);
         SERIAL_ECHOLNPGM("std dev:", p_float_t(zero_std_dev, 3));
         ui.set_status(msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if (verbose_level > 1)
           print_calibration_settings(_endstop_results, _angle_results);
       }
     }
     else { // dry run
       FSTR_P const enddryrun = F("End DRY-RUN");
+<<<<<<< HEAD
+      SERIAL_ECHOF(enddryrun);
+      SERIAL_ECHO_SP(35);
+      SERIAL_ECHOLNPAIR_F("std dev:", zero_std_dev, 3);
+
+      char mess[21];
+      strcpy_P(mess, FTOP(enddryrun));
+      strcpy_P(&mess[11], PSTR(" sd:"));
+      if (zero_std_dev < 1)
+        sprintf_P(&mess[15], PSTR("0.%03i"), (int)LROUND(zero_std_dev * 1000.0f));
+      else
+        sprintf_P(&mess[15], PSTR("%03i.x"), (int)LROUND(zero_std_dev));
+      ui.set_status(mess);
+=======
       SERIAL_ECHO(enddryrun);
       SERIAL_ECHO_SP(35);
       SERIAL_ECHOLNPGM("std dev:", p_float_t(zero_std_dev, 3));
@@ -673,6 +723,7 @@ void GcodeSuite::G33() {
       else
         msg.appendf(F("%03i.x"), (int)LROUND(zero_std_dev));
       ui.set_status(msg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
     ac_home();
   }

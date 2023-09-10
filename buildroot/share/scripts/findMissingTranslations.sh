@@ -9,6 +9,8 @@
 # If no language codes are specified then all languages will be checked
 #
 
+<<<<<<< HEAD
+=======
 langname() {
   case "$1" in
      an   ) echo "Aragonese" ;;            bg     ) echo "Bulgarian" ;;
@@ -32,6 +34,7 @@ langname() {
   esac
 }
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 LANGHOME="Marlin/src/lcd/language"
 
 [ -d $LANGHOME ] && cd $LANGHOME
@@ -43,7 +46,11 @@ TEST_LANGS=""
 if [[ -n $@ ]]; then
   for K in "$@"; do
     for F in $FILES; do
+<<<<<<< HEAD
+      [[ "$F" != "${F%$K*}" ]] && TEST_LANGS+="$F "
+=======
       [[ $F == $K ]] && TEST_LANGS+="$F "
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     done
   done
   [[ -z $TEST_LANGS ]] && { echo "No languages matching $@." ; exit 0 ; }
@@ -51,6 +58,13 @@ else
   TEST_LANGS=$FILES
 fi
 
+<<<<<<< HEAD
+echo "Missing strings for $TEST_LANGS..."
+
+for WORD in $(awk '/LSTR/{print $2}' language_en.h); do
+  [[ $WORD == "MSG_MARLIN" ]] && break
+  LANG_LIST=""
+=======
 echo "Finding all missing strings for $TEST_LANGS..."
 
 WORD_LINES=()   # Complete lines for all words (or, grep out of en at the end instead)
@@ -70,10 +84,20 @@ for WORD in $(awk '/LSTR/{print $2}' language_en.h); do
 
   # Find all selected languages that lack the string
   LANG_MISSING=" "
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   for LANG in $TEST_LANGS; do
     if [[ $(grep -c -E "^ *LSTR +$WORD\b" language_${LANG}.h) -eq 0 ]]; then
       INHERIT=$(awk '/using namespace/{print $3}' language_${LANG}.h | sed -E 's/Language_([a-zA-Z_]+)\s*;/\1/')
       if [[ -z $INHERIT || $INHERIT == "en" ]]; then
+<<<<<<< HEAD
+        LANG_LIST+=" $LANG"
+      elif [[ $(grep -c -E "^ *LSTR +$WORD\b" language_${INHERIT}.h) -eq 0 ]]; then
+        LANG_LIST+=" $LANG"
+      fi
+    fi
+  done
+  [[ -n $LANG_LIST ]] && printf "%-38s :%s\n" "$WORD" "$LANG_LIST"
+=======
         LANG_MISSING+="$LANG "
       elif [[ $(grep -c -E "^ *LSTR +$WORD\b" language_${INHERIT}.h) -eq 0 ]]; then
         LANG_MISSING+="$LANG "
@@ -101,4 +125,5 @@ for LANG in $TEST_LANGS; do
     fi
     ((IND++))
   done
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 done

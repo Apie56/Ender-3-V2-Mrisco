@@ -42,9 +42,12 @@
 #if ABL_PLANAR
   #include "../../../libs/vector_3.h"
 #endif
+<<<<<<< HEAD
+=======
 #if ENABLED(BD_SENSOR_PROBE_NO_STOP)
   #include "../../../feature/bedlevel/bdl/bdl.h"
 #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../../../lcd/marlinui.h"
 #if ENABLED(EXTENSIBLE_UI)
@@ -81,7 +84,11 @@ static void pre_g29_return(const bool retry, const bool did) {
     TERN_(FULL_REPORT_TO_HOST_FEATURE, set_and_report_grblstate(M_IDLE, false));
   }
   if (did) {
+<<<<<<< HEAD
+    TERN_(HAS_DWIN_E3V2_BASIC, DWIN_LevelingDone());
+=======
     TERN_(HAS_DWIN_E3V2_BASIC, dwinLevelingDone());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     TERN_(EXTENSIBLE_UI, ExtUI::onLevelingDone());
   }
 }
@@ -100,7 +107,11 @@ public:
   bool      dryrun,
             reenable;
 
+<<<<<<< HEAD
+  #if EITHER(PROBE_MANUALLY, AUTO_BED_LEVELING_LINEAR)
+=======
   #if ANY(PROBE_MANUALLY, AUTO_BED_LEVELING_LINEAR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     int abl_probe_index;
   #endif
 
@@ -146,7 +157,11 @@ public:
   #endif
 };
 
+<<<<<<< HEAD
+#if ABL_USES_GRID && EITHER(AUTO_BED_LEVELING_3POINT, AUTO_BED_LEVELING_BILINEAR)
+=======
 #if ABL_USES_GRID && ANY(AUTO_BED_LEVELING_3POINT, AUTO_BED_LEVELING_BILINEAR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if DISABLED(PROUI_EX)
     constexpr xy_uint8_t G29_State::grid_points;
     constexpr grid_count_t G29_State::abl_points;
@@ -240,7 +255,11 @@ G29_TYPE GcodeSuite::G29() {
   reset_stepper_timeout();
 
   // Q = Query leveling and G29 state
+<<<<<<< HEAD
+  const bool seenQ = EITHER(DEBUG_LEVELING_FEATURE, PROBE_MANUALLY) && parser.seen_test('Q');
+=======
   const bool seenQ = ANY(DEBUG_LEVELING_FEATURE, PROBE_MANUALLY) && parser.seen_test('Q');
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // G29 Q is also available if debugging
   #if ENABLED(DEBUG_LEVELING_FEATURE)
@@ -260,7 +279,11 @@ G29_TYPE GcodeSuite::G29() {
     G29_RETURN(false, false);
   }
 
+<<<<<<< HEAD
+  #if BOTH(DWIN_LCD_PROUI, ZHOME_BEFORE_LEVELING)
+=======
   #if ALL(DWIN_LCD_PROUI, ZHOME_BEFORE_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     process_subcommands_now(F("G28Z"));
   #else
     // Send 'N' to force homing before G29 (internal only)
@@ -292,7 +315,11 @@ G29_TYPE GcodeSuite::G29() {
 
     probe.use_probing_tool();
 
+<<<<<<< HEAD
+    #if EITHER(PROBE_MANUALLY, AUTO_BED_LEVELING_LINEAR)
+=======
     #if ANY(PROBE_MANUALLY, AUTO_BED_LEVELING_LINEAR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       abl.abl_probe_index = -1;
     #endif
 
@@ -439,7 +466,11 @@ G29_TYPE GcodeSuite::G29() {
       if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("> 3-point Leveling");
       points[0].z = points[1].z = points[2].z = 0;  // Probe at 3 arbitrary points
     #elif ENABLED(AUTO_BED_LEVELING_BILINEAR)
+<<<<<<< HEAD
+      TERN_(DWIN_LCD_PROUI, DWIN_LevelingStart());
+=======
       TERN_(DWIN_LCD_PROUI, dwinLevelingStart());
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #endif
 
     TERN_(EXTENSIBLE_UI, ExtUI::onLevelingStart());
@@ -449,8 +480,13 @@ G29_TYPE GcodeSuite::G29() {
 
       #if ENABLED(PREHEAT_BEFORE_LEVELING)
         if (!abl.dryrun) probe.preheat_for_probing(LEVELING_NOZZLE_TEMP,
+<<<<<<< HEAD
+          #if BOTH(DWIN_LCD_PROUI, HAS_HEATED_BED)
+            HMI_data.BedLevT
+=======
           #if ALL(DWIN_LCD_PROUI, HAS_HEATED_BED)
             hmiData.bedLevT
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           #else
             LEVELING_BED_TEMP
           #endif
@@ -497,7 +533,11 @@ G29_TYPE GcodeSuite::G29() {
     if (!no_action) set_bed_leveling_enabled(false);
 
     // Deploy certain probes before starting probing
+<<<<<<< HEAD
+    #if ENABLED(BLTOUCH) || BOTH(HAS_Z_SERVO_PROBE, Z_SERVO_INTERMEDIATE_STOW)
+=======
     #if ENABLED(BLTOUCH) || ALL(HAS_Z_SERVO_PROBE, Z_SERVO_INTERMEDIATE_STOW)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       do_z_clearance(Z_CLEARANCE_DEPLOY_PROBE);
     #elif HAS_BED_PROBE
       if (probe.deploy()) { // (returns true on deploy failure)
@@ -555,7 +595,11 @@ G29_TYPE GcodeSuite::G29() {
     }
     else {
 
+<<<<<<< HEAD
+      #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_3POINT)
+=======
       #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_3POINT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         const uint16_t index = abl.abl_probe_index - 1;
       #endif
 
@@ -676,7 +720,11 @@ G29_TYPE GcodeSuite::G29() {
 
         int8_t inStart, inStop, inInc;
 
+<<<<<<< HEAD
+        TERN_(PROUI_EX, if (ProEx.QuitLeveling()) break; )
+=======
         TERN_(PROUI_EX, if (proUIEx.quitLeveling()) break; )
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         if (zig) {                      // Zig away from origin
           inStart = 0;                  // Left or front
@@ -708,6 +756,9 @@ G29_TYPE GcodeSuite::G29() {
           if (abl.verbose_level) SERIAL_ECHOLNPGM("Probing mesh point ", pt_index, "/", abl.abl_points, ".");
           TERN_(HAS_STATUS_MESSAGE, ui.status_printf(0, F(S_FMT " %i/%i"), GET_TEXT(MSG_PROBING_POINT), int(pt_index), int(abl.abl_points)));
 
+<<<<<<< HEAD
+          abl.measured_z = faux ? 0.001f * random(-100, 101) : probe.probe_at_point(abl.probePos, raise_after, abl.verbose_level);
+=======
           #if ENABLED(BD_SENSOR_PROBE_NO_STOP)
             if (PR_INNER_VAR == inStart) {
               char tmp_1[32];
@@ -768,6 +819,7 @@ G29_TYPE GcodeSuite::G29() {
             abl.measured_z = faux ? 0.001f * random(-100, 101) : probe.probe_at_point(abl.probePos, raise_after, abl.verbose_level);
 
           #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
           if (isnan(abl.measured_z)) {
             set_bed_leveling_enabled(abl.reenable);
@@ -789,13 +841,21 @@ G29_TYPE GcodeSuite::G29() {
             const float z = abl.measured_z + abl.Z_offset;
             abl.z_values[abl.meshCount.x][abl.meshCount.y] = z;
             TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(abl.meshCount, z));
+<<<<<<< HEAD
+            TERN_(PROUI_EX, ProEx.MeshUpdate(abl.meshCount.x, abl.meshCount.y, z));
+=======
             TERN_(PROUI_EX, proUIEx.meshUpdate(abl.meshCount.x, abl.meshCount.y, z));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
           #endif
 
           abl.reenable = false; // Don't re-enable after modifying the mesh
           idle_no_sleep();
+<<<<<<< HEAD
+          TERN_(PROUI_EX, if (ProEx.QuitLeveling()) break; )
+=======
           TERN_(PROUI_EX, if (proUIEx.quitLeveling()) break; )
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         } // inner
       } // outer
@@ -804,7 +864,11 @@ G29_TYPE GcodeSuite::G29() {
 
       // Probe at 3 arbitrary points
 
+<<<<<<< HEAD
+      LOOP_L_N(i, 3) {
+=======
       for (uint8_t i = 0; i < 3; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if (abl.verbose_level) SERIAL_ECHOLNPGM("Probing point ", i + 1, "/3.");
         TERN_(HAS_STATUS_MESSAGE, ui.status_printf(0, F(S_FMT " %i/3"), GET_TEXT(MSG_PROBING_POINT), int(i + 1)));
 
@@ -893,11 +957,19 @@ G29_TYPE GcodeSuite::G29() {
       abl.mean /= abl.abl_points;
 
       if (abl.verbose_level) {
+<<<<<<< HEAD
+        SERIAL_ECHOPAIR_F("Eqn coefficients: a: ", plane_equation_coefficients.a, 8);
+        SERIAL_ECHOPAIR_F(" b: ", plane_equation_coefficients.b, 8);
+        SERIAL_ECHOPAIR_F(" d: ", plane_equation_coefficients.d, 8);
+        if (abl.verbose_level > 2)
+          SERIAL_ECHOPAIR_F("\nMean of sampled points: ", abl.mean, 8);
+=======
         SERIAL_ECHOPGM("Eqn coefficients: a: ", p_float_t(plane_equation_coefficients.a, 8),
                                         " b: ", p_float_t(plane_equation_coefficients.b, 8),
                                         " d: ", p_float_t(plane_equation_coefficients.d, 8));
         if (abl.verbose_level > 2)
           SERIAL_ECHOPGM("\nMean of sampled points: ", p_float_t(abl.mean, 8));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         SERIAL_EOL();
       }
 
@@ -913,9 +985,15 @@ G29_TYPE GcodeSuite::G29() {
         float min_diff = 999;
 
         auto print_topo_map = [&](FSTR_P const title, const bool get_min) {
+<<<<<<< HEAD
+          SERIAL_ECHOF(title);
+          for (int8_t yy = abl.grid_points.y - 1; yy >= 0; yy--) {
+            LOOP_L_N(xx, abl.grid_points.x) {
+=======
           SERIAL_ECHO(title);
           for (int8_t yy = abl.grid_points.y - 1; yy >= 0; yy--) {
             for (uint8_t xx = 0; xx < abl.grid_points.x; ++xx) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
               const int ind = abl.indexIntoAB[xx][yy];
               xyz_float_t tmp = { abl.eqnAMatrix[ind + 0 * abl.abl_points],
                                   abl.eqnAMatrix[ind + 1 * abl.abl_points], 0 };
@@ -924,7 +1002,11 @@ G29_TYPE GcodeSuite::G29() {
               const float subval = get_min ? abl.mean : tmp.z + min_diff,
                             diff = abl.eqnBVector[ind] - subval;
               SERIAL_CHAR(' '); if (diff >= 0.0) SERIAL_CHAR('+');   // Include + for column alignment
+<<<<<<< HEAD
+              SERIAL_ECHO_F(diff, 5);
+=======
               SERIAL_ECHO(p_float_t(diff, 5));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             } // xx
             SERIAL_EOL();
           } // yy

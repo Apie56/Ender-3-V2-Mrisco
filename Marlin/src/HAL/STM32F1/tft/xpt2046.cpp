@@ -59,7 +59,11 @@ uint16_t delta(uint16_t a, uint16_t b) { return a > b ? a - b : b - a; }
   }
 #endif // TOUCH_BUTTONS_HW_SPI
 
+<<<<<<< HEAD
+void XPT2046::Init() {
+=======
 void XPT2046::init() {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   SET_INPUT(TOUCH_MISO_PIN);
   SET_OUTPUT(TOUCH_MOSI_PIN);
   SET_OUTPUT(TOUCH_SCK_PIN);
@@ -97,7 +101,11 @@ bool XPT2046::getRawPoint(int16_t *x, int16_t *y) {
 uint16_t XPT2046::getRawData(const XPTCoordinate coordinate) {
   uint16_t data[3];
 
+<<<<<<< HEAD
+  DataTransferBegin();
+=======
   dataTransferBegin();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   TERN_(TOUCH_BUTTONS_HW_SPI, SPIx.begin());
 
   for (uint16_t i = 0; i < 3 ; i++) {
@@ -106,7 +114,11 @@ uint16_t XPT2046::getRawData(const XPTCoordinate coordinate) {
   }
 
   TERN_(TOUCH_BUTTONS_HW_SPI, SPIx.end());
+<<<<<<< HEAD
+  DataTransferEnd();
+=======
   dataTransferEnd();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   uint16_t delta01 = delta(data[0], data[1]),
            delta02 = delta(data[0], data[2]),
@@ -119,17 +131,29 @@ uint16_t XPT2046::getRawData(const XPTCoordinate coordinate) {
 }
 
 uint16_t XPT2046::IO(uint16_t data) {
+<<<<<<< HEAD
+  return TERN(TOUCH_BUTTONS_HW_SPI, HardwareIO, SoftwareIO)(data);
+}
+
+#if ENABLED(TOUCH_BUTTONS_HW_SPI)
+  uint16_t XPT2046::HardwareIO(uint16_t data) {
+=======
   return TERN(TOUCH_BUTTONS_HW_SPI, hardwareIO, softwareIO)(data);
 }
 
 #if ENABLED(TOUCH_BUTTONS_HW_SPI)
   uint16_t XPT2046::hardwareIO(uint16_t data) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     uint16_t result = SPIx.transfer(data);
     return result;
   }
 #endif
 
+<<<<<<< HEAD
+uint16_t XPT2046::SoftwareIO(uint16_t data) {
+=======
 uint16_t XPT2046::softwareIO(uint16_t data) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   uint16_t result = 0;
 
   for (uint8_t j = 0x80; j; j >>= 1) {

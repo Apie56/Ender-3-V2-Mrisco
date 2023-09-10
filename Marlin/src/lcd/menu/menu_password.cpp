@@ -26,7 +26,11 @@
 
 #include "../../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
+#if BOTH(HAS_MARLINUI_MENU, PASSWORD_FEATURE)
+=======
 #if ALL(HAS_MARLINUI_MENU, PASSWORD_FEATURE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../../feature/password/password.h"
 
@@ -85,7 +89,11 @@ void Password::authentication_done() {
 // A single digit was completed
 void Password::digit_entered() {
   uint32_t multiplier = CAT(1e, PASSWORD_LENGTH); // 1e5 = 100000
+<<<<<<< HEAD
+  LOOP_LE_N(i, digit_no) multiplier /= 10;
+=======
   for (uint8_t i = 0; i <= digit_no; ++i) multiplier /= 10;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   value_entry += editable.uint8 * multiplier;
   string[digit_no++] = '0' + editable.uint8;
 

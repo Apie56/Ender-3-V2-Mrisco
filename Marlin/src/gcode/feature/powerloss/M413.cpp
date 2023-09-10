@@ -50,8 +50,13 @@ void GcodeSuite::M413() {
     if (parser.seen_test('D')) recovery.debug(F("M413"));
     if (parser.seen_test('O')) recovery._outage(true);
     if (parser.seen_test('C')) (void)recovery.check();
+<<<<<<< HEAD
+    if (parser.seen_test('E')) SERIAL_ECHOF(recovery.exists() ? F("PLR Exists\n") : F("No PLR\n"));
+    if (parser.seen_test('V')) SERIAL_ECHOF(recovery.valid() ? F("Valid\n") : F("Invalid\n"));
+=======
     if (parser.seen_test('E')) SERIAL_ECHO(recovery.exists() ? F("PLR Exists\n") : F("No PLR\n"));
     if (parser.seen_test('V')) SERIAL_ECHO(recovery.valid() ? F("Valid\n") : F("Invalid\n"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 }
 

@@ -33,7 +33,11 @@
 void GcodeSuite::M117() {
 
   if (parser.string_arg && parser.string_arg[0])
+<<<<<<< HEAD
+    ui.set_status(parser.string_arg, true);
+=======
     ui.set_status_no_expire(parser.string_arg);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   else
     ui.reset_status();
 

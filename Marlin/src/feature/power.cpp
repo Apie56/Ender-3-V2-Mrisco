@@ -26,7 +26,11 @@
 
 #include "../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
+#if EITHER(PSU_CONTROL, AUTO_POWER_CONTROL)
+=======
 #if ANY(PSU_CONTROL, AUTO_POWER_CONTROL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "power.h"
 #include "../module/planner.h"
@@ -49,6 +53,12 @@ bool Power::psu_on;
   #include "../module/stepper.h"
   #include "../module/temperature.h"
 
+<<<<<<< HEAD
+  #if BOTH(USE_CONTROLLER_FAN, AUTO_POWER_CONTROLLERFAN)
+    #include "controllerfan.h"
+  #endif
+
+=======
   #if ALL(USE_CONTROLLER_FAN, AUTO_POWER_CONTROLLERFAN)
     #include "controllerfan.h"
   #endif
@@ -57,6 +67,7 @@ bool Power::psu_on;
     #include "spindle_laser.h"
   #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   millis_t Power::lastPowerOn;
 #endif
 
@@ -82,7 +93,11 @@ void Power::power_on() {
 
   if (psu_on) return;
 
+<<<<<<< HEAD
+  #if EITHER(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+=======
   #if ANY(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     cancelAutoPowerOff();
   #endif
 
@@ -119,12 +134,20 @@ void Power::power_off() {
   OUT_WRITE(PS_ON_PIN, !PSU_ACTIVE_STATE);
   psu_on = false;
 
+<<<<<<< HEAD
+  #if EITHER(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+=======
   #if ANY(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     cancelAutoPowerOff();
   #endif
 }
 
+<<<<<<< HEAD
+#if EITHER(AUTO_POWER_CONTROL, POWER_OFF_WAIT_FOR_COOLDOWN)
+=======
 #if ANY(AUTO_POWER_CONTROL, POWER_OFF_WAIT_FOR_COOLDOWN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   bool Power::is_cooling_needed() {
     #if HAS_HOTEND && AUTO_POWER_E_TEMP
@@ -144,7 +167,11 @@ void Power::power_off() {
 
 #endif
 
+<<<<<<< HEAD
+#if EITHER(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+=======
 #if ANY(POWER_OFF_TIMER, POWER_OFF_WAIT_FOR_COOLDOWN)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if ENABLED(POWER_OFF_TIMER)
     millis_t Power::power_off_time = 0;
@@ -196,6 +223,12 @@ void Power::power_off() {
       HOTEND_LOOP() if (thermalManager.autofan_speed[e]) return true;
     #endif
 
+<<<<<<< HEAD
+    #if BOTH(USE_CONTROLLER_FAN, AUTO_POWER_CONTROLLERFAN)
+      if (controllerFan.state()) return true;
+    #endif
+
+=======
     #if ALL(USE_CONTROLLER_FAN, AUTO_POWER_CONTROLLERFAN)
       if (controllerFan.state()) return true;
     #endif
@@ -204,6 +237,7 @@ void Power::power_off() {
       if (TERN0(AUTO_POWER_SPINDLE_LASER, cutter.enabled())) return true;
     #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (TERN0(AUTO_POWER_CHAMBER_FAN, thermalManager.chamberfan_speed))
       return true;
 

@@ -2,17 +2,25 @@
 # Cura JPEG Thumbnail creator
 # Professional firmware for Ender3v2
 # Miguel A. Risco-Castillo
+<<<<<<< HEAD
+# version: 1.5
+# date: 2023-05-23
+=======
 # version: 1.6
 # date: 2023-07-23
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #
 # Contains code from:
 # https://github.com/Ultimaker/Cura/blob/master/plugins/PostProcessingPlugin/scripts/CreateThumbnail.py
 #------------------------------------------------------------------------------
 
 import base64
+<<<<<<< HEAD
+=======
 import json
 from typing import Callable, TypeVar, Optional
 from enum import Enum, auto
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 from UM.Logger import Logger
 from cura.Snapshot import Snapshot
@@ -20,6 +28,8 @@ from cura.CuraVersion import CuraVersion
 
 from ..Script import Script
 
+<<<<<<< HEAD
+=======
 T = TypeVar("T")
 
 class Ordering(Enum):
@@ -93,6 +103,7 @@ class QualityFinder:
             return Ordering.EQUAL
         else:
             return Ordering.LESS
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 class CreateJPEGThumbnail(Script):
     def __init__(self):
@@ -105,7 +116,11 @@ class CreateJPEGThumbnail(Script):
         except Exception:
             Logger.logException("w", "Failed to create snapshot image")
 
+<<<<<<< HEAD
+    def _encodeSnapshot(self, snapshot):
+=======
     def _encodeSnapshot(self, snapshot, quality=-1):
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         Major=0
         Minor=0
@@ -114,7 +129,11 @@ class CreateJPEGThumbnail(Script):
           Minor = int(CuraVersion.split(".")[1])
         except:
           pass
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         if Major < 5 :
           from PyQt5.QtCore import QByteArray, QIODevice, QBuffer
         else :
@@ -128,7 +147,11 @@ class CreateJPEGThumbnail(Script):
             else:
               thumbnail_buffer.open(QBuffer.OpenModeFlag.ReadWrite)
             thumbnail_image = snapshot
+<<<<<<< HEAD
+            thumbnail_image.save(thumbnail_buffer, "JPG")
+=======
             thumbnail_image.save(thumbnail_buffer, "JPG", quality=quality)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             base64_bytes = base64.b64encode(thumbnail_buffer.data())
             base64_message = base64_bytes.decode('ascii')
             thumbnail_buffer.close()
@@ -155,7 +178,11 @@ class CreateJPEGThumbnail(Script):
         return gcode
 
     def getSettingDataString(self):
+<<<<<<< HEAD
+        return """{
+=======
         return json.dumps({
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             "name": "Create JPEG Thumbnail",
             "key": "CreateJPEGThumbnail",
             "metadata": {},
@@ -168,7 +195,11 @@ class CreateJPEGThumbnail(Script):
                     "description": "Width of the generated thumbnail",
                     "unit": "px",
                     "type": "int",
+<<<<<<< HEAD
+                    "default_value": 200,
+=======
                     "default_value": 190,
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                     "minimum_value": "0",
                     "minimum_value_warning": "12",
                     "maximum_value_warning": "800"
@@ -179,6 +210,15 @@ class CreateJPEGThumbnail(Script):
                     "description": "Height of the generated thumbnail",
                     "unit": "px",
                     "type": "int",
+<<<<<<< HEAD
+                    "default_value": 200,
+                    "minimum_value": "0",
+                    "minimum_value_warning": "12",
+                    "maximum_value_warning": "600"
+                }
+            }
+        }"""
+=======
                     "default_value": 190,
                     "minimum_value": "0",
                     "minimum_value_warning": "12",
@@ -195,17 +235,23 @@ class CreateJPEGThumbnail(Script):
                 }
             }
         }, indent=4)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     def execute(self, data):
         width = self.getSettingValueByKey("width")
         height = self.getSettingValueByKey("height")
+<<<<<<< HEAD
+=======
         max_size = self.getSettingValueByKey("max_size")
 
         Logger.log("d", f"Options: width={width}, height={height}, max_size={max_size}")
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
         snapshot = self._createSnapshot(width, height)
         if snapshot:
             encoded_snapshot = self._encodeSnapshot(snapshot)
+<<<<<<< HEAD
+=======
             # reduce the quality of the image until the size is below max_size
             # this option is necessary for some displays like TJC where the image must be smaller than 20kb
             if max_size != -1:
@@ -220,6 +266,7 @@ class CreateJPEGThumbnail(Script):
                     Logger.log("e", f"Failed to reduce image size to at most {max_size} bytes")
                 encoded_snapshot = self._encodeSnapshot(snapshot, quality=quality)
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             snapshot_gcode = self._convertSnapshotToGcode(
                 encoded_snapshot, width, height)
 

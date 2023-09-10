@@ -31,7 +31,11 @@
 
 #define DISPLAY_CHARSET_ISO10646_1
 
+<<<<<<< HEAD
+namespace Language_pt {
+=======
 namespace LanguageNarrow_pt {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -52,6 +56,25 @@ namespace LanguageNarrow_pt {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Pronto !");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Definir desvio");
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Offsets aplicados");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL _UxGT(" Bico");
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL _UxGT(" Bico ~");
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Pre-aq. ") PREHEAT_1_LABEL _UxGT(" Tudo");
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Pre-aq. ") PREHEAT_1_LABEL _UxGT(" ") LCD_STR_THERMOMETER _UxGT("Base");
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Definições ") PREHEAT_1_LABEL;
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Pre-aquecer $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Pre-aquecer $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Pre-aquecer $ Bico");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Pre-aquecer $ Bico ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Pre-aq. $ Tudo");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Pre-aq. $ ") LCD_STR_THERMOMETER _UxGT("Base");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Definições $");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL " ~";
@@ -69,6 +92,7 @@ namespace LanguageNarrow_pt {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Pre-aq. $ ") LCD_STR_THERMOMETER _UxGT("Base");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Definições $");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Arrefecer");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Ligar");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Desligar");
@@ -170,6 +194,8 @@ namespace LanguageNarrow_pt {
   LSTR MSG_CALIBRATION_COMPLETED          = _UxGT("Calibração Completa");
   LSTR MSG_CALIBRATION_FAILED             = _UxGT("Calibração Falhou");
 }
+<<<<<<< HEAD
+=======
 
 namespace LanguageWide_pt {
   using namespace LanguageNarrow_pt;
@@ -187,3 +213,4 @@ namespace LanguageTall_pt {
 namespace Language_pt {
   using namespace LanguageTall_pt;
 }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

@@ -116,7 +116,11 @@ constexpr bool serial_handles_emergency(int port) {
 #endif
 DEFINE_HWSERIAL_MARLIN(MSerial2, 2);
 DEFINE_HWSERIAL_MARLIN(MSerial3, 3);
+<<<<<<< HEAD
+#if EITHER(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+=======
 #if ANY(STM32_HIGH_DENSITY, STM32_XL_DENSITY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   DEFINE_HWSERIAL_UART_MARLIN(MSerial4, 4);
   DEFINE_HWSERIAL_UART_MARLIN(MSerial5, 5);
 #endif

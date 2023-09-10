@@ -126,19 +126,51 @@ class FxdTiCtrl {
 
   private:
 
+<<<<<<< HEAD
+    #if HAS_X_AXIS
+      static float xd[2 * (FTM_BATCH_SIZE)], xm[FTM_BATCH_SIZE];
+    #endif
+    #if HAS_Y_AXIS
+      static float yd[2 * (FTM_BATCH_SIZE)], ym[FTM_BATCH_SIZE];
+    #endif
+    #if HAS_Z_AXIS
+      static float zd[2 * (FTM_BATCH_SIZE)], zm[FTM_BATCH_SIZE];
+    #endif
+    #if HAS_EXTRUDERS
+      static float ed[2 * (FTM_BATCH_SIZE)], em[FTM_BATCH_SIZE];
+    #endif
+=======
     static xyze_trajectory_t traj;
     static xyze_trajectoryMod_t trajMod;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     static block_t *current_block_cpy;
     static bool blockProcRdy, blockProcRdy_z1, blockProcDn;
     static bool batchRdy, batchRdyForInterp;
     static bool runoutEna;
+<<<<<<< HEAD
+
+    // Trapezoid data variables.
+    #if HAS_X_AXIS
+      static float x_startPosn, x_endPosn_prevBlock, x_Ratio;
+    #endif
+    #if HAS_Y_AXIS
+      static float y_startPosn, y_endPosn_prevBlock, y_Ratio;
+    #endif
+    #if HAS_Z_AXIS
+      static float z_startPosn, z_endPosn_prevBlock, z_Ratio;
+    #endif
+    #if HAS_EXTRUDERS
+      static float e_startPosn, e_endPosn_prevBlock, e_Ratio;
+    #endif
+=======
     static bool runout;
 
     // Trapezoid data variables.
     static xyze_pos_t   startPosn,          // (mm) Start position of block
                         endPosn_prevBlock;  // (mm) End position of previous block
     static xyze_float_t ratio;              // (ratio) Axis move ratio of block
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     static float accel_P, decel_P,
                  F_P,
                  f_s,
@@ -156,6 +188,39 @@ class FxdTiCtrl {
     // Interpolation variables.
     static uint32_t interpIdx,
                     interpIdx_z1;
+<<<<<<< HEAD
+    #if HAS_X_AXIS
+      static int32_t x_steps;
+      static stepDirState_t x_dirState;
+    #endif
+    #if HAS_Y_AXIS
+      static int32_t y_steps;
+      static stepDirState_t y_dirState;
+    #endif
+    #if HAS_Z_AXIS
+      static int32_t z_steps;
+      static stepDirState_t z_dirState;
+    #endif
+    #if HAS_EXTRUDERS
+      static int32_t e_steps;
+      static stepDirState_t e_dirState;
+    #endif
+
+    static hal_timer_t nextStepTicks;
+
+    // Shaping variables.
+    #if HAS_X_AXIS
+      static uint32_t xy_zi_idx, xy_max_i;
+      static float xd_zi[FTM_ZMAX];
+      static float x_Ai[5];
+      static uint32_t x_Ni[5];
+    #endif
+    #if HAS_Y_AXIS
+      static float yd_zi[FTM_ZMAX];
+      static float y_Ai[5];
+      static uint32_t y_Ni[5];
+    #endif
+=======
 
     static xyze_long_t steps;
     static xyze_stepDir_t dirState;
@@ -188,6 +253,7 @@ class FxdTiCtrl {
       static shaping_t shaping; // Shaping data
 
     #endif // HAS_X_AXIS
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     // Linear advance variables.
     #if HAS_EXTRUDERS

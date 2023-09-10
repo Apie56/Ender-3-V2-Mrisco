@@ -40,7 +40,11 @@ private:
 public:
   static void reset() { index = 0; }
   static bool is_active() {
+<<<<<<< HEAD
+    LOOP_L_N(i, index) if (marker[i].counter) return true;
+=======
     for (uint8_t i = 0; i < index; ++i) if (marker[i].counter) return true;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     return false;
   }
   static bool is_command_M808(char * const cmd) { return cmd[0] == 'M' && cmd[1] == '8' && cmd[2] == '0' && cmd[3] == '8' && !NUMERIC(cmd[4]); }

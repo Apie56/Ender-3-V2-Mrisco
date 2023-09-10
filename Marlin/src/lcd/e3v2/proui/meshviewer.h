@@ -1,8 +1,13 @@
 /**
  * Mesh Viewer for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
+<<<<<<< HEAD
+ * version: 4.2.1
+ * Date: 2023/05/05
+=======
  * version: 6.1.1
  * Date: 2023/08/20
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -20,6 +25,20 @@
  */
 #pragma once
 
+<<<<<<< HEAD
+class MeshViewerClass {
+public:
+  static float max, min;
+  static void DrawMeshGrid(const uint8_t csizex, const uint8_t csizey);
+  static void DrawMeshPoint(const uint8_t x, const uint8_t y, const float z);
+  static void Draw(bool withsave = false, bool redraw = true);
+  static void DrawMesh(bed_mesh_t zval, const uint8_t csizex, const uint8_t csizey);
+};
+
+extern MeshViewerClass MeshViewer;
+
+void Goto_MeshViewer(bool redraw);
+=======
 #include "../../../inc/MarlinConfig.h"
 
 #define USE_GRID_MESHVIEWER
@@ -49,3 +68,4 @@
 #endif
 
 void gotoMeshViewer(const bool redraw);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

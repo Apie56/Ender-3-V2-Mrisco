@@ -192,10 +192,17 @@ timer_dev* HAL_get_timer_dev(int number) {
     //SERIAL_ECHOLNPAIR("laser_timer_soft_pwm_start():", pwm);
     if (pwm>255) pwm =255;
     if (pwm<=0) pwm = 1; //107011 -20211011 要求激光常开
+<<<<<<< HEAD
+    if (pwm <= 0X00) {// 
+      timer_pause(LASER_TIMER_DEV);
+      WRITE(LASER_SOFT_PWM_PIN, 0); //WRITE(PC0, 0);
+    } 
+=======
     if (pwm <= 0X00) {//
       timer_pause(LASER_TIMER_DEV);
       WRITE(LASER_SOFT_PWM_PIN, 0); //WRITE(PC0, 0);
     }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     else if(pwm>=0xFE) {
       timer_pause(LASER_TIMER_DEV);
       WRITE(LASER_SOFT_PWM_PIN, 1); //WRITE(PC0, 0);
@@ -230,11 +237,19 @@ timer_dev* HAL_get_timer_dev(int number) {
   void laser_timer_handler(void)
   {
   //	SERIAL_ECHO_MSG("laser_timer_handler");
+<<<<<<< HEAD
+    
+    switch(sw)
+    {
+    case 0:
+      timer_set_reload(LASER_TIMER_DEV, laser_l);//0xFFFF);		
+=======
 
     switch(sw)
     {
     case 0:
       timer_set_reload(LASER_TIMER_DEV, laser_l);//0xFFFF);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       WRITE(LASER_SOFT_PWM_PIN, 1);//WRITE(PC0, 1);
       sw = 1;
       break;

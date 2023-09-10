@@ -47,8 +47,15 @@ bool FilamentMonitorBase::enabled = true,
 
 #if HAS_FILAMENT_RUNOUT_DISTANCE
   float RunoutResponseDelayed::runout_distance_mm = FILAMENT_RUNOUT_DISTANCE_MM;
+<<<<<<< HEAD
+  volatile float RunoutResponseDelayed::runout_mm_countdown[NUM_RUNOUT_SENSORS];
+  #if PROUI_EX
+    uint8_t FilamentSensorDevice::motion_detected;
+  #elif ENABLED(FILAMENT_MOTION_SENSOR)
+=======
   countdown_t RunoutResponseDelayed::mm_countdown;
   #if ENABLED(FILAMENT_MOTION_SENSOR) && DISABLED(HAS_PROUI_RUNOUT_SENSOR)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     uint8_t FilamentSensorEncoder::motion_detected;
   #endif
 #else
@@ -69,7 +76,10 @@ bool FilamentMonitorBase::enabled = true,
 #if ENABLED(EXTENSIBLE_UI)
   #include "../lcd/extui/ui_api.h"
 #elif ENABLED(DWIN_LCD_PROUI)
+<<<<<<< HEAD
+=======
   #include "../lcd/marlinui.h"
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../lcd/e3v2/proui/dwin.h"
 #endif
 
@@ -89,7 +99,11 @@ void event_filament_runout(const uint8_t extruder) {
   #endif
 
   TERN_(EXTENSIBLE_UI, ExtUI::onFilamentRunout(ExtUI::getTool(extruder)));
+<<<<<<< HEAD
+  TERN_(DWIN_LCD_PROUI, DWIN_FilamentRunout(extruder));
+=======
   TERN_(DWIN_LCD_PROUI, LCD_MESSAGE(MSG_RUNOUT_SENSOR));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if ANY(HOST_PROMPT_SUPPORT, HOST_ACTION_COMMANDS, MULTI_FILAMENT_SENSOR)
     const char tool = '0' + TERN0(MULTI_FILAMENT_SENSOR, extruder);
@@ -103,6 +117,14 @@ void event_filament_runout(const uint8_t extruder) {
   const bool run_runout_script = !runout.host_handling;
 
   #if ENABLED(HOST_ACTION_COMMANDS)
+<<<<<<< HEAD
+    if (run_runout_script
+      && ( strstr(FILAMENT_RUNOUT_SCRIPT, "M600")
+        || strstr(FILAMENT_RUNOUT_SCRIPT, "M125")
+        || TERN0(ADVANCED_PAUSE_FEATURE, strstr(FILAMENT_RUNOUT_SCRIPT, "M25"))
+      )
+    ) {
+=======
 
     const bool park_or_pause = (false
       #ifdef FILAMENT_RUNOUT_SCRIPT
@@ -113,6 +135,7 @@ void event_filament_runout(const uint8_t extruder) {
     );
 
     if (run_runout_script && park_or_pause) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       hostui.paused(false);
     }
     else {
@@ -129,6 +152,26 @@ void event_filament_runout(const uint8_t extruder) {
     SERIAL_ECHOPGM(" " ACTION_REASON_ON_FILAMENT_RUNOUT " ");
     SERIAL_CHAR(tool);
     SERIAL_EOL();
+<<<<<<< HEAD
+  #endif // HOST_ACTION_COMMANDS
+
+  if (run_runout_script) {
+    #if MULTI_FILAMENT_SENSOR
+      char script[strlen(FILAMENT_RUNOUT_SCRIPT) + 1];
+      sprintf_P(script, PSTR(FILAMENT_RUNOUT_SCRIPT), tool);
+      #if ENABLED(FILAMENT_RUNOUT_SENSOR_DEBUG)
+        SERIAL_ECHOLNPGM("Runout Command: ", script);
+      #endif
+      queue.inject(script);
+    #else
+      #if ENABLED(FILAMENT_RUNOUT_SENSOR_DEBUG)
+        SERIAL_ECHOPGM("Runout Command: ");
+        SERIAL_ECHOLNPGM(FILAMENT_RUNOUT_SCRIPT);
+      #endif
+      queue.inject(F(FILAMENT_RUNOUT_SCRIPT));
+    #endif
+  }
+=======
 
   #endif // HOST_ACTION_COMMANDS
 
@@ -150,6 +193,7 @@ void event_filament_runout(const uint8_t extruder) {
       #endif
     }
   #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #endif // HAS_FILAMENT_SENSOR

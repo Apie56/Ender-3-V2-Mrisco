@@ -33,7 +33,11 @@
 //
 #if ENABLED(SR_LCD_3W_NL)
   // Feature checks for SR_LCD_3W_NL
+<<<<<<< HEAD
+#elif EITHER(LCD_I2C_TYPE_MCP23017, LCD_I2C_TYPE_MCP23008)
+=======
 #elif ANY(LCD_I2C_TYPE_MCP23017, LCD_I2C_TYPE_MCP23008)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define USES_LIQUIDTWI2
 #elif ENABLED(LCD_I2C_TYPE_PCA8574)
   #define USES_LIQUIDCRYSTAL_I2C
@@ -59,10 +63,17 @@
   #if ENABLED(CANCEL_OBJECTS)
     #define HAS_MENU_CANCELOBJECT
   #endif
+<<<<<<< HEAD
+  #if EITHER(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
+    #define HAS_MENU_DELTA_CALIBRATE
+  #endif
+  #if EITHER(LED_CONTROL_MENU, CASE_LIGHT_MENU)
+=======
   #if ANY(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
     #define HAS_MENU_DELTA_CALIBRATE
   #endif
   #if ANY(LED_CONTROL_MENU, CASE_LIGHT_MENU)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define HAS_MENU_LED
   #endif
   #if ENABLED(ADVANCED_PAUSE_FEATURE)
@@ -110,6 +121,17 @@
 #endif
 
 #if HAS_GRAPHICAL_TFT
+<<<<<<< HEAD
+  #define NOTOSANS 1
+  #define UNIFONT 2
+  #define HELVETICA 3
+  #if TFT_FONT == NOTOSANS
+    #define TFT_FONT_NOTOSANS
+  #elif TFT_FONT == UNIFONT
+    #define TFT_FONT_UNIFONT
+  #elif TFT_FONT == HELVETICA
+    #define TFT_FONT_HELVETICA
+=======
   #include "../../../../Marlin/src/lcd/tft/fontdata/fontdata.h"
   #define UI_INCL_(W, H) STRINGIFY_(../../../../Marlin/src/lcd/tft/ui_##W##x##H.h)
   #define UI_INCL(W, H) UI_INCL_(W, H)
@@ -324,5 +346,6 @@
     #elif FONT_SIZE == 19
       #define TFT_FONT_HELVETICA_19
     #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif

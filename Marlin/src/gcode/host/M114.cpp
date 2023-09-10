@@ -30,7 +30,11 @@
 
   void report_all_axis_pos(const xyze_pos_t &pos, const uint8_t n=LOGICAL_AXES, const uint8_t precision=3) {
     char str[12];
+<<<<<<< HEAD
+    LOOP_L_N(a, n) {
+=======
     for (uint8_t a = 0; a < n; ++a) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       SERIAL_ECHOPGM_P((PGM_P)pgm_read_ptr(&SP_AXIS_LBL[a]));
       if (pos[a] >= 0) SERIAL_CHAR(' ');
       SERIAL_ECHO(dtostrf(pos[a], 1, precision, str));

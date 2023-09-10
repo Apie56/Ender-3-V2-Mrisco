@@ -707,7 +707,11 @@ void GcodeSuite::G26() {
       #error "A_CNT must be a positive value. Please change A_INT."
     #endif
     float trig_table[A_CNT];
+<<<<<<< HEAD
+    LOOP_L_N(i, A_CNT)
+=======
     for (uint8_t i = 0; i < A_CNT; ++i)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       trig_table[i] = INTERSECTION_CIRCLE_RADIUS * cos(RADIANS(i * A_INT));
 
   #endif // !ARC_SUPPORT

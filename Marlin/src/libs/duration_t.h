@@ -67,7 +67,11 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as years
+=======
    * @brief Format the duration as years
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @return The number of years
    */
   inline uint8_t year() const {
@@ -75,7 +79,11 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as days
+=======
    * @brief Format the duration as days
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @return The number of days
    */
   inline uint16_t day() const {
@@ -83,7 +91,11 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as hours
+=======
    * @brief Format the duration as hours
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @return The number of hours
    */
   inline uint32_t hour() const {
@@ -91,7 +103,11 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as minutes
+=======
    * @brief Format the duration as minutes
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @return The number of minutes
    */
   inline uint32_t minute() const {
@@ -99,7 +115,11 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as seconds
+=======
    * @brief Format the duration as seconds
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @return The number of seconds
    */
   inline uint32_t second() const {
@@ -112,12 +132,19 @@ struct duration_t {
   #endif
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as a string
+=======
    * @brief Format the duration as a string
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    * @details String will be formatted using a "full" representation of duration
    *
    * @param buffer The array pointed to must be able to accommodate 22 bytes
    *               (21 for the string, 1 more for the terminating nul)
+<<<<<<< HEAD
+=======
    * @param dense Whether to skip spaces in the resulting string
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    *
    * Output examples:
    *  123456789012345678901 (strlen)
@@ -143,6 +170,12 @@ struct duration_t {
   }
 
   /**
+<<<<<<< HEAD
+   * @brief Formats the duration as a string
+   * @details String will be formatted using a "digital" representation of duration
+   *
+   * @param buffer The array pointed to must be able to accommodate 10 bytes
+=======
    * @brief Format the duration as a compact string
    * @details String will be formatted using a "full" representation of duration
    *
@@ -179,6 +212,7 @@ struct duration_t {
    *
    * @param buffer The array pointed to must be able to accommodate 10 bytes
    * @return length of the formatted string (without terminating nul)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    *
    * Output examples:
    *  123456789 (strlen)

@@ -135,7 +135,11 @@
   // Generic ARM code, that's testing if an access to the given address would cause a fault or not
   // It can't guarantee an address is in RAM or Flash only, but we usually don't care
 
+<<<<<<< HEAD
+  #define NVIC_FAULT_STAT         0xE000ED28  // Configurable Fault Status Reg.
+=======
   #define NVIC_FAULT_STAT         0xE000ED28  // Configurable Fault Status reg.
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define NVIC_CFG_CTRL           0xE000ED14  // Configuration Control Register
   #define NVIC_FAULT_STAT_BFARV   0x00008000  // BFAR is valid
   #define NVIC_CFG_CTRL_BFHFNMIGN 0x00000100  // Ignore bus fault in NMI/fault

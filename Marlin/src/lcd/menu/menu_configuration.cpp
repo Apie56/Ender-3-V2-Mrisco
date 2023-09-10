@@ -59,11 +59,15 @@
   #include "../../libs/buzzer.h"
 #endif
 
+<<<<<<< HEAD
+#if EITHER(LCD_PROGRESS_BAR_TEST, LCD_ENDSTOP_TEST)
+=======
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
   #include "../../feature/hotend_idle.h"
 #endif
 
 #if ANY(LCD_PROGRESS_BAR_TEST, LCD_ENDSTOP_TEST)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../lcdprint.h"
   #define HAS_DEBUG_MENU 1
 #endif
@@ -72,7 +76,11 @@
 #include "../../core/debug_out.h"
 
 void menu_advanced_settings();
+<<<<<<< HEAD
+#if EITHER(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
+=======
 #if ANY(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   void menu_delta_calibrate();
 #endif
 
@@ -102,10 +110,16 @@ void menu_advanced_settings();
 
 #if ENABLED(LCD_ENDSTOP_TEST)
 
+<<<<<<< HEAD
+  #define __STOP_ITEM(F,S) PSTRING_ITEM_F_P(F, TEST(stops, S) ? PSTR(STR_ENDSTOP_HIT) : PSTR(STR_ENDSTOP_OPEN), SS_FULL)
+  #define _STOP_ITEM(L,S) __STOP_ITEM(F(L), S)
+  #define STOP_ITEM(A,I) _STOP_ITEM(STRINGIFY(A) STRINGIFY(I) " " TERN(A##_HOME_TO_MAX, "Max", "Min"), A##I##_ENDSTOP)
+=======
   #define __STOP_ITEM(F,S) PSTRING_ITEM_F_P(F, TEST(stops, S) ? PSTR(STR_ENDSTOP_HIT) : PSTR(STR_ENDSTOP_OPEN), SS_FULL);
   #define _STOP_ITEM(L,S) __STOP_ITEM(F(L), S)
   #define STOP_ITEM(A,I,M,L) TERN(HAS_##A##I##_##M_STATE, _STOP_ITEM, _IF_1_ELSE)(STRINGIFY(A) STRINGIFY(I) " " STRINGIFY(L), A##I##_##M)
   #define STOP_MINMAX(A,I) STOP_ITEM(A,,MIN,"Min") STOP_ITEM(A,,MAX,"Max")
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define FIL_ITEM(N) PSTRING_ITEM_N_P(N-1, MSG_FILAMENT_EN, (READ(FIL_RUNOUT##N##_PIN) != FIL_RUNOUT##N##_STATE) ? PSTR("PRESENT") : PSTR("out"), SS_FULL);
 
   static void endstop_test() {
@@ -121,12 +135,57 @@ void menu_advanced_settings();
     START_SCREEN();
     STATIC_ITEM_F(GET_TEXT_F(MSG_ENDSTOP_TEST), SS_DEFAULT|SS_INVERT);
 
+<<<<<<< HEAD
+    #if HAS_X_ENDSTOP
+      STOP_ITEM(X,);
+      #if ENABLED(X_DUAL_ENDSTOPS)
+        STOP_ITEM(X,2);
+      #endif
+    #endif
+    #if HAS_Y_ENDSTOP
+      STOP_ITEM(Y,);
+      #if ENABLED(Y_DUAL_ENDSTOPS)
+        STOP_ITEM(Y,2);
+      #endif
+    #endif
+    #if HAS_Z_ENDSTOP
+      STOP_ITEM(Z,);
+      #if ENABLED(Z_MULTI_ENDSTOPS)
+        STOP_ITEM(Z,2);
+        #if NUM_Z_STEPPERS >= 3
+          STOP_ITEM(Z,3);
+          #if NUM_Z_STEPPERS >= 4
+            STOP_ITEM(Z,4);
+          #endif
+        #endif
+      #endif
+    #endif
+    #if HAS_I_ENDSTOP
+      STOP_ITEM(I,);
+    #endif
+    #if HAS_J_ENDSTOP
+      STOP_ITEM(J,);
+    #endif
+    #if HAS_K_ENDSTOP
+      STOP_ITEM(K,);
+    #endif
+    #if HAS_U_ENDSTOP
+      STOP_ITEM(U,);
+    #endif
+    #if HAS_V_ENDSTOP
+      STOP_ITEM(V,);
+    #endif
+    #if HAS_W_ENDSTOP
+      STOP_ITEM(W,);
+    #endif
+=======
     STOP_MINMAX(X,) STOP_MINMAX(X,2)
     STOP_MINMAX(Y,) STOP_MINMAX(Y,2)
     STOP_MINMAX(Z,) STOP_MINMAX(Z,2) STOP_MINMAX(Z,3) STOP_MINMAX(Z,4)
     STOP_MINMAX(I,) STOP_MINMAX(J,) STOP_MINMAX(K,)
     STOP_MINMAX(U,) STOP_MINMAX(V,) STOP_MINMAX(W,)
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #if HAS_BED_PROBE && !HAS_DELTA_SENSORLESS_PROBING
       __STOP_ITEM(GET_TEXT_F(MSG_Z_PROBE), Z_MIN_PROBE);
     #endif
@@ -246,6 +305,8 @@ void menu_advanced_settings();
   }
 #endif
 
+<<<<<<< HEAD
+=======
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
 
   void menu_hotend_idle() {
@@ -264,6 +325,7 @@ void menu_advanced_settings();
 
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #if ENABLED(DUAL_X_CARRIAGE)
 
   void menu_idex() {
@@ -294,9 +356,21 @@ void menu_advanced_settings();
 
   #if ENABLED(BLTOUCH_LCD_VOLTAGE_MENU)
     void bltouch_report() {
+<<<<<<< HEAD
+      PGMSTR(mode0, "OD");
+      PGMSTR(mode1, "5V");
+      DEBUG_ECHOPGM("BLTouch Mode: ");
+      DEBUG_ECHOPGM_P(bltouch.od_5v_mode ? mode1 : mode0);
+      DEBUG_ECHOLNPGM(" (Default " TERN(BLTOUCH_SET_5V_MODE, "5V", "OD") ")");
+      char mess[21];
+      strcpy_P(mess, PSTR("BLTouch Mode: "));
+      strcpy_P(&mess[15], bltouch.od_5v_mode ? mode1 : mode0);
+      ui.set_status(mess);
+=======
       FSTR_P const mode0 = F("OD"), mode1 = F("5V");
       DEBUG_ECHOLNPGM("BLTouch Mode: ", bltouch.od_5v_mode ? mode1 : mode0, " (Default ", TERN(BLTOUCH_SET_5V_MODE, mode1, mode0), ")");
       ui.set_status(MString<18>(F("BLTouch Mode: "), bltouch.od_5v_mode ? mode1 : mode0));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       ui.return_to_status();
     }
   #endif
@@ -573,7 +647,11 @@ void menu_configuration() {
   #endif
 
   if (!busy) {
+<<<<<<< HEAD
+    #if EITHER(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
+=======
     #if ANY(DELTA_CALIBRATION_MENU, DELTA_AUTO_CALIBRATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       SUBMENU(MSG_DELTA_CALIBRATE, menu_delta_calibrate);
     #endif
 
@@ -594,10 +672,13 @@ void menu_configuration() {
     #endif
   }
 
+<<<<<<< HEAD
+=======
   #if ENABLED(HOTEND_IDLE_TIMEOUT)
     SUBMENU(MSG_HOTEND_IDLE_TIMEOUT, menu_hotend_idle);
   #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //
   // Set single nozzle filament retract and prime length
   //
@@ -642,7 +723,11 @@ void menu_configuration() {
 
   // Preheat configurations
   #if HAS_PREHEAT && DISABLED(SLIM_LCD_MENUS)
+<<<<<<< HEAD
+    LOOP_L_N(m, PREHEAT_COUNT)
+=======
     for (uint8_t m = 0; m < PREHEAT_COUNT; ++m)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       SUBMENU_N_f(m, ui.get_preheat_label(m), MSG_PREHEAT_M_SETTINGS, _menu_configuration_preheat_settings);
   #endif
 

@@ -5,8 +5,12 @@
 # the appropriate framework variants folder, so that its contents
 # will be picked up by PlatformIO just like any other variant.
 #
+<<<<<<< HEAD
+import pioutil
+=======
 import pioutil, re
 marlin_variant_pattern = re.compile("marlin_.*")
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 if pioutil.is_pio_build():
     import shutil,marlin
     from pathlib import Path
@@ -33,7 +37,11 @@ if pioutil.is_pio_build():
     else:
         platform_name = PackageSpec(platform_packages[0]).name
 
+<<<<<<< HEAD
+    if platform_name in [ "usb-host-msc", "usb-host-msc-cdc-msc", "usb-host-msc-cdc-msc-2", "usb-host-msc-cdc-msc-3", "tool-stm32duino", "biqu-bx-workaround", "main" ]:
+=======
     if platform_name in [ "Arduino_Core_STM32", "usb-host-msc", "usb-host-msc-cdc-msc", "usb-host-msc-cdc-msc-2", "usb-host-msc-cdc-msc-3", "tool-stm32duino", "biqu-bx-workaround", "main" ]:
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         platform_name = "framework-arduinoststm32"
 
     FRAMEWORK_DIR = Path(platform.get_package_dir(platform_name))
@@ -45,6 +53,20 @@ if pioutil.is_pio_build():
     variant = board.get("build.variant")
     #series = mcu_type[:7].upper() + "xx"
 
+<<<<<<< HEAD
+    # Prepare a new empty folder at the destination
+    variant_dir = FRAMEWORK_DIR / "variants" / variant
+    if variant_dir.is_dir():
+        shutil.rmtree(variant_dir)
+    if not variant_dir.is_dir():
+        variant_dir.mkdir()
+
+    # Source dir is a local variant sub-folder
+    source_dir = Path("buildroot/share/PlatformIO/variants", variant)
+    assert source_dir.is_dir()
+
+    marlin.copytree(source_dir, variant_dir)
+=======
     # Only prepare a new variant if the PlatformIO configuration provides it (board_build.variant).
     # This check is important to avoid deleting official board config variants.
     if marlin_variant_pattern.match(str(variant).lower()):
@@ -62,3 +84,4 @@ if pioutil.is_pio_build():
         print("Copying variant " + str(variant) + " to framework directory...")
 
         marlin.copytree(source_dir, variant_dir)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

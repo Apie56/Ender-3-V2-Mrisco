@@ -213,6 +213,17 @@
 
   template<typename TMC>
   void report_driver_otpw(TMC &st) {
+<<<<<<< HEAD
+    char timestamp[14];
+    duration_t elapsed = print_job_timer.duration();
+    const bool has_days = (elapsed.value > 60*60*24L);
+    (void)elapsed.toDigital(timestamp, has_days);
+    SERIAL_EOL();
+    SERIAL_ECHO(timestamp);
+    SERIAL_ECHOPGM(": ");
+    st.printLabel();
+    SERIAL_ECHOLNPGM(" driver overtemperature warning! (", st.getMilliamps(), "mA)");
+=======
     MString<13> timestamp;
     duration_t elapsed = print_job_timer.duration();
     const bool has_days = (elapsed.value > 60*60*24L);
@@ -220,12 +231,41 @@
     TSS('\n', timestamp, F(": ")).echo();
     st.printLabel();
     SString<50>(F(" driver overtemperature warning! ("), st.getMilliamps(), F("mA)")).echoln();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 
   template<typename TMC>
   void report_polled_driver_data(TMC &st, const TMC_driver_data &data) {
     const uint32_t pwm_scale = get_pwm_scale(st);
     st.printLabel();
+<<<<<<< HEAD
+    SERIAL_CHAR(':'); SERIAL_ECHO(pwm_scale);
+    #if ENABLED(TMC_DEBUG)
+      #if HAS_TMCX1X0 || HAS_TMC220x
+        SERIAL_CHAR('/'); SERIAL_ECHO(data.cs_actual);
+      #endif
+      #if HAS_STALLGUARD
+        SERIAL_CHAR('/');
+        if (data.sg_result_reasonable)
+          SERIAL_ECHO(data.sg_result);
+        else
+          SERIAL_CHAR('-');
+      #endif
+    #endif
+    SERIAL_CHAR('|');
+    if (st.error_count)       SERIAL_CHAR('E'); // Error
+    if (data.is_ot)           SERIAL_CHAR('O'); // Over-temperature
+    if (data.is_otpw)         SERIAL_CHAR('W'); // over-temperature pre-Warning
+    #if ENABLED(TMC_DEBUG)
+      if (data.is_stall)      SERIAL_CHAR('G'); // stallGuard
+      if (data.is_stealth)    SERIAL_CHAR('T'); // stealthChop
+      if (data.is_standstill) SERIAL_CHAR('I'); // standstIll
+    #endif
+    if (st.flag_otpw)         SERIAL_CHAR('F'); // otpw Flag
+    SERIAL_CHAR('|');
+    if (st.otpw_count > 0) SERIAL_ECHO(st.otpw_count);
+    SERIAL_CHAR('\t');
+=======
     SString<60> report(':', pwm_scale);
     #if ENABLED(TMC_DEBUG)
       #if HAS_TMCX1X0 || HAS_TMC220x
@@ -253,6 +293,7 @@
     if (st.otpw_count > 0)    report += st.otpw_count;
     report += '\t';
     report.echo();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 
   #if CURRENT_STEP_DOWN > 0
@@ -561,7 +602,11 @@
   };
 
   template<class TMC>
+<<<<<<< HEAD
+  static void print_vsense(TMC &st) { SERIAL_ECHOF(st.vsense() ? F("1=.18") : F("0=.325")); }
+=======
   static void print_vsense(TMC &st) { SERIAL_ECHO(st.vsense() ? F("1=.18") : F("0=.325")); }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #if HAS_DRIVER(TMC2130) || HAS_DRIVER(TMC5130)
     static void _tmc_status(TMC2130Stepper &st, const TMC_debug_enum i) {
@@ -679,7 +724,11 @@
       case TMC_ENABLED: serialprint_truefalse(st.isEnabled()); break;
       case TMC_CURRENT: SERIAL_ECHO(st.getMilliamps()); break;
       case TMC_RMS_CURRENT: SERIAL_ECHO(st.rms_current()); break;
+<<<<<<< HEAD
+      case TMC_MAX_CURRENT: SERIAL_PRINT((float)st.rms_current() * 1.41, 0); break;
+=======
       case TMC_MAX_CURRENT: SERIAL_ECHO(p_float_t(st.rms_current() * 1.41, 0)); break;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       case TMC_IRUN:
         SERIAL_ECHO(st.irun());
         SERIAL_ECHOPGM("/31");
@@ -727,12 +776,20 @@
         case TMC_ENABLED: serialprint_truefalse(st.isEnabled()); break;
         case TMC_CURRENT: SERIAL_ECHO(st.getMilliamps()); break;
         case TMC_RMS_CURRENT: SERIAL_ECHO(st.rms_current()); break;
+<<<<<<< HEAD
+        case TMC_MAX_CURRENT: SERIAL_PRINT((float)st.rms_current() * 1.41, 0); break;
+=======
         case TMC_MAX_CURRENT: SERIAL_ECHO(p_float_t(st.rms_current() * 1.41, 0)); break;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case TMC_IRUN:
           SERIAL_ECHO(st.cs());
           SERIAL_ECHOPGM("/31");
           break;
+<<<<<<< HEAD
+        case TMC_VSENSE: SERIAL_ECHOF(st.vsense() ? F("1=.165") : F("0=.310")); break;
+=======
         case TMC_VSENSE: SERIAL_ECHO(st.vsense() ? F("1=.165") : F("0=.310")); break;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         case TMC_MICROSTEPS: SERIAL_ECHO(st.microsteps()); break;
         //case TMC_OTPW: serialprint_truefalse(st.otpw()); break;
         //case TMC_OTPW_TRIGGERED: serialprint_truefalse(st.getOTPW()); break;
@@ -1227,7 +1284,11 @@ static bool test_connection(TMC &st) {
     case 1: stat = F("HIGH"); break;
     case 2: stat = F("LOW"); break;
   }
+<<<<<<< HEAD
+  SERIAL_ECHOLNF(stat);
+=======
   SERIAL_ECHOLN(stat);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   return test_result;
 }
@@ -1235,7 +1296,11 @@ static bool test_connection(TMC &st) {
 void test_tmc_connection(LOGICAL_AXIS_ARGS(const bool)) {
   uint8_t axis_connection = 0;
 
+<<<<<<< HEAD
+    if (TERN0(HAS_X_AXIS, x)) {
+=======
   if (TERN0(HAS_X_AXIS, x)) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #if AXIS_IS_TMC(X)
       axis_connection += test_connection(stepperX);
     #endif

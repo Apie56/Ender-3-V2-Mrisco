@@ -101,7 +101,11 @@ void recalc_delta_settings() {
  *
  * Suggested optimizations include:
  *
+<<<<<<< HEAD
+ * - Disable the home_offset (M206) and/or position_shift (G92)
+=======
  * - Disable the home_offset (M206) and/or workspace_offset (G92)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  *   features to remove up to 12 float additions.
  */
 

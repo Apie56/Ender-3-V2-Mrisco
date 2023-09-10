@@ -32,9 +32,12 @@ $SED -i~ -e "20,30{/#error/d}" Marlin/Configuration.h
 rm Marlin/Configuration.h~
 unset IFS; set +f
 
+<<<<<<< HEAD
+=======
 # Suppress fatal warnings
 echo -e "\n#define NO_CONTROLLER_CUSTOM_WIRING_WARNING" >> Marlin/Configuration.h
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 echo "Building the firmware now..."
 $HERE/mftest -s -a -n1 || { echo "Failed"; exit 1; }
 

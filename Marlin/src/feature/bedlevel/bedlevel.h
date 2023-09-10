@@ -23,7 +23,11 @@
 
 #include "../../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
+#if EITHER(RESTORE_LEVELING_AFTER_G28, ENABLE_LEVELING_AFTER_G28)
+=======
 #if ANY(RESTORE_LEVELING_AFTER_G28, ENABLE_LEVELING_AFTER_G28)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define CAN_SET_LEVELING_AFTER_G28 1
 #endif
 
@@ -41,7 +45,11 @@ void reset_bed_level();
   void set_z_fade_height(const_float_t zfh, const bool do_report=true);
 #endif
 
+<<<<<<< HEAD
+#if EITHER(MESH_BED_LEVELING, PROBE_MANUALLY)
+=======
 #if ANY(MESH_BED_LEVELING, PROBE_MANUALLY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   void _manual_goto_xy(const xy_pos_t &pos);
 #endif
 
@@ -73,7 +81,11 @@ class TemporaryBedLevelingState {
     #include "mbl/mesh_bed_leveling.h"
   #endif
 
+<<<<<<< HEAD
+  #if EITHER(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+=======
   #if ANY(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     #include <stdint.h>
 

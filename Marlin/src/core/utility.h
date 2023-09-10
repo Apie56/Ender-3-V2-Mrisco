@@ -96,6 +96,8 @@ const xyze_char_t axis_codes LOGICAL_AXIS_ARRAY('E', 'X', 'Y', 'Z', AXIS4_NAME, 
   #define AXIS_CHAR(A) axis_codes[A]
   #define IAXIS_CHAR(A) iaxis_codes[A]
 #endif
+<<<<<<< HEAD
+=======
 
 #if ENABLED(MARLIN_DEV_MODE)
   enum MarlinError : uint8_t {
@@ -115,3 +117,4 @@ const xyze_char_t axis_codes LOGICAL_AXIS_ARRAY('E', 'X', 'Y', 'Z', AXIS4_NAME, 
   extern MarlinError marlin_error_number;   // Error Number - Marlin can beep, display, and emit...
   inline void error(const MarlinError err) { marlin_error_number = err; }
 #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

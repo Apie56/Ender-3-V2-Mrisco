@@ -184,7 +184,11 @@
 #endif
 
 // SPI1(PA7) & SPI3(PB5) not available
+<<<<<<< HEAD
+#define SPI_DEVICE                             2
+=======
 #define SPI_DEVICE                             2  // Maple
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #if ENABLED(ONBOARD_SDIO)
   #define SD_SCK_PIN                        PB13  // SPI2 ok

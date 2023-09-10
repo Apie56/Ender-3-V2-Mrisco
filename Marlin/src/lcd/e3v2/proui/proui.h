@@ -1,8 +1,13 @@
 /**
  * Professional Firmware UI extensions
  * Author: Miguel A. Risco-Castillo
+<<<<<<< HEAD
+ * Version: 1.10.0
+ * Date: 2023/05/18
+=======
  * Version: 2.1.0
  * Date: 2023/07/12
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -94,7 +99,10 @@ typedef struct {
   float mesh_max_x = DEF_MESH_MAX_X;
   float mesh_min_y = DEF_MESH_MIN_Y;
   float mesh_max_y = DEF_MESH_MAX_Y;
+<<<<<<< HEAD
+=======
   float probezfix = DEF_PROBEZFIX;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   uint16_t zprobefeedslow = DEF_Z_PROBE_FEEDRATE_SLOW;
   uint8_t multiple_probing = MULTIPLE_PROBING;
   bool Invert_E0 = DEF_INVERT_E0_DIR;
@@ -106,6 +114,17 @@ typedef struct {
 } PRO_data_t;
 extern PRO_data_t PRO_data;
 
+<<<<<<< HEAD
+class ProUIClass {
+public:
+  static void Init();
+#if HAS_BED_PROBE
+  static void HeatedBed();
+  static void StopLeveling();
+  static bool QuitLeveling();
+  static void MeshUpdate(const int8_t x, const int8_t y, const_float_t zval);
+  static void LevelingDone();
+=======
 class ProUIEx {
 public:
   static void init();
@@ -115,22 +134,37 @@ public:
   static bool quitLeveling();
   static void meshUpdate(const int8_t x, const int8_t y, const_float_t zval);
   static void levelingDone();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 #if HAS_MEDIA
   static void C10();
 #endif
+<<<<<<< HEAD
+#if HAS_FILAMENT_SENSOR
+  static void SetRunoutState(uint32_t ulPin);
+  static void DrawRunoutActive(bool selected);
+  static void ApplyRunoutActive();
+=======
 #if HAS_PROUI_RUNOUT_SENSOR
   static void setRunoutState(uint32_t ulPin);
   static void drawRunoutActive(bool selected);
   static void applyRunoutActive();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static void C412();
   static void C412_report(const bool forReplay=true);
 #endif
 #if HAS_MESH
+<<<<<<< HEAD
+  static void DrawMeshPoints(bool selected, int8_t line, uint8_t MeshPoints);
+  static void CheckMeshInsets();
+  static void ApplyMeshLimits();
+  static void ApplyMeshPoints();
+=======
   static void drawMeshPoints(bool selected, int8_t line, uint8_t MeshPoints);
   static void checkMeshInsets();
   static void applyMeshLimits();
   static void applyMeshPoints();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static void C29();
   static void C29_report(const bool forReplay=true);
 #endif
@@ -157,14 +191,27 @@ public:
   static void C810();
   static void C810_report(const bool forReplay=true);
 #endif
+<<<<<<< HEAD
+  static void UpdateAxis(const AxisEnum axis);
+  static void ApplyPhySet();
+  static void CheckParkingPos();
+  static void SetData();
+  static void LoadSettings();
+  #if EITHER(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+=======
   static void updateAxis(const AxisEnum axis);
   static void applyPhySet();
   static void checkParkingPos();
   static void setData();
   static void loadSettings();
   #if ANY(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     static float getZvalues(const uint8_t sy, const uint8_t x, const uint8_t y, const float *values);
   #endif
 };
 
+<<<<<<< HEAD
+extern ProUIClass ProEx;
+=======
 extern ProUIEx proUIEx;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

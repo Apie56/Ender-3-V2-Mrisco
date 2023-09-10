@@ -22,7 +22,11 @@
 
 #include "../../inc/MarlinConfig.h"
 
+<<<<<<< HEAD
+#if EITHER(EXT_SOLENOID, MANUAL_SOLENOID_CONTROL)
+=======
 #if ANY(EXT_SOLENOID, MANUAL_SOLENOID_CONTROL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "../gcode.h"
 #include "../../feature/solenoid.h"

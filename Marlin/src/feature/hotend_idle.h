@@ -21,6 +21,9 @@
  */
 #pragma once
 
+<<<<<<< HEAD
+#include "../core/millis_t.h"
+=======
 #include "../inc/MarlinConfig.h"
 
 typedef struct {
@@ -35,12 +38,18 @@ typedef struct {
     bed_target    = HOTEND_IDLE_BED_TARGET;
   }
 } hotend_idle_settings_t;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 class HotendIdleProtection {
 public:
   static void check();
+<<<<<<< HEAD
+private:
+  static constexpr millis_t hp_interval = SEC_TO_MS(HOTEND_IDLE_TIMEOUT_SEC);
+=======
   static hotend_idle_settings_t cfg;
 private:
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   static millis_t next_protect_ms;
   static void check_hotends(const millis_t &ms);
   static void check_e_motion(const millis_t &ms);

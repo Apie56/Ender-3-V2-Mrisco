@@ -30,7 +30,11 @@
 
 #define DISPLAY_CHARSET_ISO10646_1
 
+<<<<<<< HEAD
+namespace Language_fi {
+=======
 namespace LanguageNarrow_fi {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -43,6 +47,25 @@ namespace LanguageNarrow_fi {
   LSTR MSG_RUN_AUTO_FILES                 = _UxGT("Automaatti");
   LSTR MSG_DISABLE_STEPPERS               = _UxGT("Vapauta moottorit");
   LSTR MSG_AUTO_HOME                      = _UxGT("Aja referenssiin");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Esilämmitä ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Esilämmitä ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Esilä. ") PREHEAT_1_LABEL _UxGT("Suutin");
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Esilä. ") PREHEAT_1_LABEL _UxGT("Suutin ~");
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Esilä. ") PREHEAT_1_LABEL _UxGT(" Kaikki");
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Esilä. ") PREHEAT_1_LABEL _UxGT(" Alusta");
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Esilämm. ") PREHEAT_1_LABEL _UxGT(" konf");
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Esilämmitä $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Esilämmitä $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Esilä. $Suutin");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Esilä. $Suutin ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Esilä. $ Kaikki");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Esilä. $ Alusta");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Esilämm. $ konf");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Esilämmitä ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Esilämmitä ") PREHEAT_1_LABEL " ~";
@@ -60,6 +83,7 @@ namespace LanguageNarrow_fi {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Esilä. $ Alusta");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Esilämm. $ konf");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Jäähdytä");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Virta päälle");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Virta pois");
@@ -102,7 +126,11 @@ namespace LanguageNarrow_fi {
   LSTR MSG_STORE_EEPROM                   = _UxGT("Tallenna muistiin");
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Lataa muistista");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Palauta oletus");
+<<<<<<< HEAD
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Päivitä");
+=======
   LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Päivitä");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_SCREEN                    = _UxGT("Seuraa");
   LSTR MSG_PREPARE                        = _UxGT("Valmistele");
   LSTR MSG_TUNE                           = _UxGT("Säädä");
@@ -130,6 +158,8 @@ namespace LanguageNarrow_fi {
 
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Väärä tulostin");
 }
+<<<<<<< HEAD
+=======
 
 namespace LanguageWide_fi {
   using namespace LanguageNarrow_fi;
@@ -147,3 +177,4 @@ namespace LanguageTall_fi {
 namespace Language_fi {
   using namespace LanguageTall_fi;
 }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

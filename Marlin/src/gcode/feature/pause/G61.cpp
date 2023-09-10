@@ -87,7 +87,12 @@ void GcodeSuite::G61() {
         destination[i] = parser.seen(AXIS_CHAR(i))
           ? stored_position[slot][i] + parser.value_axis_units((AxisEnum)i)
           : current_position[i];
+<<<<<<< HEAD
+        DEBUG_CHAR(' ', AXIS_CHAR(i));
+        DEBUG_ECHO_F(destination[i]);
+=======
         DEBUG_ECHO(AS_CHAR(' '), AS_CHAR(AXIS_CHAR(i)), p_float_t(destination[i], 2));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
       DEBUG_EOL();
       // Move to the saved position

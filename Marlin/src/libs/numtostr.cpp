@@ -25,6 +25,16 @@
 #include "../inc/MarlinConfigPre.h"
 #include "../core/utility.h"
 
+<<<<<<< HEAD
+char conv[9] = { 0 };
+
+#define DIGIT(n) ('0' + (n))
+#define DIGIMOD(n, f) DIGIT(((n)/(f)) % 10)
+#define RJDIGIT(n, f) ((n) >= (f) ? DIGIMOD(n, f) : ' ')
+#define MINUSOR(n, alt) (n >= 0 ? (alt) : (n = -n, '-'))
+#define INTFLOAT(V,N) (((V) * 10 * pow(10, N) + ((V) < 0 ? -5: 5)) / 10)      // pow10?
+#define UINTFLOAT(V,N) INTFLOAT((V) < 0 ? -(V) : (V), N)
+=======
 constexpr char DIGIT(const uint8_t n) { return '0' + n; }
 
 template <typename T1, typename T2>
@@ -44,6 +54,7 @@ constexpr long UINTFLOAT(const float V, const int N) {
 }
 
 char conv[9] = { 0 };
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 // Format uint8_t (0-100) as rj string with 123% / _12% / __1% format
 const char* pcttostrpctrj(const uint8_t i) {

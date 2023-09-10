@@ -209,7 +209,11 @@ bool SdBaseFile::dirEntry(dir_t *dir) {
  */
 void SdBaseFile::dirName(const dir_t &dir, char *name) {
   uint8_t j = 0;
+<<<<<<< HEAD
+  LOOP_L_N(i, 11) {
+=======
   for (uint8_t i = 0; i < 11; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (dir.name[i] == ' ')continue;
     if (i == 8) name[j++] = '.';
     name[j++] = dir.name[i];
@@ -322,12 +326,20 @@ void SdBaseFile::getpos(filepos_t * const pos) {
  * \param[in] indent Amount of space before file name. Used for recursive
  * list to indicate subdirectory level.
  */
+<<<<<<< HEAD
+void SdBaseFile::ls(uint8_t flags, uint8_t indent) {
+=======
 void SdBaseFile::ls(const uint8_t flags/*=0*/, const uint8_t indent/*=0*/) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   rewind();
   int8_t status;
   while ((status = lsPrintNext(flags, indent))) {
     if (status > 1 && (flags & LS_R)) {
+<<<<<<< HEAD
+      uint16_t index = curPosition() / 32 - 1;
+=======
       const uint16_t index = curPosition() / 32 - 1;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       SdBaseFile s;
       if (s.open(this, index, O_READ)) s.ls(flags, indent + 2);
       seekSet(32 * (index + 1));
@@ -350,10 +362,17 @@ int8_t SdBaseFile::lsPrintNext(const uint8_t flags, const uint8_t indent) {
         && DIR_IS_FILE_OR_SUBDIR(&dir)) break;
   }
   // indent for dir level
+<<<<<<< HEAD
+  LOOP_L_N(i, indent) SERIAL_CHAR(' ');
+
+  // print name
+  LOOP_L_N(i, 11) {
+=======
   for (uint8_t i = 0; i < indent; ++i) SERIAL_CHAR(' ');
 
   // print name
   for (uint8_t i = 0; i < 11; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (dir.name[i] == ' ')continue;
     if (i == 8) {
       SERIAL_CHAR('.');
@@ -504,7 +523,11 @@ bool SdBaseFile::mkdir(SdBaseFile * const parent, const uint8_t dname[11]
   dir_t d;
   memcpy(&d, p, sizeof(d));
   d.name[0] = '.';
+<<<<<<< HEAD
+  LOOP_S_L_N(i, 1, 11) d.name[i] = ' ';
+=======
   for (uint8_t i = 1; i < 11; ++i) d.name[i] = ' ';
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // cache block for '.'  and '..'
   uint32_t block = vol_->clusterStartBlock(firstCluster_);
@@ -771,7 +794,11 @@ bool SdBaseFile::open(SdBaseFile * const dirFile, const uint8_t dname[11]
       if (!dirFile->seekSet(32 * index)) return false;
 
       // Dir entries write loop: [LFN] + SFN(1)
+<<<<<<< HEAD
+      LOOP_L_N(dirWriteIdx, reqEntriesNum) {
+=======
       for (uint8_t dirWriteIdx = 0; dirWriteIdx < reqEntriesNum; ++dirWriteIdx) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         index = (dirFile->curPosition_ / 32) & 0xF;
         p = dirFile->readDirCache();
         // LFN or SFN Entry?
@@ -1137,7 +1164,11 @@ bool SdBaseFile::openNext(SdBaseFile *dirFile, const uint8_t oflag) {
    */
   void SdBaseFile::getLFNName(vfat_t *pFatDir, char *lname, const uint8_t sequenceNumber) {
     const uint8_t startOffset = (sequenceNumber - 1) * FILENAME_LENGTH;
+<<<<<<< HEAD
+    LOOP_L_N(i, FILENAME_LENGTH) {
+=======
     for (uint8_t i = 0; i < FILENAME_LENGTH; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       const uint16_t utf16_ch = (i >= 11) ? pFatDir->name3[i - 11] : (i >= 5) ? pFatDir->name2[i - 5] : pFatDir->name1[i];
       #if ENABLED(UTF_FILENAME_SUPPORT)
         // We can't reconvert to UTF-8 here as UTF-8 is variable-size encoding, but joining LFN blocks
@@ -1158,7 +1189,11 @@ bool SdBaseFile::openNext(SdBaseFile *dirFile, const uint8_t oflag) {
   void SdBaseFile::setLFNName(vfat_t *pFatDir, char *lname, const uint8_t sequenceNumber) {
     const uint8_t startOffset = (sequenceNumber - 1) * FILENAME_LENGTH,
                   nameLength = strlen(lname);
+<<<<<<< HEAD
+    LOOP_L_N(i, FILENAME_LENGTH) {
+=======
     for (uint8_t i = 0; i < FILENAME_LENGTH; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       uint16_t ch = 0;
       if ((startOffset + i) < nameLength)
         ch = lname[startOffset + i];
@@ -1479,7 +1514,11 @@ int8_t SdBaseFile::readDir(dir_t * const dir, char * const longFilename) {
 
               n = (seq - 1) * (FILENAME_LENGTH);
 
+<<<<<<< HEAD
+              LOOP_L_N(i, FILENAME_LENGTH) {
+=======
               for (uint8_t i = 0; i < FILENAME_LENGTH; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                 const uint16_t utf16_ch = (i >= 11) ? VFAT->name3[i - 11] : (i >= 5) ? VFAT->name2[i - 5] : VFAT->name1[i];
                 #if ENABLED(UTF_FILENAME_SUPPORT)
                   // We can't reconvert to UTF-8 here as UTF-8 is variable-size encoding, but joining LFN blocks
@@ -1627,7 +1666,11 @@ bool SdBaseFile::remove() {
     // Check if the entry has a LFN
     bool lastEntry = false;
     // loop back to search for any LFN entries related to this file
+<<<<<<< HEAD
+    LOOP_S_LE_N(sequenceNumber, 1, VFAT_ENTRIES_LIMIT) {
+=======
     for (uint8_t sequenceNumber = 1; sequenceNumber <= VFAT_ENTRIES_LIMIT; ++sequenceNumber) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       dirIndex_ = (dirIndex_ - 1) & 0xF;
       if (dirBlock_ == 0) break;
       if (dirIndex_ == 0xF) dirBlock_--;

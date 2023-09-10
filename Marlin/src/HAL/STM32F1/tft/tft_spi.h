@@ -56,21 +56,54 @@
 #define DATASIZE_8BIT  DATA_SIZE_8BIT
 #define DATASIZE_16BIT DATA_SIZE_16BIT
 #define TFT_IO_DRIVER  TFT_SPI
+<<<<<<< HEAD
+#define DMA_MAX_SIZE   0xFFFF
+=======
 #define DMA_MAX_WORDS  0xFFFF
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #define DMA_MINC_ENABLE   DMA_MINC_MODE
 #define DMA_MINC_DISABLE  0
 
 class TFT_SPI {
 private:
+<<<<<<< HEAD
+  static uint32_t ReadID(uint16_t Reg);
+  static void Transmit(uint16_t Data);
+  static void Transmit(uint32_t MemoryIncrease, uint16_t *Data, uint16_t Count);
+  static void TransmitDMA(uint32_t MemoryIncrease, uint16_t *Data, uint16_t Count);
+=======
   static uint32_t readID(const uint16_t inReg);
   static void transmit(uint16_t data);
   static void transmit(uint32_t memoryIncrease, uint16_t *data, uint16_t count);
   static void transmitDMA(uint32_t memoryIncrease, uint16_t *data, uint16_t count);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 public:
   static SPIClass SPIx;
 
+<<<<<<< HEAD
+  static void Init();
+  static uint32_t GetID();
+  static bool isBusy();
+  static void Abort();
+
+  static void DataTransferBegin(uint16_t DataWidth=DATA_SIZE_16BIT);
+  static void DataTransferEnd() { WRITE(TFT_CS_PIN, HIGH); SPIx.end(); };
+  static void DataTransferAbort();
+
+  static void WriteData(uint16_t Data) { Transmit(Data); }
+  static void WriteReg(uint16_t Reg) { WRITE(TFT_DC_PIN, LOW); Transmit(Reg); WRITE(TFT_DC_PIN, HIGH); }
+
+  static void WriteSequence_DMA(uint16_t *Data, uint16_t Count) { TransmitDMA(DMA_MINC_ENABLE, Data, Count); }
+  static void WriteMultiple_DMA(uint16_t Color, uint16_t Count) { static uint16_t Data; Data = Color; TransmitDMA(DMA_MINC_DISABLE, &Data, Count); }
+
+  static void WriteSequence(uint16_t *Data, uint16_t Count) { Transmit(DMA_MINC_ENABLE, Data, Count); }
+  static void WriteMultiple(uint16_t Color, uint32_t Count) {
+    while (Count > 0) {
+      Transmit(DMA_MINC_DISABLE, &Color, Count > DMA_MAX_SIZE ? DMA_MAX_SIZE : Count);
+      Count = Count > DMA_MAX_SIZE ? Count - DMA_MAX_SIZE : 0;
+=======
   static void init();
   static uint32_t getID();
   static bool isBusy();
@@ -91,6 +124,7 @@ public:
     while (count > 0) {
       transmit(DMA_MINC_DISABLE, &color, count > DMA_MAX_WORDS ? DMA_MAX_WORDS : count);
       count = count > DMA_MAX_WORDS ? count - DMA_MAX_WORDS : 0;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
   }
 };

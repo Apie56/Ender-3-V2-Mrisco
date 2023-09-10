@@ -60,10 +60,13 @@
 
 #ifdef __SAMD21__
 
+<<<<<<< HEAD
+=======
 #include "../../../inc/MarlinConfigPre.h"
 
 #if HAS_MARLINUI_U8GLIB
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #include <U8glib-HAL.h>
 #include "SPI.h"
 
@@ -155,6 +158,9 @@ uint8_t u8g_com_samd21_st7920_hw_spi_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val
   return 1;
 }
 
+<<<<<<< HEAD
+=======
 #endif // HAS_MARLINUI_U8GLIB
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif // __SAMD21__

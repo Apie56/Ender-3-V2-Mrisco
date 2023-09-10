@@ -263,7 +263,11 @@
   #endif
 #endif
 
+<<<<<<< HEAD
+#if EITHER(TFT_COLOR_UI, TFT_CLASSIC_UI)
+=======
 #if ANY(TFT_COLOR_UI, TFT_CLASSIC_UI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define TFT_CS_PIN                 EXP1_07_PIN
   #define TFT_SCK_PIN                EXP2_02_PIN
   #define TFT_MISO_PIN               EXP2_01_PIN
@@ -294,7 +298,11 @@
   #define LCD_READ_ID                       0xD3
   #define LCD_USE_DMA_SPI
 
+<<<<<<< HEAD
+  #define TFT_BUFFER_SIZE                  14400
+=======
   #define TFT_BUFFER_WORDS                 14400
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   #ifndef TOUCH_CALIBRATION_X
     #define TOUCH_CALIBRATION_X           -17253

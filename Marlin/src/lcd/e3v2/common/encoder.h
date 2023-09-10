@@ -34,9 +34,15 @@ typedef struct {
   bool enabled = false;
   int encoderMoveValue = 0;
   millis_t lastEncoderTime = 0;
+<<<<<<< HEAD
+} ENCODER_Rate;
+
+extern ENCODER_Rate EncoderRate;
+=======
 } EncoderRate;
 
 extern EncoderRate encoderRate;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 typedef enum {
   ENCODER_DIFF_NO    = 0,  // no state
@@ -48,26 +54,45 @@ typedef enum {
 #define ENCODER_WAIT_MS 20
 
 // Encoder initialization
+<<<<<<< HEAD
+void Encoder_Configuration();
+
+// Analyze encoder value and return state
+EncoderState Encoder_ReceiveAnalyze();
+=======
 void encoderConfiguration();
 
 // Analyze encoder value and return state
 EncoderState encoderReceiveAnalyze();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 inline EncoderState get_encoder_state() {
   static millis_t Encoder_ms = 0;
   const millis_t ms = millis();
   if (PENDING(ms, Encoder_ms)) return ENCODER_DIFF_NO;
+<<<<<<< HEAD
+  const EncoderState state = Encoder_ReceiveAnalyze();
+=======
   const EncoderState state = encoderReceiveAnalyze();
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   if (state != ENCODER_DIFF_NO) Encoder_ms = ms + ENCODER_WAIT_MS;
   return state;
 }
 
 template<typename T>
+<<<<<<< HEAD
+inline bool Apply_Encoder(const EncoderState &encoder_diffState, T &valref) {
+  if (encoder_diffState == ENCODER_DIFF_CW)
+    valref += EncoderRate.encoderMoveValue;
+  else if (encoder_diffState == ENCODER_DIFF_CCW)
+    valref -= EncoderRate.encoderMoveValue;
+=======
 inline bool applyEncoder(const EncoderState &encoder_diffState, T &valref) {
   if (encoder_diffState == ENCODER_DIFF_CW)
     valref += encoderRate.encoderMoveValue;
   else if (encoder_diffState == ENCODER_DIFF_CCW)
     valref -= encoderRate.encoderMoveValue;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   return encoder_diffState == ENCODER_DIFF_ENTER;
 }
 

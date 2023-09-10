@@ -129,7 +129,11 @@
 // Heaters / Fans
 //
 
+<<<<<<< HEAD
+#if EITHER(EDUTRONICS_12864OLED_SH1106, EDUTRONICS_12864OLED_SSD1306)
+=======
 #if ANY(EDUTRONICS_12864OLED_SH1106, EDUTRONICS_12864OLED_SSD1306)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define LCDSCREEN_NAME "EDUTRONICS 12864 OLED"
   #define BTN_EN2                              1
   #define BTN_EN1                              3

@@ -27,7 +27,11 @@
 #include "bedlevel.h"
 #include "../../module/planner.h"
 
+<<<<<<< HEAD
+#if EITHER(MESH_BED_LEVELING, PROBE_MANUALLY)
+=======
 #if ANY(MESH_BED_LEVELING, PROBE_MANUALLY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../module/motion.h"
 #endif
 
@@ -46,6 +50,10 @@
   #include "../../lcd/extui/ui_api.h"
 #endif
 
+<<<<<<< HEAD
+bool leveling_is_valid() {
+  return TERN1(HAS_MESH, bedlevel.mesh_is_valid());
+=======
 #if ALL(MESH_BED_LEVELING, DWIN_LCD_PROUI)
   #include "../../lcd/e3v2/proui/bedlevel_tools.h"
 #endif
@@ -56,6 +64,7 @@ bool leveling_is_valid() {
   #else
     return TERN1(HAS_MESH, bedlevel.mesh_is_valid());
   #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 /**
@@ -128,7 +137,11 @@ void reset_bed_level() {
   TERN_(ABL_PLANAR, planner.bed_level_matrix.set_to_identity());
 }
 
+<<<<<<< HEAD
+#if EITHER(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+=======
 #if ANY(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   /**
    * Enable to produce output in JSON format suitable
@@ -145,8 +158,13 @@ void reset_bed_level() {
    */
   void print_2d_array(const uint8_t sx, const uint8_t sy, const uint8_t precision, const float *values) {
     #ifndef SCAD_MESH_OUTPUT
+<<<<<<< HEAD
+      LOOP_L_N(x, sx) {
+        serial_spaces(precision + (x < 10 ? 3 : 2));
+=======
       for (uint8_t x = 0; x < sx; ++x) {
         SERIAL_ECHO_SP(precision + (x < 10 ? 3 : 2));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         SERIAL_ECHO(x);
       }
       SERIAL_EOL();
@@ -154,23 +172,38 @@ void reset_bed_level() {
     #ifdef SCAD_MESH_OUTPUT
       SERIAL_ECHOLNPGM("measured_z = ["); // open 2D array
     #endif
+<<<<<<< HEAD
+    LOOP_L_N(y, sy) {
+=======
     for (uint8_t y = 0; y < sy; ++y) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #ifdef SCAD_MESH_OUTPUT
         SERIAL_ECHOPGM(" [");             // open sub-array
       #else
         if (y < 10) SERIAL_CHAR(' ');
         SERIAL_ECHO(y);
       #endif
+<<<<<<< HEAD
+      LOOP_L_N(x, sx) {
+        SERIAL_CHAR(' ');
+        #if PROUI_EX
+          const float offset = ProEx.getZvalues(sy, x, y, values);
+=======
       for (uint8_t x = 0; x < sx; ++x) {
         SERIAL_CHAR(' ');
         #if PROUI_EX
           const float offset = proUIEx.getZvalues(sy, x, y, values);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         #else
           const float offset = values[x * sy + y];
         #endif
         if (!isnan(offset)) {
           if (offset >= 0) SERIAL_CHAR('+');
+<<<<<<< HEAD
+          SERIAL_ECHO_F(offset, int(precision));
+=======
           SERIAL_ECHO(p_float_t(offset, precision));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         }
         else {
           #ifdef SCAD_MESH_OUTPUT
@@ -178,7 +211,11 @@ void reset_bed_level() {
               SERIAL_CHAR(' ');
             SERIAL_ECHOPGM("NAN");
           #else
+<<<<<<< HEAD
+            LOOP_L_N(i, precision + 3)
+=======
             for (uint8_t i = 0; i < precision + 3; ++i)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
               SERIAL_CHAR(i ? '=' : ' ');
           #endif
         }
@@ -200,7 +237,11 @@ void reset_bed_level() {
 
 #endif // AUTO_BED_LEVELING_BILINEAR || MESH_BED_LEVELING
 
+<<<<<<< HEAD
+#if EITHER(MESH_BED_LEVELING, PROBE_MANUALLY)
+=======
 #if ANY(MESH_BED_LEVELING, PROBE_MANUALLY)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   void _manual_goto_xy(const xy_pos_t &pos) {
 

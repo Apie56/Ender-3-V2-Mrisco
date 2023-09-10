@@ -39,7 +39,11 @@
 void GcodeSuite::M75() {
   startOrResumeJob();
   #if ENABLED(DWIN_LCD_PROUI)
+<<<<<<< HEAD
+    if (!IS_SD_PRINTING()) DWIN_Print_Header(parser.string_arg && parser.string_arg[0] ? parser.string_arg : GET_TEXT(MSG_HOST_START_PRINT));
+=======
     if (!IS_SD_PRINTING()) dwinPrintHeader(parser.string_arg && parser.string_arg[0] ? parser.string_arg : GET_TEXT(MSG_HOST_START_PRINT));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 }
 

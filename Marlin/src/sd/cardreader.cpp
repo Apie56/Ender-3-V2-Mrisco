@@ -56,11 +56,19 @@
   #include "../feature/pause.h"
 #endif
 
+<<<<<<< HEAD
+#if ENABLED(ONE_CLICK_PRINT)
+  #include "../../src/lcd/menu/menu.h"
+#endif
+
+#define DEBUG_OUT EITHER(DEBUG_CARDREADER, MARLIN_DEV_MODE)
+=======
 #if ENABLED(ONE_CLICK_PRINT) && DISABLED(DWIN_LCD_PROUI)
   #include "../../src/lcd/menu/menu.h"
 #endif
 
 #define DEBUG_OUT ANY(DEBUG_CARDREADER, MARLIN_DEV_MODE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #include "../core/debug_out.h"
 #include "../libs/hex_print.h"
 
@@ -176,7 +184,11 @@ CardReader::CardReader() {
   workDirDepth = 0;
   ZERO(workDirParents);
 
+<<<<<<< HEAD
+  #if BOTH(HAS_MEDIA, HAS_SD_DETECT)
+=======
   #if ALL(HAS_MEDIA, HAS_SD_DETECT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     SET_INPUT_PULLUP(SD_DETECT_PIN);
   #endif
 
@@ -190,7 +202,11 @@ CardReader::CardReader() {
 //
 char *createFilename(char * const buffer, const dir_t &p) {
   char *pos = buffer;
+<<<<<<< HEAD
+  LOOP_L_N(i, 11) {
+=======
   for (uint8_t i = 0; i < 11; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     if (p.name[i] == ' ') continue;
     if (i == 8) *pos++ = '.';
     *pos++ = p.name[i];
@@ -353,7 +369,11 @@ void CardReader::printListing(MediaFile parent, const char * const prepend, cons
 //
 // List all files on the SD card
 //
+<<<<<<< HEAD
+void CardReader::ls(const uint8_t lsflags) {
+=======
 void CardReader::ls(const uint8_t lsflags/*=0*/) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   if (flag.mounted) {
     root.rewind();
     printListing(root, nullptr, lsflags);
@@ -499,7 +519,11 @@ void CardReader::mount() {
   if (flag.mounted)
     cdroot();
   else {
+<<<<<<< HEAD
+    #if EITHER(HAS_SD_DETECT, USB_FLASH_DRIVE_SUPPORT)
+=======
     #if ANY(HAS_SD_DETECT, USB_FLASH_DRIVE_SUPPORT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       if (marlin_state != MF_INITIALIZING) LCD_MESSAGE(MSG_MEDIA_INIT_FAIL);
     #endif
   }
@@ -621,7 +645,11 @@ void CardReader::startOrResumeFilePrinting() {
 //
 void CardReader::endFilePrintNow(TERN_(SD_RESORT, const bool re_sort/*=false*/)) {
   TERN_(ADVANCED_PAUSE_FEATURE, did_pause_print = 0);
+<<<<<<< HEAD
+  TERN_(DWIN_CREALITY_LCD, HMI_flag.print_finish = flag.sdprinting);
+=======
   TERN_(DWIN_CREALITY_LCD, hmiFlag.print_finish = flag.sdprinting);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   flag.abort_sd_printing = false;
   if (isFileOpen()) file.close();
   TERN_(SD_RESORT, if (re_sort) presort());
@@ -650,7 +678,11 @@ void CardReader::getAbsFilenameInCWD(char *dst) {
     if (cnt < MAXPATHNAMELENGTH) { *dst = '/'; dst++; cnt++; }
   };
 
+<<<<<<< HEAD
+  LOOP_L_N(i, workDirDepth)                // Loop down to current work dir
+=======
   for (uint8_t i = 0; i < workDirDepth; ++i)                // Loop down to current work dir
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     appendAtom(workDirParents[i]);
 
   if (cnt < MAXPATHNAMELENGTH - (FILENAME_LENGTH) - 1) {    // Leave room for filename and nul
@@ -668,7 +700,13 @@ void announceOpen(const uint8_t doing, const char * const path) {
   if (doing) {
     PORT_REDIRECT(SerialMask::All);
     SERIAL_ECHO_START();
+<<<<<<< HEAD
+    SERIAL_ECHOPGM("Now ");
+    SERIAL_ECHOF(doing == 1 ? F("doing") : F("fresh"));
+    SERIAL_ECHOLNPGM(" file: ", path);
+=======
     SERIAL_ECHOLN(F("Now "), doing == 1 ? F("doing") : F("fresh"), F(" file: "), path);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 }
 
@@ -741,7 +779,11 @@ void CardReader::openFileRead(const char * const path, const uint8_t subcall_typ
 
     selectFileByName(fname);
     ui.set_status(longFilename[0] ? longFilename : fname);
+<<<<<<< HEAD
+    TERN_(DWIN_LCD_PROUI, DWIN_Print_Header(longFilename[0] ? longFilename : fname));
+=======
     TERN_(DWIN_LCD_PROUI, dwinPrintHeader(longFilename[0] ? longFilename : fname));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
   else
     openFailed(fname);
@@ -912,11 +954,15 @@ void CardReader::write_command(char * const buf) {
     if (found) {
       //SERIAL_ECHO_MSG(" OCP File: ", longest_filename(), "\n");
       //ui.init();
+<<<<<<< HEAD
+      one_click_print();
+=======
       #if ENABLED(DWIN_LCD_PROUI)
         gotoConfirmToPrint();
       #else
         one_click_print();
       #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     }
     return found;
   }
@@ -1362,7 +1408,11 @@ void CardReader::cdroot() {
       }
       else {
         sort_order[0] = 0;
+<<<<<<< HEAD
+        #if BOTH(SDSORT_USES_RAM, SDSORT_CACHE_NAMES)
+=======
         #if ALL(SDSORT_USES_RAM, SDSORT_CACHE_NAMES)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
           #if ENABLED(SDSORT_DYNAMIC_RAM)
             sortnames = new char*[1];
             sortshort = new char*[1];
@@ -1384,7 +1434,11 @@ void CardReader::cdroot() {
       #if ENABLED(SDSORT_DYNAMIC_RAM)
         delete [] sort_order;
         #if ENABLED(SDSORT_CACHE_NAMES)
+<<<<<<< HEAD
+          LOOP_L_N(i, sort_count) {
+=======
           for (uint8_t i = 0; i < sort_count; ++i) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
             free(sortshort[i]); // strdup
             free(sortnames[i]); // strdup
           }
@@ -1454,7 +1508,12 @@ void CardReader::fileHasFinished() {
       recovery.init();
       removeFile(recovery.filename);
       #if ENABLED(DEBUG_POWER_LOSS_RECOVERY)
+<<<<<<< HEAD
+        SERIAL_ECHOPGM("Power-loss file delete");
+        SERIAL_ECHOF(jobRecoverFileExists() ? F(" failed.\n") : F("d.\n"));
+=======
         SERIAL_ECHOLN(F("Power-loss file delete"), jobRecoverFileExists() ? F(" failed.") : F("d."));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
     }
   }

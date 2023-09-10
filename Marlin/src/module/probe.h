@@ -45,6 +45,13 @@
   };
 #endif
 
+<<<<<<< HEAD
+#if USE_Z_MIN_PROBE
+  #define PROBE_TRIGGERED() (READ(Z_MIN_PROBE_PIN) == Z_MIN_PROBE_ENDSTOP_HIT_STATE)
+#else
+  #define PROBE_TRIGGERED() (READ(Z_MIN_PIN) == Z_MIN_ENDSTOP_HIT_STATE)
+#endif
+=======
 #if ENABLED(BD_SENSOR)
   #define PROBE_READ() bdp_state
 #elif USE_Z_MIN_PROBE
@@ -58,6 +65,7 @@
   #define PROBE_HIT_STATE Z_MIN_ENDSTOP_HIT_STATE
 #endif
 #define PROBE_TRIGGERED() (PROBE_READ() == PROBE_HIT_STATE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 // In BLTOUCH HS mode, the probe travels in a deployed state.
 #define Z_TWEEN_SAFE_CLEARANCE SUM_TERN(BLTOUCH, Z_CLEARANCE_BETWEEN_PROBES, bltouch.z_extra_clearance())
@@ -87,7 +95,11 @@ public:
 
     static xyz_pos_t offset;
 
+<<<<<<< HEAD
+    #if EITHER(PREHEAT_BEFORE_PROBING, PREHEAT_BEFORE_LEVELING)
+=======
     #if ANY(PREHEAT_BEFORE_PROBING, PREHEAT_BEFORE_LEVELING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       static void preheat_for_probing(const celsius_t hotend_temp, const celsius_t bed_temp, const bool early=false);
     #endif
 
@@ -279,6 +291,31 @@ public:
     static float min_y() { return _min_y() TERN_(NOZZLE_AS_PROBE, TERN_(HAS_HOME_OFFSET, - home_offset.y)); }
     static float max_y() { return _max_y() TERN_(NOZZLE_AS_PROBE, TERN_(HAS_HOME_OFFSET, - home_offset.y)); }
 
+<<<<<<< HEAD
+    // constexpr helpers used in build-time static_asserts, relying on default probe offsets.
+    class build_time {
+      static constexpr xyz_pos_t default_probe_xyz_offset = xyz_pos_t(
+        #if HAS_BED_PROBE
+          NOZZLE_TO_PROBE_OFFSET
+        #else
+          { 0 }
+        #endif
+      );
+      static constexpr xy_pos_t default_probe_xy_offset = xy_pos_t({ default_probe_xyz_offset.x,  default_probe_xyz_offset.y });
+
+    public:
+      TERN(PROUI_EX, static, static constexpr) bool can_reach(float x, float y) {
+        #if IS_KINEMATIC
+          return HYPOT2(x, y) <= sq(probe_radius(default_probe_xy_offset));
+        #else
+          return COORDINATE_OKAY(x, _min_x(default_probe_xy_offset) - fslop, _max_x(default_probe_xy_offset) + fslop)
+              && COORDINATE_OKAY(y, _min_y(default_probe_xy_offset) - fslop, _max_y(default_probe_xy_offset) + fslop);
+        #endif
+      }
+
+      TERN(PROUI_EX, static, static constexpr) bool can_reach(const xy_pos_t &point) { return can_reach(point.x, point.y); }
+    };
+=======
     #if DISABLED(PROUI_EX)
       // constexpr helpers used in build-time static_asserts, relying on default probe offsets.
       class build_time {
@@ -303,6 +340,7 @@ public:
         static constexpr bool can_reach(const xy_pos_t &point) { return can_reach(point.x, point.y); }
       };
     #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     #if NEEDS_THREE_PROBE_POINTS
       // Retrieve three points to probe the bed. Any type exposing set(X,Y) may be used.
@@ -362,7 +400,10 @@ private:
 };
 
 extern Probe probe;
+<<<<<<< HEAD
+=======
 
 #if ENABLED(DWIN_LCD_PROUI)
   float probe_at_point(const_float_t rx, const_float_t ry, const bool raise_after);
 #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

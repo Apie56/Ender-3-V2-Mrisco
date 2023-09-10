@@ -30,7 +30,11 @@
 
 #define DISPLAY_CHARSET_ISO10646_1
 
+<<<<<<< HEAD
+namespace Language_da {
+=======
 namespace LanguageNarrow_da {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -47,6 +51,25 @@ namespace LanguageNarrow_da {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Bed level er færdig!");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Sæt forsk. af home");
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Forsk. er nu aktiv");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Forvarm ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Forvarm ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Forvarm ") PREHEAT_1_LABEL _UxGT(" end");
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Forvarm ") PREHEAT_1_LABEL _UxGT(" end ~");
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Forvarm ") PREHEAT_1_LABEL _UxGT(" Alle");
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Forvarm ") PREHEAT_1_LABEL _UxGT(" Bed");
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Forvarm ") PREHEAT_1_LABEL _UxGT(" conf");
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Forvarm $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Forvarm $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Forvarm $ end");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Forvarm $ end ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Forvarm $ Alle");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Forvarm $ Bed");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Forvarm $ conf");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Forvarm ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Forvarm ") PREHEAT_1_LABEL " ~";
@@ -64,6 +87,7 @@ namespace LanguageNarrow_da {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Forvarm $ Bed");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Forvarm $ conf");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_COOLDOWN                       = _UxGT("Afkøl");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Slå strøm til");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Slå strøm fra");
@@ -92,9 +116,15 @@ namespace LanguageNarrow_da {
   LSTR MSG_FAN_SPEED                      = _UxGT("Blæser hastighed");
   LSTR MSG_FAN_SPEED_N                    = _UxGT("Blæser hastighed ~");
   LSTR MSG_CONTROL                        = _UxGT("Kontrol");
+<<<<<<< HEAD
+  LSTR MSG_MIN                            = _UxGT(" \002 Min");
+  LSTR MSG_MAX                            = _UxGT(" \002 Max");
+  LSTR MSG_FACTOR                         = _UxGT(" \002 Fact");
+=======
   LSTR MSG_MIN                            = " " LCD_STR_THERMOMETER _UxGT(" Min");
   LSTR MSG_MAX                            = " " LCD_STR_THERMOMETER _UxGT(" Max");
   LSTR MSG_FACTOR                         = " " LCD_STR_THERMOMETER _UxGT(" Fact");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_AUTOTEMP                       = _UxGT("Autotemp");
   LSTR MSG_LCD_ON                         = _UxGT("Til");
   LSTR MSG_LCD_OFF                        = _UxGT("Fra");
@@ -111,7 +141,11 @@ namespace LanguageNarrow_da {
   LSTR MSG_STORE_EEPROM                   = _UxGT("Gem i EEPROM");
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Hent fra EEPROM");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Gendan Defaults");
+<<<<<<< HEAD
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Genopfrisk");
+=======
   LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Genopfrisk");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_SCREEN                    = _UxGT("Info skærm");
   LSTR MSG_PREPARE                        = _UxGT("Forbered");
   LSTR MSG_PAUSE_PRINT                    = _UxGT("Pause printet");
@@ -158,11 +192,27 @@ namespace LanguageNarrow_da {
   LSTR MSG_INFO_BOARD_MENU                = _UxGT("Kort Info");
   LSTR MSG_INFO_THERMISTOR_MENU           = _UxGT("Thermistors");
 
+<<<<<<< HEAD
+  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Ant. Prints");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Færdige");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Total print tid");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Længste print");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Total Extruderet");
+  #else
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Prints");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Færdige");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Total");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Længste");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Extruderet");
+  #endif
+=======
   LSTR MSG_INFO_PRINT_COUNT               = _UxGT("Prints");
   LSTR MSG_INFO_COMPLETED_PRINTS          = _UxGT("Færdige");
   LSTR MSG_INFO_PRINT_TIME                = _UxGT("Total");
   LSTR MSG_INFO_PRINT_LONGEST             = _UxGT("Længste");
   LSTR MSG_INFO_PRINT_FILAMENT            = _UxGT("Extruderet");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   LSTR MSG_INFO_PSU                       = _UxGT("Strømfors.");
 
@@ -175,6 +225,9 @@ namespace LanguageNarrow_da {
 
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Forkert printer");
 
+<<<<<<< HEAD
+  #if LCD_HEIGHT >= 4
+=======
   LSTR MSG_FILAMENT_CHANGE_INIT           = _UxGT(MSG_1_LINE("Vent venligst..."));
   LSTR MSG_FILAMENT_CHANGE_UNLOAD         = _UxGT(MSG_1_LINE("Udskyder..."));
   LSTR MSG_FILAMENT_CHANGE_INSERT         = _UxGT(MSG_1_LINE("Indsæt og klik"));
@@ -197,14 +250,25 @@ namespace LanguageTall_da {
   using namespace LanguageWide_da;
   #if LCD_HEIGHT >= 4
     // Filament Change screens show up to 3 lines on a 4-line display
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_3_LINE("Vent på start", "af filament", "skift"));
     LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_2_LINE("Vent på", "filament udskyd."));
     LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_3_LINE("Indsæt filament", "og tryk på knap", "for at fortsætte..."));
     LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_2_LINE("Vent på", "filament indtag"));
     LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_2_LINE("Vent på at print", "fortsætter"));
+<<<<<<< HEAD
+  #else // LCD_HEIGHT < 4
+    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_1_LINE("Vent venligst..."));
+    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_1_LINE("Udskyder..."));
+    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_1_LINE("Indsæt og klik"));
+    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_1_LINE("Indtager..."));
+    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_1_LINE("Fortsætter..."));
+  #endif // LCD_HEIGHT < 4
+=======
   #endif
 }
 
 namespace Language_da {
   using namespace LanguageTall_da;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }

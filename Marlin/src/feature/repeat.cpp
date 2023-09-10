@@ -66,7 +66,11 @@ void Repeat::loop() {
   }
 }
 
+<<<<<<< HEAD
+void Repeat::cancel() { LOOP_L_N(i, index) marker[i].counter = 0; }
+=======
 void Repeat::cancel() { for (uint8_t i = 0; i < index; ++i) marker[i].counter = 0; }
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 void Repeat::early_parse_M808(char * const cmd) {
   if (is_command_M808(cmd)) {

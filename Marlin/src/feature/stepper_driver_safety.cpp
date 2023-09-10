@@ -30,7 +30,12 @@ static uint32_t axis_plug_backward = 0;
 
 void stepper_driver_backward_error(FSTR_P const fstr) {
   SERIAL_ERROR_START();
+<<<<<<< HEAD
+  SERIAL_ECHOF(fstr);
+  SERIAL_ECHOLNPGM(" driver is backward!");
+=======
   SERIAL_ECHOLN(fstr, F(" driver is backward!"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   ui.status_printf(2, F(S_FMT S_FMT), FTOP(fstr), GET_TEXT(MSG_DRIVER_BACKWARD));
 }
 

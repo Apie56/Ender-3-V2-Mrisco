@@ -37,6 +37,8 @@
 // Startup tests are run at the end of setup()
 void runStartupTests() {
   // Call post-setup tests here to validate behaviors.
+<<<<<<< HEAD
+=======
 
   // String with cutoff at 20 chars:
   // "F-string, 1234.50, 2"
@@ -72,6 +74,7 @@ void runStartupTests() {
   auto print_char_ptr = [](char * const str) { SERIAL_ECHOLN(str); };
   print_char_ptr(str);
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 // Periodic tests are run from within loop()

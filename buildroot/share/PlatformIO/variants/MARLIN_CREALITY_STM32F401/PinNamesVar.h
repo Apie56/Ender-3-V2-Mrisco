@@ -30,4 +30,8 @@
   USB_OTG_FS_ID = PA_10,
   USB_OTG_FS_DM = PA_11,
   USB_OTG_FS_DP = PA_12,
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

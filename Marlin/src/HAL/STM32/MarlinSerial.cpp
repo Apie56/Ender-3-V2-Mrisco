@@ -37,6 +37,8 @@
 #ifndef USART5
   #define USART5 UART5
 #endif
+<<<<<<< HEAD
+=======
 #ifndef USART7
   #define USART7 UART7
 #endif
@@ -46,6 +48,7 @@
 #ifndef USART9
   #define USART9 UART9
 #endif
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #define DECLARE_SERIAL_PORT(ser_num) \
   void _rx_complete_irq_ ## ser_num (serial_t * obj); \

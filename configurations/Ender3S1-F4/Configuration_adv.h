@@ -193,7 +193,11 @@
 
 /**
  * Hephestos 2 24V heated bed upgrade kit.
+<<<<<<< HEAD
+ * https://store.bq.com/en/heated-bed-kit-hephestos2
+=======
  * https://www.en3dstudios.com/product/bq-hephestos-2-heated-bed-kit/
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  */
 //#define HEPHESTOS2_HEATED_BED_KIT
 #if ENABLED(HEPHESTOS2_HEATED_BED_KIT)
@@ -313,7 +317,11 @@
   //#define ADAPTIVE_FAN_SLOWING              // Slow down the part-cooling fan if the temperature drops
   #if ENABLED(ADAPTIVE_FAN_SLOWING)
     //#define REPORT_ADAPTIVE_FAN_SLOWING     // Report fan slowing activity to the console
+<<<<<<< HEAD
+    #if EITHER(MPCTEMP, PIDTEMP)
+=======
     #if ANY(MPCTEMP, PIDTEMP)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       //#define TEMP_TUNING_MAINTAIN_FAN      // Don't slow down the fan speed during M303 or M306 T
     #endif
   #endif
@@ -553,7 +561,11 @@
 #define HOTEND_IDLE_TIMEOUT  // MRiscoC Disable heaters after timeout
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
   #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection  // MRiscoC 10 minutes for heaters timeout
+<<<<<<< HEAD
+  #define HOTEND_IDLE_MIN_TRIGGER   150     // (°C) Minimum temperature to enable hotend protection  // MRiscoC set idle trigger lower than default EXTRUDE_MINTEMP
+=======
   #define HOTEND_IDLE_MIN_TRIGGER   (EXTRUDE_MINTEMP - 10)     // (°C) Minimum temperature to enable hotend protection  // MRiscoC set idle trigger lower than default EXTRUDE_MINTEMP
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
 #endif
@@ -762,10 +774,17 @@
   #if ENABLED(NEOPIXEL_LED)
     //#define CASE_LIGHT_USE_NEOPIXEL         // Use NeoPixel LED as case light
   #endif
+<<<<<<< HEAD
+  #if EITHER(RGB_LED, RGBW_LED)
+    //#define CASE_LIGHT_USE_RGB_LED          // Use RGB / RGBW LED as case light
+  #endif
+  #if EITHER(CASE_LIGHT_USE_NEOPIXEL, CASE_LIGHT_USE_RGB_LED)
+=======
   #if ANY(RGB_LED, RGBW_LED)
     //#define CASE_LIGHT_USE_RGB_LED          // Use RGB / RGBW LED as case light
   #endif
   #if ANY(CASE_LIGHT_USE_NEOPIXEL, CASE_LIGHT_USE_RGB_LED)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define CASE_LIGHT_DEFAULT_COLOR { 255, 255, 255, 255 } // { Red, Green, Blue, White }
   #endif
 #endif
@@ -1005,7 +1024,11 @@
     // The probe Z offset (M851 Z) is the height at which the probe triggers.
     // This must be large enough to keep the probe pin off the bed and prevent
     // it from snagging on the bed clips.
+<<<<<<< HEAD
+    #define BLTOUCH_HS_EXTRA_CLEARANCE    5 // Extra Z Clearance
+=======
     #define BLTOUCH_HS_EXTRA_CLEARANCE    0 // Extra Z Clearance
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 
 #endif // BLTOUCH
@@ -1128,7 +1151,11 @@
    * Advanced configuration
    */
   #define FTM_BATCH_SIZE            100                 // Batch size for trajectory generation;
+<<<<<<< HEAD
+                                                        // half the window size for Ulendo FBS.
+=======
   #define FTM_WINDOW_SIZE           200                 // Window size for trajectory generation.
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define FTM_FS                   1000                 // (Hz) Frequency for trajectory generation. (1 / FTM_TS)
   #define FTM_TS                      0.001f            // (s) Time step for trajectory generation. (1 / FTM_FS)
   #define FTM_STEPPER_FS          20000                 // (Hz) Frequency for stepper I/O update.
@@ -1178,7 +1205,11 @@
  */
 //#define INPUT_SHAPING_X
 //#define INPUT_SHAPING_Y
+<<<<<<< HEAD
+#if EITHER(INPUT_SHAPING_X, INPUT_SHAPING_Y)
+=======
 #if ANY(INPUT_SHAPING_X, INPUT_SHAPING_Y)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if ENABLED(INPUT_SHAPING_X)
     #define SHAPING_FREQ_X  40          // (Hz) The default dominant resonant frequency on the X axis.
     #define SHAPING_ZETA_X  0.15f       // Damping ratio of the X axis (range: 0.0 = no damping to 1.0 = critical damping).
@@ -1420,7 +1451,11 @@
  */
 //#define DIGIPOT_MCP4018             // Requires https://github.com/felias-fogg/SlowSoftI2CMaster
 //#define DIGIPOT_MCP4451
+<<<<<<< HEAD
+#if EITHER(DIGIPOT_MCP4018, DIGIPOT_MCP4451)
+=======
 #if ANY(DIGIPOT_MCP4018, DIGIPOT_MCP4451)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define DIGIPOT_I2C_NUM_CHANNELS 8  // 5DPRINT:4   AZTEEG_X3_PRO:8   MKS_SBASE:5   MIGHTYBOARD_REVE:5
 
   // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
@@ -1476,9 +1511,15 @@
 //
 // LCD Backlight Timeout
 //
+<<<<<<< HEAD
+//#define LCD_BACKLIGHT_TIMEOUT_MINS 1  // (minutes) Timeout before turning off the backlight
+
+#if HAS_BED_PROBE && EITHER(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
+=======
 #define LCD_BACKLIGHT_TIMEOUT_MINS 5  // (minutes) Timeout before turning off the backlight
 
 #if HAS_BED_PROBE && ANY(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
   #if ENABLED(PROBE_OFFSET_WIZARD)
     /**
@@ -1548,13 +1589,21 @@
   #define SHOW_BOOTSCREEN                 // Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **
   #if ENABLED(SHOW_BOOTSCREEN)
     #define BOOTSCREEN_TIMEOUT 1100       // (ms) Total Duration to display the boot screen(s)
+<<<<<<< HEAD
+    #if EITHER(HAS_MARLINUI_U8GLIB, TFT_COLOR_UI)
+=======
     #if ANY(HAS_MARLINUI_U8GLIB, TFT_COLOR_UI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #define BOOT_MARLIN_LOGO_SMALL      // Show a smaller Marlin logo on the Boot Screen (saving lots of flash)
     #endif
     #if HAS_MARLINUI_U8GLIB
       //#define BOOT_MARLIN_LOGO_ANIMATED // Animated Marlin logo. Costs ~3260 (or ~940) bytes of flash.
     #endif
+<<<<<<< HEAD
+    #if EITHER(HAS_MARLINUI_U8GLIB, TOUCH_UI_FTDI_EVE)
+=======
     #if ANY(HAS_MARLINUI_U8GLIB, TOUCH_UI_FTDI_EVE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       //#define SHOW_CUSTOM_BOOTSCREEN    // Show the bitmap in Marlin/_Bootscreen.h on startup.
     #endif
   #endif
@@ -1570,10 +1619,17 @@
   //#define LCD_TIMEOUT_TO_STATUS 15000   // (ms)
 
   // Scroll a longer status message into view
+<<<<<<< HEAD
+  #define STATUS_MESSAGE_SCROLLING  // MRiscoC Allow scrolling of large status messages
+
+  // Apply a timeout to low-priority status messages
+  #define STATUS_MESSAGE_TIMEOUT_SEC 30 // (seconds)  // MRiscoC Enable Status Message Timeout
+=======
   #define STATUS_MESSAGE_SCROLLING  // MRiscoC, Allows scrolling of large status messages
 
   // Apply a timeout to low-priority status messages
   #define STATUS_MESSAGE_TIMEOUT_SEC 90 // (seconds)  // MRiscoC Enable Status Message Timeout
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // On the Info Screen, display XY with one decimal place when possible
   //#define LCD_DECIMAL_SMALL_XY
@@ -1613,6 +1669,15 @@
 #endif // HAS_DISPLAY
 
 // Add 'M73' to set print job progress, overrides Marlin's built-in estimate
+<<<<<<< HEAD
+#define SET_PROGRESS_MANUALLY  // MRiscoC Allow display feedback of host printing through GCode M73
+#if ENABLED(SET_PROGRESS_MANUALLY)
+  #define SET_PROGRESS_PERCENT            // Add 'P' parameter to set percentage done  // MRiscoC Allow display feedback of host printing through GCode M73
+  #define SET_REMAINING_TIME              // Add 'R' parameter to set remaining time  // MRiscoC Allow display feedback of host printing through GCode M73
+  //#define SET_INTERACTION_TIME          // Add 'C' parameter to set time until next filament change or other user interaction
+  //#define M73_REPORT                    // Report M73 values to host
+  #if BOTH(M73_REPORT, HAS_MEDIA)
+=======
 #define SET_PROGRESS_MANUALLY  // MRiscoC, Allows display feedback of host printing through GCode M73
 #if ENABLED(SET_PROGRESS_MANUALLY)
   #define SET_PROGRESS_PERCENT            // Add 'P' parameter to set percentage done  // MRiscoC, Allows display feedback of host printing through GCode M73
@@ -1620,21 +1685,33 @@
   //#define SET_INTERACTION_TIME          // Add 'C' parameter to set time until next filament change or other user interaction
   //#define M73_REPORT                    // Report M73 values to host
   #if ALL(M73_REPORT, HAS_MEDIA)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define M73_REPORT_SD_ONLY            // Report only when printing from SD
   #endif
 #endif
 
 // LCD Print Progress options. Multiple times may be displayed in turn.
+<<<<<<< HEAD
+#if HAS_DISPLAY && EITHER(HAS_MEDIA, SET_PROGRESS_MANUALLY)
+  #define SHOW_PROGRESS_PERCENT           // Show print progress percentage (doesn't affect progress bar)
+  #define SHOW_ELAPSED_TIME               // Display elapsed printing time (prefix 'E')
+  //#define SHOW_REMAINING_TIME           // Display estimated time to completion (prefix 'R')
+=======
 #if HAS_DISPLAY && ANY(HAS_MEDIA, SET_PROGRESS_MANUALLY)
   #define SHOW_PROGRESS_PERCENT           // Show print progress percentage (doesn't affect progress bar)
   #define SHOW_ELAPSED_TIME               // Display elapsed printing time (prefix 'E')
   #define SHOW_REMAINING_TIME           // Display estimated time to completion (prefix 'R')  // MRiscoC, Allows display remaining printing time
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #if ENABLED(SET_INTERACTION_TIME)
     #define SHOW_INTERACTION_TIME         // Display time until next user interaction ('C' = filament change)
   #endif
   //#define PRINT_PROGRESS_SHOW_DECIMALS  // Show/report progress with decimal digits, not all UIs support this
 
+<<<<<<< HEAD
+  #if EITHER(HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL)
+=======
   #if ANY(HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     //#define LCD_PROGRESS_BAR            // Show a progress bar on HD44780 LCDs for SD printing
     #if ENABLED(LCD_PROGRESS_BAR)
       #define PROGRESS_BAR_BAR_TIME 2000  // (ms) Amount of time to show the bar
@@ -1750,7 +1827,11 @@
 
   // SD Card Sorting options
   #if ENABLED(SDCARD_SORT_ALPHA)
+<<<<<<< HEAD
+    #define SDSORT_LIMIT       50     // Maximum number of sorted items (10-256). Costs 27 bytes each.  // MRiscoC Increase number of sorted items
+=======
     #define SDSORT_LIMIT       40     // Maximum number of sorted items (10-256). Costs 27 bytes each.  // MRiscoC Increase number of sorted items
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #define FOLDER_SORTING     -1     // -1=above  0=none  1=below
     #define SDSORT_GCODE       true  // Allow turning sorting on/off with LCD and M34 G-code.  // MRiscoC Allows disable file sort by M34 g-code
     #define SDSORT_USES_RAM    true  // Pre-allocate a static array for faster pre-sorting.  // Ender Configs
@@ -1854,11 +1935,19 @@
   //#define CONFIGURATION_EMBEDDING
 
   // Add an optimized binary file transfer mode, initiated with 'M28 B1'
+<<<<<<< HEAD
+  #define BINARY_FILE_TRANSFER  // MRiscoC Enabled for easy firmware upgrade
+
+  #if ENABLED(BINARY_FILE_TRANSFER)
+    // Include extra facilities (e.g., 'M20 F') supporting firmware upload via BINARY_FILE_TRANSFER
+    //#define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade
+=======
   //#define BINARY_FILE_TRANSFER  // MRiscoC Enabled for easy firmware upgrade
 
   #if ENABLED(BINARY_FILE_TRANSFER)
     // Include extra facilities (e.g., 'M20 F') supporting firmware upload via BINARY_FILE_TRANSFER
     #define CUSTOM_FIRMWARE_UPLOAD  // MRiscoC Enabled for easy firmware upgrade
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 
   /**
@@ -1971,10 +2060,14 @@
   //#define STATUS_ALT_BED_BITMAP     // Use the alternative bed bitmap
   //#define STATUS_ALT_FAN_BITMAP     // Use the alternative fan bitmap
   //#define STATUS_FAN_FRAMES 3       // :[0,1,2,3,4] Number of fan animation frames
+<<<<<<< HEAD
+  //#define STATUS_HEAT_PERCENT       // Show heating in a progress bar
+=======
 
   // Only one STATUS_HEAT_* option can be enabled
   //#define STATUS_HEAT_PERCENT       // Show heating in a progress bar
   //#define STATUS_HEAT_POWER         // Show heater output power as a vertical bar
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // Frivolous Game Options
   //#define MARLIN_BRICKOUT
@@ -2022,6 +2115,8 @@
       #define DGUS_UI_WAITING_STATUS 10
       #define DGUS_UI_WAITING_STATUS_PERIOD 8 // Increase to slower waiting status looping
     #endif
+<<<<<<< HEAD
+=======
 
   #elif DGUS_UI_IS(E3S1PRO)
     /**
@@ -2038,6 +2133,7 @@
 
     #define DGUS_ADVANCED_SDCARD            // Allow more than 20 files and navigating directories
     #define DGUS_USERCONFIRM                // Reuse the SD Card page to show various messages
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif // HAS_DGUS_LCD
 
@@ -2213,9 +2309,15 @@
  */
 #define BABYSTEPPING  // Ender Configs
 #if ENABLED(BABYSTEPPING)
+<<<<<<< HEAD
+  //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
+  #define BABYSTEP_WITHOUT_HOMING  // MRiscoC Enabled BbS without home
+  #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).  // MRiscoC Active BbS always
+=======
   //#define EP_BABYSTEPPING                 // M293/M294 babystepping with EMERGENCY_PARSER support
   #define BABYSTEP_WITHOUT_HOMING  // MRiscoC Enabled BbS without home
   #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement)  // MRiscoC Active BbS always
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   //#define BABYSTEP_INVERT_Z               // Enable if Z babysteps should go the other way
   //#define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
@@ -2324,7 +2426,11 @@
   //#define PROBING_MARGIN_BACK PROBING_MARGIN
 #endif
 
+<<<<<<< HEAD
+#if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+=======
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   // Override the mesh area if the automatic (max) area is too large
   #define MESH_MIN_X 10
   #define MESH_MIN_Y 10
@@ -2332,7 +2438,11 @@
   #define MESH_MAX_Y 175
 #endif
 
+<<<<<<< HEAD
+#if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
+=======
 #if ALL(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
 #endif
 
@@ -2402,7 +2512,11 @@
   #endif
 
   // G76 options
+<<<<<<< HEAD
+  #if BOTH(PTC_PROBE, PTC_BED)
+=======
   #if ALL(PTC_PROBE, PTC_BED)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     // Park position to wait for probe cooldown
     #define PTC_PARK_POS   { 0, 0, 100 }
 
@@ -2444,7 +2558,11 @@
 // G5 Bézier Curve Support with XYZE destination and IJPQ offsets
 //#define BEZIER_CURVE_SUPPORT        // Requires ~2666 bytes
 
+<<<<<<< HEAD
+#if EITHER(ARC_SUPPORT, BEZIER_CURVE_SUPPORT)
+=======
 #if ANY(ARC_SUPPORT, BEZIER_CURVE_SUPPORT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define CNC_WORKSPACE_PLANES      // Allow G2/G3/G5 to operate in XY, ZX, or YZ planes
 #endif
 
@@ -2530,7 +2648,11 @@
 
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
+<<<<<<< HEAD
+#if BOTH(HAS_MEDIA, DIRECT_STEPPING)
+=======
 #if ALL(HAS_MEDIA, DIRECT_STEPPING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define BLOCK_BUFFER_SIZE  8
 #elif HAS_MEDIA
   #define BLOCK_BUFFER_SIZE 16
@@ -3312,7 +3434,11 @@
    */
   //#define SENSORLESS_HOMING // StallGuard capable drivers only
 
+<<<<<<< HEAD
+  #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
+=======
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     // TMC2209: 0...255. TMC2130: -64...63
     #define X_STALL_SENSITIVITY  8
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
@@ -3432,7 +3558,11 @@
   //#define PHOTOGRAPH_PIN 23
 
   // Canon Hack Development Kit
+<<<<<<< HEAD
+  // https://captain-slow.dk/2014/03/09/3d-printing-timelapses/
+=======
   // https://web.archive.org/web/20200920094805/https://captain-slow.dk/2014/03/09/3d-printing-timelapses/
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define CHDK_PIN        4
 
   // Optional second move with delay to trigger the camera shutter
@@ -3475,7 +3605,11 @@
  */
 //#define SPINDLE_FEATURE
 //#define LASER_FEATURE
+<<<<<<< HEAD
+#if EITHER(SPINDLE_FEATURE, LASER_FEATURE)
+=======
 #if ANY(SPINDLE_FEATURE, LASER_FEATURE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
@@ -3809,8 +3943,12 @@
      * Use 'M200 [T<extruder>] L<limit>' to override and 'M502' to reset.
      * A non-zero value activates Volume-based Extrusion Limiting.
      */
+<<<<<<< HEAD
+    #define DEFAULT_VOLUMETRIC_EXTRUDER_LIMIT 0.00      // (mm^3/sec)
+=======
     #define DEFAULT_VOLUMETRIC_EXTRUDER_LIMIT  0.00     // (mm^3/sec)
     #define VOLUMETRIC_EXTRUDER_LIMIT_MAX     20        // (mm^3/sec)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #endif
 #endif
 
@@ -3843,18 +3981,29 @@
 //#define REPETIER_GCODE_M360     // Add commands originally from Repetier FW
 
 /**
+<<<<<<< HEAD
+ * Enable this option for a leaner build of Marlin that removes all
+ * workspace offsets, simplifying coordinate transformations, leveling, etc.
+ *
+ *  - M206 and M428 are disabled.
+ *  - G92 will revert to its behavior from Marlin 1.0.
+=======
  * Enable this option for a leaner build of Marlin that removes
  * workspace offsets to slightly optimize performance.
  * G92 will revert to its behavior from Marlin 1.0.
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  */
 #define NO_WORKSPACE_OFFSETS  // MRiscoC Save flash space and simplify movements
 
 /**
+<<<<<<< HEAD
+=======
  * Disable M206 and M428 if you don't need home offsets.
  */
 #define NO_HOME_OFFSETS  // MRiscoC Save flash space and simplify movements
 
 /**
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * CNC G-code options
  * Support CNC-style G-code dialects used by laser cutters, drawing machine cams, etc.
  * Note that G0 feedrates should be used with care for 3D printing (if used at all).
@@ -4038,7 +4187,11 @@
  * Wiki: https://wiki.aus3d.com.au/Magnetic_Encoder
  * Github: https://github.com/Aus3D/MagneticEncoder
  *
+<<<<<<< HEAD
+ * Supplier: https://aus3d.com.au/magnetic-encoder-module
+=======
  * Supplier: https://aus3d.com.au/products/magnetic-encoder-module
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
  * Alternative Supplier: https://reliabuild3d.com/
  *
  * Reliabuild encoders have been modified to improve reliability.
@@ -4231,7 +4384,11 @@
 //#define WIFISUPPORT         // Marlin embedded WiFi management
 //#define ESP3D_WIFISUPPORT   // ESP3D Library WiFi management (https://github.com/luc-github/ESP3DLib)
 
+<<<<<<< HEAD
+#if EITHER(WIFISUPPORT, ESP3D_WIFISUPPORT)
+=======
 #if ANY(WIFISUPPORT, ESP3D_WIFISUPPORT)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   //#define WEBSUPPORT          // Start a webserver (which may include auto-discovery)
   //#define OTASUPPORT          // Support over-the-air firmware updates
   //#define WIFI_CUSTOM_COMMAND // Accept feature config commands (e.g., WiFi ESP3D) from the host
@@ -4309,7 +4466,11 @@
   /**
    * Using a sensor like the MMU2S
    * This mode requires a MK3S extruder with a sensor at the extruder idler, like the MMU2S.
+<<<<<<< HEAD
+   * See https://help.prusa3d.com/en/guide/3b-mk3s-mk2-5s-extruder-upgrade_41560, step 11
+=======
    * See https://help.prusa3d.com/guide/3b-mk3s-mk2-5s-extruder-upgrade_41560#42048, step 11
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
    */
   #if HAS_PRUSA_MMU2S
     #define MMU2_C0_RETRY   5             // Number of retries (total time = timeout*retries)

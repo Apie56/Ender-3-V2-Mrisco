@@ -28,7 +28,11 @@
 #include "../../feature/spindle_laser.h"
 #include "../../module/planner.h"
 
+<<<<<<< HEAD
+#if BOTH(DWIN_LCD_PROUI, CV_LASER_MODULE)
+=======
 #if ALL(DWIN_LCD_PROUI, CV_LASER_MODULE)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../lcd/e3v2/proui/dwin.h"
 #endif
 
@@ -89,7 +93,11 @@ void GcodeSuite::M3_M4(const bool is_M4) {
 
   #if ENABLED(LASER_FEATURE)
     if (parser.seen_test('I')) {
+<<<<<<< HEAD
+      TERN_(CV_LASER_MODULE, LaserOn(true));
+=======
       TERN_(CV_LASER_MODULE, laserOn(true));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       cutter.cutter_mode = is_M4 ? CUTTER_MODE_DYNAMIC : CUTTER_MODE_CONTINUOUS;
       cutter.inline_power(0);
       cutter.set_enabled(true);

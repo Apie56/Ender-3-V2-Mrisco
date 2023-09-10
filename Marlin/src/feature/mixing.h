@@ -108,7 +108,11 @@ class Mixer {
   }
 
   // Used when dealing with blocks
+<<<<<<< HEAD
+  FORCE_INLINE static void populate_block(mixer_comp_t b_color[MIXING_STEPPERS]) {
+=======
   FORCE_INLINE static void populate_block(mixer_comp_t (&b_color)[MIXING_STEPPERS]) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #if ENABLED(GRADIENT_MIX)
       if (gradient.enabled) {
         MIXER_STEPPER_LOOP(i) b_color[i] = gradient.color[i];
@@ -118,11 +122,19 @@ class Mixer {
     MIXER_STEPPER_LOOP(i) b_color[i] = color[selected_vtool][i];
   }
 
+<<<<<<< HEAD
+  FORCE_INLINE static void stepper_setup(mixer_comp_t b_color[MIXING_STEPPERS]) {
+    MIXER_STEPPER_LOOP(i) s_color[i] = b_color[i];
+  }
+
+  #if EITHER(HAS_DUAL_MIXING, GRADIENT_MIX)
+=======
   FORCE_INLINE static void stepper_setup(mixer_comp_t (&b_color)[MIXING_STEPPERS]) {
     MIXER_STEPPER_LOOP(i) s_color[i] = b_color[i];
   }
 
   #if ANY(HAS_DUAL_MIXING, GRADIENT_MIX)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
     static mixer_perc_t mix[MIXING_STEPPERS];  // Scratch array for the Mix in proportion to 100
 
@@ -137,11 +149,19 @@ class Mixer {
       MIXER_STEPPER_LOOP(i) tcolor[i] = mix[i] * scale;
 
       #ifdef MIXER_NORMALIZER_DEBUG
+<<<<<<< HEAD
+        SERIAL_ECHOPGM("Mix [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]);
+        SERIAL_ECHOPGM(" ] to Color [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, tcolor[0], tcolor[1], tcolor[2], tcolor[3], tcolor[4], tcolor[5]);
+        SERIAL_ECHOLNPGM(" ]");
+=======
         SERIAL_ECHOLN(
           F("Mix [ "), LIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]),
           F(" ] to Color [ "), LIST_N(MIXING_STEPPERS, tcolor[0], tcolor[1], tcolor[2], tcolor[3], tcolor[4], tcolor[5]),
           F(" ]")
         );
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
     }
 
@@ -151,10 +171,18 @@ class Mixer {
       MIXER_STEPPER_LOOP(i) mix[i] = mixer_perc_t(100.0f * color[j][i] / ctot + 0.5f);
 
       #ifdef MIXER_NORMALIZER_DEBUG
+<<<<<<< HEAD
+        SERIAL_ECHOPGM("V-tool ", j, " [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, color[j][0], color[j][1], color[j][2], color[j][3], color[j][4], color[j][5]);
+        SERIAL_ECHOPGM(" ] to Mix [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]);
+        SERIAL_ECHOLNPGM(" ]");
+=======
         SERIAL_ECHOLN(F("V-tool "), j,
           F(" [ "), LIST_N(MIXING_STEPPERS, color[j][0], color[j][1], color[j][2], color[j][3], color[j][4], color[j][5]),
           F(" ] to Mix [ "), LIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]), F(" ]")
         );
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
     }
 
@@ -195,10 +223,18 @@ class Mixer {
       MIXER_STEPPER_LOOP(i) mix[i] = (mixer_perc_t)CEIL(100.0f * gradient.color[i] / ctot);
 
       #ifdef MIXER_NORMALIZER_DEBUG
+<<<<<<< HEAD
+        SERIAL_ECHOPGM("Gradient [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, gradient.color[0], gradient.color[1], gradient.color[2], gradient.color[3], gradient.color[4], gradient.color[5]);
+        SERIAL_ECHOPGM(" ] to Mix [ ");
+        SERIAL_ECHOLIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]);
+        SERIAL_ECHOLNPGM(" ]");
+=======
         SERIAL_ECHOLN(
           F("Gradient [ "), LIST_N(MIXING_STEPPERS, gradient.color[0], gradient.color[1], gradient.color[2], gradient.color[3], gradient.color[4], gradient.color[5]),
           F(" ] to Mix [ "), LIST_N(MIXING_STEPPERS, mix[0], mix[1], mix[2], mix[3], mix[4], mix[5]), F(" ]")
         );
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       #endif
     }
 
@@ -231,7 +267,17 @@ class Mixer {
     for (;;) {
       if (--runner < 0) runner = MIXING_STEPPERS - 1;
       accu[runner] += s_color[runner];
+<<<<<<< HEAD
+      if (
+        #ifdef MIXER_ACCU_SIGNED
+          accu[runner] < 0
+        #else
+          accu[runner] & COLOR_A_MASK
+        #endif
+      ) {
+=======
       if (TERN(MIXER_ACCU_SIGNED, accu[runner] < 0, accu[runner] & COLOR_A_MASK)) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
         accu[runner] &= COLOR_MASK;
         return runner;
       }

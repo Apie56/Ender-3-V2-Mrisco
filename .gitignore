@@ -25,9 +25,12 @@ bdf2u8g.exe
 genpages.exe
 marlin_config.json
 mczip.h
+<<<<<<< HEAD
+=======
 language*.csv
 out-csv/
 out-language/
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 *.gen
 *.sublime-workspace
 
@@ -133,9 +136,13 @@ spi_flash.bin
 fs.img
 
 # CMake
+<<<<<<< HEAD
+CMakeLists.txt
+=======
 buildroot/share/cmake/*
 CMakeLists.txt
 !buildroot/share/cmake/CMakeLists.txt
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 src/CMakeLists.txt
 CMakeListsPrivate.txt
 build/
@@ -168,5 +175,13 @@ __pycache__
 tags
 *.logs
 *.bak
+<<<<<<< HEAD
+/Compile.ps1
+/Copy MRiscoC config.bat
+/Compile_Releases.ps1
+/Compile_Special.ps1
+/Copy 422 MMesh config.bat
+=======
 /.vscode
 /.editorconfig
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69

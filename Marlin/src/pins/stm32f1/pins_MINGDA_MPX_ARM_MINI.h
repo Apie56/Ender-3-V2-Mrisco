@@ -51,14 +51,22 @@
 #define E2END                             0xFFFF  // EEPROM end address AT24C256 (32kB)
 */
 
+<<<<<<< HEAD
+#if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
+=======
 #if ANY(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #define FLASH_EEPROM_EMULATION
   #define EEPROM_PAGE_SIZE                0x800U  // 2K
   #define EEPROM_START_ADDRESS  (0x8000000UL + (STM32_FLASH_SIZE) * 1024UL - (EEPROM_PAGE_SIZE) * 2UL)
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2K
 #endif
 
+<<<<<<< HEAD
+#define SPI_DEVICE                             2
+=======
 #define SPI_DEVICE                             2  // Maple
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 //
 // Limit Switches

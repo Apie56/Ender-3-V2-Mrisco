@@ -35,7 +35,11 @@
   #include "../../module/motion.h"
 #endif
 
+<<<<<<< HEAD
+#if EITHER(HAS_COOLER, LASER_COOLANT_FLOW_METER)
+=======
 #if ANY(HAS_COOLER, LASER_COOLANT_FLOW_METER)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../feature/cooler.h"
 #endif
 
@@ -179,7 +183,11 @@ void menu_temperature() {
   #endif
 
   #if ENABLED(SINGLENOZZLE_STANDBY_TEMP)
+<<<<<<< HEAD
+    LOOP_S_L_N(e, 1, EXTRUDERS)
+=======
     for (uint8_t e = 1; e < EXTRUDERS; ++e)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       EDIT_ITEM_FAST_N(int3, e, MSG_NOZZLE_STANDBY, &thermalManager.singlenozzle_temp[e], 0, thermalManager.hotend_max_target(0));
   #endif
 
@@ -266,7 +274,11 @@ void menu_temperature() {
     //
     // Preheat for all Materials
     //
+<<<<<<< HEAD
+    LOOP_L_N(m, PREHEAT_COUNT) {
+=======
     for (uint8_t m = 0; m < PREHEAT_COUNT; ++m) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       editable.int8 = m;
       #if HAS_MULTI_HOTEND || HAS_HEATED_BED
         SUBMENU_f(ui.get_preheat_label(m), MSG_PREHEAT_M, menu_preheat_m);
@@ -293,7 +305,11 @@ void menu_temperature() {
     START_MENU();
     BACK_ITEM(MSG_MAIN_MENU);
 
+<<<<<<< HEAD
+    LOOP_L_N(m, PREHEAT_COUNT) {
+=======
     for (uint8_t m = 0; m < PREHEAT_COUNT; ++m) {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       editable.int8 = m;
       #if HAS_MULTI_HOTEND || HAS_HEATED_BED
         SUBMENU_f(ui.get_preheat_label(m), MSG_PREHEAT_M, menu_preheat_m);

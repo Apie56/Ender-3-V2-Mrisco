@@ -30,7 +30,11 @@
 
 #include "leds.h"
 
+<<<<<<< HEAD
+#if EITHER(NEOPIXEL_STARTUP_TEST, NEOPIXEL2_STARTUP_TEST)
+=======
 #if ANY(NEOPIXEL_STARTUP_TEST, NEOPIXEL2_STARTUP_TEST)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #include "../../core/utility.h"
 #endif
 

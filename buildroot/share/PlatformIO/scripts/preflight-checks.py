@@ -72,7 +72,11 @@ if pioutil.is_pio_build():
         result = check_envs("env:"+build_env, board_envs, config)
 
         if not result:
+<<<<<<< HEAD
+            err = "Error: Build environment '%s' is incompatible with %s. Use one of these: %s" % \
+=======
             err = "Error: Build environment '%s' is incompatible with %s. Use one of these environments: %s" % \
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
                   ( build_env, motherboard, ", ".join([ e[4:] for e in board_envs if e.startswith("env:") ]) )
             raise SystemExit(err)
 

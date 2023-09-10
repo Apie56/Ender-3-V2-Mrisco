@@ -28,7 +28,11 @@
  * LCD Menu Messages
  * See also https://marlinfw.org/docs/development/lcd_language.html
  */
+<<<<<<< HEAD
+namespace Language_pt_br {
+=======
 namespace LanguageNarrow_pt_br {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
@@ -67,6 +71,25 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_Z_FADE_HEIGHT                  = _UxGT("Suavizar altura");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Compensar origem");
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Alteração aplicada");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_PREHEAT_1                    = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_H                  = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_END                = _UxGT("Extrusora ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Extrusora ") PREHEAT_1_LABEL " ~";
+    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Pre-aq.Todo ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Pre-aq.Mesa ") PREHEAT_1_LABEL;
+    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Ajustar ") PREHEAT_1_LABEL;
+
+    LSTR MSG_PREHEAT_M                    = _UxGT("Pre-aquecer $");
+    LSTR MSG_PREHEAT_M_H                  = _UxGT("Pre-aquecer $ ~");
+    LSTR MSG_PREHEAT_M_END                = _UxGT("Extrusora $");
+    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Extrusora $ ~");
+    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Pre-aq.Todo $");
+    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Pre-aq.Mesa $");
+    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Ajustar $");
+  #endif
+=======
 
   LSTR MSG_PREHEAT_1                      = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL;
   LSTR MSG_PREHEAT_1_H                    = _UxGT("Pre-aquecer ") PREHEAT_1_LABEL " ~";
@@ -84,6 +107,7 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Pre-aq.Mesa $");
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Ajustar $");
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Customizar Pre-aq.");
   LSTR MSG_COOLDOWN                       = _UxGT("Esfriar");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Ligar");
@@ -132,8 +156,15 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_UBL_DONE_EDITING_MESH          = _UxGT("Fim da Edição");
   LSTR MSG_UBL_BUILD_CUSTOM_MESH          = _UxGT("Montar Malha Custom");
   LSTR MSG_UBL_BUILD_MESH_MENU            = _UxGT("Montar ");
+<<<<<<< HEAD
+  #if HAS_PREHEAT
+    LSTR MSG_UBL_BUILD_MESH_M             = _UxGT("Montar $");
+    LSTR MSG_UBL_VALIDATE_MESH_M          = _UxGT("Checar $");
+  #endif
+=======
   LSTR MSG_UBL_BUILD_MESH_M               = _UxGT("Montar $");
   LSTR MSG_UBL_VALIDATE_MESH_M            = _UxGT("Checar $");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_UBL_BUILD_COLD_MESH            = _UxGT("Montar Malha fria");
   LSTR MSG_UBL_MESH_HEIGHT_ADJUST         = _UxGT("Ajustar Altura");
   LSTR MSG_UBL_MESH_HEIGHT_AMOUNT         = _UxGT("Quant. de Altura");
@@ -272,7 +303,11 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_INIT_EEPROM                    = _UxGT("Iniciar EEPROM");
   LSTR MSG_MEDIA_UPDATE                   = _UxGT("Atualiz. SD");
   LSTR MSG_RESET_PRINTER                  = _UxGT("Resetar Impressora");
+<<<<<<< HEAD
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Atualização");
+=======
   LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Atualização");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   LSTR MSG_INFO_SCREEN                    = _UxGT("Informações");
   LSTR MSG_PREPARE                        = _UxGT("Preparar");
   LSTR MSG_TUNE                           = _UxGT("Ajustar");
@@ -392,11 +427,27 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_CASE_LIGHT_BRIGHTNESS          = _UxGT("Intensidade Brilho");
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Impressora Incorreta");
 
+<<<<<<< HEAD
+  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Total de Impressões");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Realizadas");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Tempo de Impressão");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Trabalho Mais longo");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Total de Extrusão");
+  #else
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Qtd de Impressões");
+    LSTR MSG_INFO_COMPLETED_PRINTS        = _UxGT("Realizadas");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Tempo de Impressão");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Maior trabalho");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("T. Extrusão");
+  #endif
+=======
   LSTR MSG_INFO_PRINT_COUNT               = _UxGT("Qtd de Impressões");
   LSTR MSG_INFO_COMPLETED_PRINTS          = _UxGT("Realizadas");
   LSTR MSG_INFO_PRINT_TIME                = _UxGT("Tempo de Impressão");
   LSTR MSG_INFO_PRINT_LONGEST             = _UxGT("Maior trabalho");
   LSTR MSG_INFO_PRINT_FILAMENT            = _UxGT("T. Extrusão");
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   LSTR MSG_INFO_MIN_TEMP                  = _UxGT("Temp Mín");
   LSTR MSG_INFO_MAX_TEMP                  = _UxGT("Temp Máx");
@@ -440,6 +491,11 @@ namespace LanguageNarrow_pt_br {
   LSTR MSG_SNAKE                          = _UxGT("Sn4k3");
   LSTR MSG_MAZE                           = _UxGT("Labirinto");
 
+<<<<<<< HEAD
+  #if LCD_HEIGHT >= 4
+    LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_2_LINE("Aperte o botão para", "continuar impressão"));
+    LSTR MSG_PAUSE_PRINT_INIT             = _UxGT(MSG_1_LINE("Estacionando..."));
+=======
   LSTR MSG_ADVANCED_PAUSE_WAITING         = _UxGT(MSG_1_LINE("Clique p. continuar"));
   LSTR MSG_PAUSE_PRINT_INIT               = _UxGT(MSG_1_LINE("Estacionando..."));
   LSTR MSG_FILAMENT_CHANGE_INIT           = _UxGT(MSG_1_LINE("Aguarde..."));
@@ -476,6 +532,7 @@ namespace LanguageTall_pt_br {
   #if LCD_HEIGHT >= 4
     // Filament Change screens show up to 3 lines on a 4-line display
     LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_2_LINE("Aperte o botão para", "continuar impressão"));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_3_LINE("Esperando o", "inicio da", "troca de filamento"));
     LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_3_LINE("Coloque filamento", "pressione o botão", "para continuar..."));
     LSTR MSG_FILAMENT_CHANGE_HEAT         = _UxGT(MSG_2_LINE("Pressione o botão", "p/ aquecer o bocal"));
@@ -485,9 +542,32 @@ namespace LanguageTall_pt_br {
     LSTR MSG_FILAMENT_CHANGE_PURGE        = _UxGT(MSG_2_LINE("Espere pela", "purga de filamento"));
     LSTR MSG_FILAMENT_CHANGE_CONT_PURGE   = _UxGT(MSG_2_LINE("Clique para finaliz.", "purga de filamento"));
     LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_2_LINE("Esperando impressão", "continuar"));
+<<<<<<< HEAD
+  #else // LCD_HEIGHT < 4
+    LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_1_LINE("Clique p. continuar"));
+    LSTR MSG_PAUSE_PRINT_INIT             = _UxGT(MSG_1_LINE("Estacionando..."));
+    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_1_LINE("Aguarde..."));
+    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_1_LINE("Insira e Clique"));
+    LSTR MSG_FILAMENT_CHANGE_HEAT         = _UxGT(MSG_1_LINE("Clique para Aquecer"));
+    LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_1_LINE("Aquecendo..."));
+    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_1_LINE("Ejetando..."));
+    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_1_LINE("Carregando..."));
+    LSTR MSG_FILAMENT_CHANGE_PURGE        = _UxGT(MSG_1_LINE("Purgando..."));
+    LSTR MSG_FILAMENT_CHANGE_CONT_PURGE   = _UxGT(MSG_1_LINE("Clique p. finalizar"));
+    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_1_LINE("Continuando..."));
+  #endif
+
+  LSTR MSG_TOP_LEFT                       = _UxGT("Superior Esquerdo");
+  LSTR MSG_BOTTOM_LEFT                    = _UxGT("Inferior Esquerdo");
+  LSTR MSG_TOP_RIGHT                      = _UxGT("Superior Direto");
+  LSTR MSG_BOTTOM_RIGHT                   = _UxGT("Inferior Direto");
+  LSTR MSG_CALIBRATION_COMPLETED          = _UxGT("Calibração Completa");
+  LSTR MSG_CALIBRATION_FAILED             = _UxGT("Calibração Falhou");
+=======
   #endif
 }
 
 namespace Language_pt_br {
   using namespace LanguageTall_pt_br;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }

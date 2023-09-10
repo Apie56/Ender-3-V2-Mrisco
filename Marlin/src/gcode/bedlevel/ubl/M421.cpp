@@ -66,10 +66,17 @@ void GcodeSuite::M421() {
   else if (!WITHIN(ij.x, 0, GRID_MAX_POINTS_X - 1) || !WITHIN(ij.y, 0, GRID_MAX_POINTS_Y - 1))
     SERIAL_ERROR_MSG(STR_ERR_MESH_XY);
   else {
+<<<<<<< HEAD
+    float &zval = bedlevel.z_values[ij.x][ij.y];                               // Altering this Mesh Point
+    zval = hasN ? NAN : parser.value_linear_units() + (hasQ ? zval : 0);  // N=NAN, Z=NEWVAL, or Q=ADDVAL
+    TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(ij.x, ij.y, zval));          // Ping ExtUI in case it's showing the mesh
+    TERN_(DWIN_LCD_PROUI, DWIN_MeshUpdate(ij.x, ij.y, zval));
+=======
     float &zval = bedlevel.z_values[ij.x][ij.y];                          // Altering this Mesh Point
     zval = hasN ? NAN : parser.value_linear_units() + (hasQ ? zval : 0);  // N=NAN, Z=NEWVAL, or Q=ADDVAL
     TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(ij.x, ij.y, zval));          // Ping ExtUI in case it's showing the mesh
     TERN_(DWIN_LCD_PROUI, dwinMeshUpdate(ij.x, ij.y, zval));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   }
 }
 

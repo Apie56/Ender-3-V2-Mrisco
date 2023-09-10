@@ -47,8 +47,13 @@ void GcodeSuite::M211_report(const bool forReplay/*=true*/) {
   report_echo_start(forReplay);
   const xyz_pos_t l_soft_min = soft_endstop.min.asLogical(),
                   l_soft_max = soft_endstop.max.asLogical();
+<<<<<<< HEAD
+  print_pos(l_soft_min, F(STR_SOFT_MIN), F(" "));
+  print_pos(l_soft_max, F(STR_SOFT_MAX));
+=======
   print_xyz(l_soft_min, F(STR_SOFT_MIN), F(" "));
   print_xyz(l_soft_max, F(STR_SOFT_MAX));
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 }
 
 #endif // HAS_SOFTWARE_ENDSTOPS

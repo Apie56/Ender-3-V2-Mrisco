@@ -45,7 +45,11 @@
 #define DATASIZE_8BIT  SPI_DATASIZE_8BIT
 #define DATASIZE_16BIT SPI_DATASIZE_16BIT
 #define TFT_IO_DRIVER  TFT_FSMC
+<<<<<<< HEAD
+#define DMA_MAX_SIZE   0xFFFF
+=======
 #define DMA_MAX_WORDS  0xFFFF
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #define TFT_DATASIZE TERN(TFT_INTERFACE_FSMC_8BIT, DATASIZE_8BIT, DATASIZE_16BIT)
 typedef TERN(TFT_INTERFACE_FSMC_8BIT, uint8_t, uint16_t) tft_data_t;
@@ -62,6 +66,33 @@ class TFT_FSMC {
 
     static LCD_CONTROLLER_TypeDef *LCD;
 
+<<<<<<< HEAD
+    static uint32_t ReadID(tft_data_t Reg);
+    static void Transmit(tft_data_t Data) { LCD->RAM = Data; __DSB(); }
+    static void Transmit(uint32_t MemoryIncrease, uint16_t *Data, uint16_t Count);
+    static void TransmitDMA(uint32_t MemoryIncrease, uint16_t *Data, uint16_t Count);
+
+  public:
+    static void Init();
+    static uint32_t GetID();
+    static bool isBusy();
+    static void Abort();
+
+    static void DataTransferBegin(uint16_t DataWidth=TFT_DATASIZE) {}
+    static void DataTransferEnd() {}
+
+    static void WriteData(uint16_t Data) { Transmit(tft_data_t(Data)); }
+    static void WriteReg(uint16_t Reg) { LCD->REG = tft_data_t(Reg); __DSB(); }
+
+    static void WriteSequence_DMA(uint16_t *Data, uint16_t Count) { TransmitDMA(DMA_PINC_ENABLE, Data, Count); }
+    static void WriteMultiple_DMA(uint16_t Color, uint16_t Count) { static uint16_t Data; Data = Color; TransmitDMA(DMA_PINC_DISABLE, &Data, Count); }
+
+    static void WriteSequence(uint16_t *Data, uint16_t Count) { Transmit(DMA_PINC_ENABLE, Data, Count); }
+    static void WriteMultiple(uint16_t Color, uint32_t Count) {
+      while (Count > 0) {
+        Transmit(DMA_MINC_DISABLE, &Color, Count > DMA_MAX_SIZE ? DMA_MAX_SIZE : Count);
+        Count = Count > DMA_MAX_SIZE ? Count - DMA_MAX_SIZE : 0;
+=======
     static uint32_t readID(const tft_data_t reg);
     static void transmit(tft_data_t data) { LCD->RAM = data; __DSB(); }
     static void transmit(uint32_t memoryIncrease, uint16_t *data, uint16_t count);
@@ -87,6 +118,7 @@ class TFT_FSMC {
       while (count > 0) {
         transmit(DMA_MINC_DISABLE, &color, count > DMA_MAX_WORDS ? DMA_MAX_WORDS : count);
         count = count > DMA_MAX_WORDS ? count - DMA_MAX_WORDS : 0;
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
       }
     }
 };
@@ -103,7 +135,11 @@ class TFT_FSMC {
   #error No configuration for this MCU
 #endif
 
+<<<<<<< HEAD
+const PinMap PinMap_FSMC[] = {
+=======
 const PinMap pinMap_FSMC[] = {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   {PD_14,  FSMC_NORSRAM_DEVICE, FSMC_PIN_DATA}, // FSMC_D00
   {PD_15,  FSMC_NORSRAM_DEVICE, FSMC_PIN_DATA}, // FSMC_D01
   {PD_0,   FSMC_NORSRAM_DEVICE, FSMC_PIN_DATA}, // FSMC_D02
@@ -127,7 +163,11 @@ const PinMap pinMap_FSMC[] = {
   {NC,    NP,    0}
 };
 
+<<<<<<< HEAD
+const PinMap PinMap_FSMC_CS[] = {
+=======
 const PinMap pinMap_FSMC_CS[] = {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   {PD_7,  (void *)FSMC_NORSRAM_BANK1, FSMC_PIN_DATA}, // FSMC_NE1
   #ifdef PF0
     {PG_9,  (void *)FSMC_NORSRAM_BANK2, FSMC_PIN_DATA}, // FSMC_NE2
@@ -143,7 +183,11 @@ const PinMap pinMap_FSMC_CS[] = {
   #define FSMC_RS(A)  (void *)((2 << A) - 2)
 #endif
 
+<<<<<<< HEAD
+const PinMap PinMap_FSMC_RS[] = {
+=======
 const PinMap pinMap_FSMC_RS[] = {
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
   #ifdef PF0
     {PF_0,  FSMC_RS( 0), FSMC_PIN_DATA}, // FSMC_A0
     {PF_1,  FSMC_RS( 1), FSMC_PIN_DATA}, // FSMC_A1

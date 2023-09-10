@@ -32,12 +32,16 @@
 #define ES_ENUM(A,M) _ES_ENUM(A,M)
 
 #define _ES_ITEM(N) N,
+<<<<<<< HEAD
+#define ES_ITEM(K,N) TERN_(K,DEFER4(_ES_ITEM)(N))
+=======
 #define ES_ITEM(K,N) TERN(K,_ES_ITEM,_IF_1_ELSE)(N)
 
 #define _ESN_ITEM(K,A,M) ES_ITEM(K,ES_ENUM(A,M))
 #define ES_MINMAX(A) ES_ITEM(HAS_##A##_MIN_STATE, ES_ENUM(A,MIN)) ES_ITEM(HAS_##A##_MAX_STATE, ES_ENUM(A,MAX))
 
 #define HAS_CURRENT_HOME(N) ((N##_CURRENT_HOME > 0) && (N##_CURRENT_HOME != N##_CURRENT))
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 /**
  * Basic Endstop Flag Bits:
@@ -59,6 +63,39 @@
  */
 enum EndstopEnum : char {
   // Common XYZ (ABC) endstops.
+<<<<<<< HEAD
+  ES_ITEM(USE_X_MIN, X_MIN) ES_ITEM(USE_X_MAX, X_MAX)
+  ES_ITEM(USE_Y_MIN, Y_MIN) ES_ITEM(USE_Y_MAX, Y_MAX)
+  ES_ITEM(USE_Z_MIN, Z_MIN) ES_ITEM(USE_Z_MAX, Z_MAX)
+  ES_ITEM(USE_I_MIN, I_MIN) ES_ITEM(USE_I_MAX, I_MAX)
+  ES_ITEM(USE_J_MIN, J_MIN) ES_ITEM(USE_J_MAX, J_MAX)
+  ES_ITEM(USE_K_MIN, K_MIN) ES_ITEM(USE_K_MAX, K_MAX)
+  ES_ITEM(USE_U_MIN, U_MIN) ES_ITEM(USE_U_MAX, U_MAX)
+  ES_ITEM(USE_V_MIN, V_MIN) ES_ITEM(USE_V_MAX, V_MAX)
+  ES_ITEM(USE_W_MIN, W_MIN) ES_ITEM(USE_W_MAX, W_MAX)
+
+  // Extra Endstops for XYZ
+  #if ENABLED(X_DUAL_ENDSTOPS)
+    ES_ITEM(USE_X_MIN, X2_MIN) ES_ITEM(USE_X_MAX, X2_MAX)
+  #endif
+  #if ENABLED(Y_DUAL_ENDSTOPS)
+    ES_ITEM(USE_Y_MIN, Y2_MIN) ES_ITEM(USE_Y_MAX, Y2_MAX)
+  #endif
+  #if ENABLED(Z_MULTI_ENDSTOPS)
+    ES_ITEM(USE_Z_MIN, Z2_MIN) ES_ITEM(USE_Z_MAX, Z2_MAX)
+    #if NUM_Z_STEPPERS >= 3
+      ES_ITEM(USE_Z_MIN, Z3_MIN) ES_ITEM(USE_Z_MAX, Z3_MAX)
+      #if NUM_Z_STEPPERS >= 4
+        ES_ITEM(USE_Z_MIN, Z4_MIN) ES_ITEM(USE_Z_MAX, Z4_MAX)
+      #endif
+    #endif
+  #endif
+
+  // Bed Probe state is distinct or shared with Z_MIN (i.e., when the probe is the only Z endstop)
+  #if !HAS_DELTA_SENSORLESS_PROBING
+    ES_ITEM(HAS_BED_PROBE, Z_MIN_PROBE IF_DISABLED(USE_Z_MIN_PROBE, = Z_MIN))
+  #endif
+=======
   ES_MINMAX(X) ES_MINMAX(Y) ES_MINMAX(Z)
   ES_MINMAX(I) ES_MINMAX(J) ES_MINMAX(K)
   ES_MINMAX(U) ES_MINMAX(V) ES_MINMAX(W)
@@ -68,10 +105,56 @@ enum EndstopEnum : char {
 
   // Bed Probe state is distinct or shared with Z_MIN (i.e., when the probe is the only Z endstop)
   ES_ITEM(HAS_Z_PROBE_STATE, Z_MIN_PROBE IF_DISABLED(USE_Z_MIN_PROBE, = Z_MIN))
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
   // The total number of states
   NUM_ENDSTOP_STATES
 
+<<<<<<< HEAD
+  // Endstop aliased to MIN or MAX
+  #if HAS_X_ENDSTOP
+    , X_ENDSTOP = TERN(X_HOME_TO_MAX, X_MAX, X_MIN)
+    #if ENABLED(X_DUAL_ENDSTOPS)
+      , X2_ENDSTOP = TERN(X_HOME_TO_MAX, X2_MAX, X2_MIN)
+    #endif
+  #endif
+  #if HAS_Y_ENDSTOP
+    , Y_ENDSTOP = TERN(Y_HOME_TO_MAX, Y_MAX, Y_MIN)
+    #if ENABLED(Y_DUAL_ENDSTOPS)
+      , Y2_ENDSTOP = TERN(Y_HOME_TO_MAX, Y2_MAX, Y2_MIN)
+    #endif
+  #endif
+  #if HOMING_Z_WITH_PROBE
+    , Z_ENDSTOP = Z_MIN_PROBE
+  #elif HAS_Z_ENDSTOP
+    , Z_ENDSTOP = TERN(Z_HOME_TO_MAX, Z_MAX, Z_MIN)
+    #if ENABLED(Z_MULTI_ENDSTOPS)
+      , Z2_ENDSTOP = TERN(Z_HOME_TO_MAX, Z2_MAX, Z2_MIN)
+      #if NUM_Z_STEPPERS >= 3
+        , Z3_ENDSTOP = TERN(Z_HOME_TO_MAX, Z3_MAX, Z3_MIN)
+        #if NUM_Z_STEPPERS >= 4
+          , Z4_ENDSTOP = TERN(Z_HOME_TO_MAX, Z4_MAX, Z4_MIN)
+        #endif
+      #endif
+    #endif
+  #endif
+  #if HAS_I_ENDSTOP
+    , I_ENDSTOP = TERN(I_HOME_TO_MAX, I_MAX, I_MIN)
+  #endif
+  #if HAS_J_ENDSTOP
+    , J_ENDSTOP = TERN(J_HOME_TO_MAX, J_MAX, J_MIN)
+  #endif
+  #if HAS_K_ENDSTOP
+    , K_ENDSTOP = TERN(K_HOME_TO_MAX, K_MAX, K_MIN)
+  #endif
+  #if HAS_U_ENDSTOP
+    , U_ENDSTOP = TERN(U_HOME_TO_MAX, U_MAX, U_MIN)
+  #endif
+  #if HAS_V_ENDSTOP
+    , V_ENDSTOP = TERN(V_HOME_TO_MAX, V_MAX, V_MIN)
+  #endif
+  #if HAS_W_ENDSTOP
+=======
   // Endstop aliases
   #if HAS_X_STATE
     , X_ENDSTOP = TERN(X_HOME_TO_MAX, X_MAX, X_MIN)
@@ -116,14 +199,18 @@ enum EndstopEnum : char {
     , V_ENDSTOP = TERN(V_HOME_TO_MAX, V_MAX, V_MIN)
   #endif
   #if HAS_W_STATE
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     , W_ENDSTOP = TERN(W_HOME_TO_MAX, W_MAX, W_MIN)
   #endif
 };
 
 #undef _ES_ITEM
 #undef ES_ITEM
+<<<<<<< HEAD
+=======
 #undef _ESN_ITEM
 #undef ES_MINMAX
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 class Endstops {
   public:
@@ -274,7 +361,11 @@ class Endstops {
   public:
     // Basic functions for Sensorless Homing
     #if USE_SENSORLESS
+<<<<<<< HEAD
+      static void set_homing_current(const bool onoff);
+=======
       static void set_z_sensorless_current(const bool onoff);
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
     #endif
 };
 

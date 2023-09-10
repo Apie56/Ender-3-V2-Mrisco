@@ -113,6 +113,20 @@
   #define FIL_RUNOUT_PIN                    PA15  // MT_DET
 #endif
 
+<<<<<<< HEAD
+// SPI Flash
+#define SPI_FLASH
+#if ENABLED(SPI_FLASH)
+  #define SPI_FLASH_SIZE                0x200000  // 2MB
+#endif
+
+// SPI 2
+#define SPI_FLASH_CS_PIN                    PB12
+#define SPI_FLASH_MOSI_PIN                  PB15
+#define SPI_FLASH_MISO_PIN                  PB14
+#define SPI_FLASH_SCK_PIN                   PB13
+
+=======
 //
 // SPI Flash (SPI 2)
 //
@@ -125,6 +139,7 @@
   #define SPI_FLASH_MOSI_PIN                PB15
 #endif
 
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 //
 // TFT with FSMC interface
 //
@@ -155,12 +170,20 @@
   #define HAS_LOGO_IN_FLASH                    0
 #elif ENABLED(TFT_COLOR_UI)
   // Color UI
+<<<<<<< HEAD
+  #define TFT_BUFFER_SIZE                  14400
+=======
   #define TFT_BUFFER_WORDS                 14400
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #endif
 
 // SPI1(PA7)=LCD & SPI3(PB5)=STUFF, are not available
 // so SPI2 is required.
+<<<<<<< HEAD
+#define SPI_DEVICE                             2
+=======
 #define SPI_DEVICE                             2  // Maple
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 #define SD_SCK_PIN                          PB13
 #define SD_MISO_PIN                         PB14
 #define SD_MOSI_PIN                         PB15

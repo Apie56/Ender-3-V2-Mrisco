@@ -22,7 +22,11 @@
 
 #include "../../inc/MarlinConfigPre.h"
 
+<<<<<<< HEAD
+#if ENABLED(ONE_CLICK_PRINT)
+=======
 #if ENABLED(ONE_CLICK_PRINT) && DISABLED(DWIN_LCD_PROUI)
+>>>>>>> 77d77f62dd0573ee9e1b843a8b08d6a809dc2b69
 
 #include "menu.h"
 
