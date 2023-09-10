@@ -64,14 +64,14 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "Miguel Risco-Castillo (MRiscoC)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "3verteD" // Who made the changes.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_CREALITY_V4  // Creality Board v4.2.2
+  #define MOTHERBOARD BOARD_CREALITY_V422  // Creality Board v4.2.2
 #endif
 
 /**
@@ -120,7 +120,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Ender3V2-422-MM"
+#define CUSTOM_MACHINE_NAME "Ender 3 V2"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -545,7 +545,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 61
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -629,7 +629,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP 325
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -681,9 +681,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  22.89
-    #define DEFAULT_Ki   1.87
-    #define DEFAULT_Kd  70.18
+    #define DEFAULT_Kp  13.18
+    #define DEFAULT_Ki   0.82
+    #define DEFAULT_Kd  52.72
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -852,7 +852,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 1000  // Ender Configs
+#define EXTRUDE_MAXLENGTH 200  // Ender Configs
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -1224,7 +1224,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }  // Ender Configs
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 417.5 }  // Ender Configs
 
 #define LIMITED_MAX_STEPS_EDITING
 #if ENABLED(LIMITED_MAX_STEPS_EDITING)
@@ -1340,7 +1340,7 @@
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
-//#define USE_PROBE_FOR_Z_HOMING  // Manual mesh not have a probe
+#define USE_PROBE_FOR_Z_HOMING  // Manual mesh not have a probe
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1369,7 +1369,7 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#define PROBE_MANUALLY  // Manual mesh version
+//#define PROBE_MANUALLY  // Manual mesh version
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
@@ -1397,7 +1397,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-//#define BLTOUCH
+#define BLTOUCH
 
 /**
  * MagLev V4 probe by MDD
@@ -1549,7 +1549,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm)  // Manual mesh use the nozzle as probe
+#define NOZZLE_TO_PROBE_OFFSET { -30, -40, -4 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm)  // Manual mesh use the nozzle as probe
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1615,7 +1615,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
+#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
@@ -1644,7 +1644,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1664,10 +1664,10 @@
   //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
   //#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
-//#define PROBING_FANS_OFF          // Turn fans off when probing
+#define PROBING_FANS_OFF          // Turn fans off when probing
 //#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 //#define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
-//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
+#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
 //#define PREHEAT_BEFORE_PROBING
@@ -1725,7 +1725,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1744,9 +1744,9 @@
  *  - Use a low value (i.e., Z_MIN_POS) if the nozzle falls down to the bed.
  *  - Use a large value (i.e., Z_MAX_POS) if the bed falls down, away from the nozzle.
  */
-//#define Z_IDLE_HEIGHT Z_HOME_POS
+#define Z_IDLE_HEIGHT Z_HOME_POS
 
-//#define Z_CLEARANCE_FOR_HOMING  10 // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...  // MRiscoC Crearance over the bed
+#define Z_CLEARANCE_FOR_HOMING  10 // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...  // MRiscoC Crearance over the bed
                                     // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 #define Z_AFTER_HOMING         5 // (mm) Height to move to after homing (if Z was homed)  // MRiscoC Crearance over the bed
@@ -2001,9 +2001,9 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
+#define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
-#define MESH_BED_LEVELING  // Manual Mesh
+//#define MESH_BED_LEVELING  // Manual Mesh
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -2016,7 +2016,7 @@
 /**
  * Auto-leveling needs preheating
  */
-#define PREHEAT_BEFORE_LEVELING  // MRiscoC Heatting to compensate thermal expansions
+//#define PREHEAT_BEFORE_LEVELING  // MRiscoC Heatting to compensate thermal expansions
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 175   // (°C) Only applies to E0 at this time  // Preheat nozzle without oozing
   #define LEVELING_BED_TEMP     50
@@ -2081,7 +2081,7 @@
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 5  // MRiscoC Customizable by menu
+  #define GRID_MAX_POINTS_X 3  // MRiscoC Customizable by menu
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -2183,9 +2183,9 @@
   #define BED_TRAMMING_HEIGHT      0.0        // (mm) Z height of nozzle at tramming points
   #define BED_TRAMMING_Z_HOP       5.0        // (mm) Z height of nozzle between tramming points
   //#define BED_TRAMMING_INCLUDE_CENTER       // Move to the center after the last corner
-  //#define BED_TRAMMING_USE_PROBE
+  #define BED_TRAMMING_USE_PROBE
   #if ENABLED(BED_TRAMMING_USE_PROBE)
-    #define BED_TRAMMING_PROBE_TOLERANCE 0.1  // (mm)
+    #define BED_TRAMMING_PROBE_TOLERANCE 0.05  // (mm)
     #define BED_TRAMMING_VERIFY_RAISED        // After adjustment triggers the probe, re-probe to verify
     //#define BED_TRAMMING_AUDIO_FEEDBACK
   #endif
@@ -2240,7 +2240,7 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
@@ -2368,24 +2368,24 @@
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 195
 #define PREHEAT_1_TEMP_BED     60
-#define PREHEAT_1_TEMP_CHAMBER 35
+#define PREHEAT_1_TEMP_CHAMBER 0
 #define PREHEAT_1_FAN_SPEED     128 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED     90
-#define PREHEAT_2_TEMP_CHAMBER 35
-#define PREHEAT_2_FAN_SPEED     128 // Value from 0 to 255
+#define PREHEAT_2_TEMP_HOTEND 220
+#define PREHEAT_2_TEMP_BED     110
+#define PREHEAT_2_TEMP_CHAMBER 40
+#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_3_LABEL       "PETG"
 #define PREHEAT_3_TEMP_HOTEND 230
-#define PREHEAT_3_TEMP_BED     80
-#define PREHEAT_3_FAN_SPEED   128
+#define PREHEAT_3_TEMP_BED     70
+#define PREHEAT_3_FAN_SPEED   0
 
-#define PREHEAT_4_LABEL       "CUSTOM"
-#define PREHEAT_4_TEMP_HOTEND 190
-#define PREHEAT_4_TEMP_BED     50
-#define PREHEAT_4_FAN_SPEED   128
+#define PREHEAT_4_LABEL       "COMP"
+#define PREHEAT_4_TEMP_HOTEND 250
+#define PREHEAT_4_TEMP_BED     40
+#define PREHEAT_4_FAN_SPEED   0
 
 // @section motion
 
@@ -3382,8 +3382,8 @@
 // Professional firmware features:
 #define PROUI_EX 1
 #if PROUI_EX
-  #define HAS_GCODE_PREVIEW 1
-  #define HAS_TOOLBAR 1
+  #define HAS_GCODE_PREVIEW 0
+  #define HAS_TOOLBAR 0
   #if ENABLED(FILAMENT_RUNOUT_SENSOR)
     #define HAS_PROUI_RUNOUT_SENSOR 1
   #endif
@@ -3393,7 +3393,7 @@
 #define HAS_PLOT 1
 #define HAS_ESDIAG 1
 #define HAS_CGCODE 1
-#define HAS_LOCKSCREEN 1
+#define HAS_LOCKSCREEN 0
 //#define HAS_SD_EXTENDER 1  // Enable to support SD card extender cables
 #define MESH_EDIT_MENU
 //#define PREVIEW_MENU_ITEM  // Allows enable/disable Thumbnail preview via menu and C250
@@ -3407,7 +3407,7 @@
 //#define CCLOUD_PRINT_SUPPORT  // Allows enable/disable Creality Cloud Print Support
 #define ZHOME_BEFORE_LEVELING
 //#define SMOOTH_ENCODER_MENUITEMS  // Menu items value faster/smooth change rate
-#define SHOW_SPEED_IND // Show the axes speed in mm/s intermittently with the speed percentage
+//#define SHOW_SPEED_IND // Show the axes speed in mm/s intermittently with the speed percentage
 //#define NO_BLINK_IND  // Disables dashboard icon background blink indicator
 
 //#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
