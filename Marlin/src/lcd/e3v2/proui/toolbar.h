@@ -1,8 +1,8 @@
 /**
- * ToolBar for PRO UI
+ * toolBar for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * version: 1.4.1
- * Date: 2023/05/18
+ * version: 2.1.1
+ * Date: 2023/07/12
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -41,17 +41,17 @@ typedef struct {
 extern const TBItem_t *TBItem;
 extern const TBItem_t TBItemA[];
 
-class ToolBarClass : public MenuClass {
+class ToolBar : public Menu {
 public:
   void onScroll(bool dir) override;
   void draw() override;
   void (*onExit)() = nullptr;
   uint8_t OptCount();
 };
-extern ToolBarClass ToolBar;
+extern ToolBar toolBar;
 
-void onDrawTBItem(MenuItemClass* menuitem, int8_t line);
-void UpdateTBSetupItem(MenuItemClass* menuitem, uint8_t val);
-void DrawTBSetupItem(bool focused);
-void Draw_ToolBar(bool force = false);
+void onDrawTBItem(MenuItem* menuitem, int8_t line);
+void updateTBSetupItem(MenuItem* menuitem, uint8_t val);
+void drawTBSetupItem(bool focused);
+void drawToolBar(bool force = false);
 void TBGetItem(uint8_t item);

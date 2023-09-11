@@ -1,8 +1,8 @@
 /**
  * Professional Firmware UI extensions
  * Author: Miguel A. Risco-Castillo
- * Version: 1.10.0
- * Date: 2023/05/18
+ * Version: 2.1.0
+ * Date: 2023/07/12
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -94,6 +94,7 @@ typedef struct {
   float mesh_max_x = DEF_MESH_MAX_X;
   float mesh_min_y = DEF_MESH_MIN_Y;
   float mesh_max_y = DEF_MESH_MAX_Y;
+  float probezfix = DEF_PROBEZFIX;
   uint16_t zprobefeedslow = DEF_Z_PROBE_FEEDRATE_SLOW;
   uint8_t multiple_probing = MULTIPLE_PROBING;
   bool Invert_E0 = DEF_INVERT_E0_DIR;
@@ -105,31 +106,31 @@ typedef struct {
 } PRO_data_t;
 extern PRO_data_t PRO_data;
 
-class ProUIClass {
+class ProUIEx {
 public:
-  static void Init();
+  static void init();
 #if HAS_BED_PROBE
-  static void HeatedBed();
-  static void StopLeveling();
-  static bool QuitLeveling();
-  static void MeshUpdate(const int8_t x, const int8_t y, const_float_t zval);
-  static void LevelingDone();
+  static void heatedBed();
+  static void stopLeveling();
+  static bool quitLeveling();
+  static void meshUpdate(const int8_t x, const int8_t y, const_float_t zval);
+  static void levelingDone();
 #endif
 #if HAS_MEDIA
   static void C10();
 #endif
-#if HAS_FILAMENT_SENSOR
-  static void SetRunoutState(uint32_t ulPin);
-  static void DrawRunoutActive(bool selected);
-  static void ApplyRunoutActive();
+#if HAS_PROUI_RUNOUT_SENSOR
+  static void setRunoutState(uint32_t ulPin);
+  static void drawRunoutActive(bool selected);
+  static void applyRunoutActive();
   static void C412();
   static void C412_report(const bool forReplay=true);
 #endif
 #if HAS_MESH
-  static void DrawMeshPoints(bool selected, int8_t line, uint8_t MeshPoints);
-  static void CheckMeshInsets();
-  static void ApplyMeshLimits();
-  static void ApplyMeshPoints();
+  static void drawMeshPoints(bool selected, int8_t line, uint8_t MeshPoints);
+  static void checkMeshInsets();
+  static void applyMeshLimits();
+  static void applyMeshPoints();
   static void C29();
   static void C29_report(const bool forReplay=true);
 #endif
@@ -156,14 +157,14 @@ public:
   static void C810();
   static void C810_report(const bool forReplay=true);
 #endif
-  static void UpdateAxis(const AxisEnum axis);
-  static void ApplyPhySet();
-  static void CheckParkingPos();
-  static void SetData();
-  static void LoadSettings();
-  #if EITHER(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
+  static void updateAxis(const AxisEnum axis);
+  static void applyPhySet();
+  static void checkParkingPos();
+  static void setData();
+  static void loadSettings();
+  #if ANY(AUTO_BED_LEVELING_BILINEAR, MESH_BED_LEVELING)
     static float getZvalues(const uint8_t sy, const uint8_t x, const uint8_t y, const float *values);
   #endif
 };
 
-extern ProUIClass ProEx;
+extern ProUIEx proUIEx;

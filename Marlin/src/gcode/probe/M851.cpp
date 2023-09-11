@@ -83,7 +83,7 @@ void GcodeSuite::M851() {
   #if PROUI_EX
     if (ok) {
       probe.offset = offs;
-      ProEx.ApplyPhySet();
+      proUIEx.applyPhySet();
     }
   #else
     if (ok) probe.offset = offs;

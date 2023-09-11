@@ -1,8 +1,8 @@
 /**
  * DWIN Single var plot
  * Author: Miguel A. Risco-Castillo
- * Version: 2.2.3
- * Date: 2023/01/29
+ * Version: 3.1.3
+ * Date: 2023/07/12
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -23,10 +23,10 @@
 
 #include "dwinui.h"
 
-class PlotClass {
+class Plot {
 public:
-  static void Draw(const frame_rect_t &frame, const_float_t max, const_float_t ref = 0);
-  static void Update(const_float_t value);
+  static void draw(const frame_rect_t &frame, const_float_t max, const_float_t ref=0);
+  static void update(const_float_t value);
 };
 
-extern PlotClass plot;
+extern Plot plot;
