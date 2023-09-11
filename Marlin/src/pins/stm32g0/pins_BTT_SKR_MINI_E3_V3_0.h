@@ -37,7 +37,7 @@
 #define LED_PIN                             PD8
 
 // Onboard I2C EEPROM
-#if EITHER(NO_EEPROM_SELECTED, I2C_EEPROM)
+#if ANY(NO_EEPROM_SELECTED, I2C_EEPROM)
   #undef NO_EEPROM_SELECTED
   #define I2C_EEPROM
   #define SOFT_I2C_EEPROM                         // Force the use of Software I2C
@@ -255,7 +255,7 @@
       #define LCD_PINS_D7            EXP1_01_PIN
       #define ADC_KEYPAD_PIN                PA1   // Repurpose servo pin for ADC - CONNECTING TO 5V WILL DAMAGE THE BOARD!
 
-    #elif EITHER(MKS_MINI_12864, ENDER2_STOCKDISPLAY)
+    #elif ANY(MKS_MINI_12864, ENDER2_STOCKDISPLAY)
 
       #define BTN_ENC                EXP1_02_PIN
       #define BTN_EN1                EXP1_03_PIN
@@ -363,7 +363,7 @@
 
 #endif // HAS_WIRED_LCD
 
-#if BOTH(TOUCH_UI_FTDI_EVE, LCD_FYSETC_TFT81050)
+#if ALL(TOUCH_UI_FTDI_EVE, LCD_FYSETC_TFT81050)
 
   #ifndef NO_CONTROLLER_CUSTOM_WIRING_WARNING
     #error "CAUTION! LCD_FYSETC_TFT81050 requires wiring modifications. See 'pins_BTT_SKR_MINI_E3_common.h' for details. (Define NO_CONTROLLER_CUSTOM_WIRING_WARNING to suppress this warning.)"
@@ -416,7 +416,7 @@
 
 #if SD_CONNECTION_IS(ONBOARD)
   #define SD_DETECT_PIN                     PC3
-#elif SD_CONNECTION_IS(LCD) && (BOTH(TOUCH_UI_FTDI_EVE, LCD_FYSETC_TFT81050) || IS_TFTGLCD_PANEL)
+#elif SD_CONNECTION_IS(LCD) && (ALL(TOUCH_UI_FTDI_EVE, LCD_FYSETC_TFT81050) || IS_TFTGLCD_PANEL)
   #define SD_DETECT_PIN              EXP1_01_PIN
   #define SD_SS_PIN                  EXP1_05_PIN
 #elif SD_CONNECTION_IS(CUSTOM_CABLE)
@@ -438,4 +438,19 @@
 //
 #ifndef NEOPIXEL_PIN
   #define NEOPIXEL_PIN                      PA8   // LED driving pin
+#endif
+
+//
+// M3/M4/M5 - Spindle/Laser Control
+//
+#if HAS_CUTTER
+  //#define HEATER_0_PIN                    -1
+  //#define HEATER_BED_PIN                  -1
+  #if DISABLED(CV_LASER_MODULE)
+    #define FAN0_PIN                        -1
+  #endif
+  #define SPINDLE_LASER_ENA_PIN             PA8   // FET 1
+  #define SPINDLE_LASER_PWM_PIN             PA8   // Bed FET
+  #define SPINDLE_DIR_PIN                   PA8   // FET 4
+  #define LASER_SOFT_PWM_PIN                PA8
 #endif
