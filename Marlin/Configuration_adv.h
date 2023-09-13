@@ -553,9 +553,9 @@
 #define HOTEND_IDLE_TIMEOUT  // MRiscoC Disable heaters after timeout
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
   #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection  // MRiscoC 10 minutes for heaters timeout
-  #define HOTEND_IDLE_MIN_TRIGGER   150     // (°C) Minimum temperature to enable hotend protection  // MRiscoC set idle trigger lower than default EXTRUDE_MINTEMP
-  #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
-  #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
+  #define HOTEND_IDLE_MIN_TRIGGER   (EXTRUDE_MINTEMP - 10)     // (°C) Minimum temperature to enable hotend protection  // MRiscoC set idle trigger lower than default EXTRUDE_MINTEMP
+  #define HOTEND_IDLE_NOZZLE_TARGET   EXTRUDE_MINTEMP     // (°C) Safe temperature for the nozzle after timeout
+  #define HOTEND_IDLE_BED_TARGET      60     // (°C) Safe temperature for the bed after timeout
 #endif
 
 // @section temperature
