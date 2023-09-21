@@ -613,7 +613,7 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP   0  // Ender Configs
+#define HEATER_0_MINTEMP   5
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
 #define HEATER_3_MINTEMP   5
@@ -621,7 +621,7 @@
 #define HEATER_5_MINTEMP   5
 #define HEATER_6_MINTEMP   5
 #define HEATER_7_MINTEMP   5
-#define BED_MINTEMP        0  // Ender Configs
+#define BED_MINTEMP        5
 #define CHAMBER_MINTEMP    5
 
 // Above this temperature the heater will be switched off.
@@ -679,9 +679,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  11.1
-    #define DEFAULT_Ki   0.62
-    #define DEFAULT_Kd  49.5
+    #define DEFAULT_Kp  12.07
+    #define DEFAULT_Ki   0.7
+    #define DEFAULT_Kd  52.13
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -1738,7 +1738,7 @@
  *  - Use a low value (i.e., Z_MIN_POS) if the nozzle falls down to the bed.
  *  - Use a large value (i.e., Z_MAX_POS) if the bed falls down, away from the nozzle.
  */
-#define Z_IDLE_HEIGHT Z_HOME_POS
+//#define Z_IDLE_HEIGHT Z_HOME_POS
 
 #define Z_CLEARANCE_FOR_HOMING  10 // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...  // MRiscoC Crearance over the bed
                                     // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
@@ -1839,7 +1839,7 @@
  */
 #define FILAMENT_RUNOUT_SENSOR  // MRiscoC Enabled runout sensor support
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-  #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
+  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
   #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
@@ -1990,7 +1990,7 @@
  * leveling immediately after G28.
  */
 //#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
@@ -3345,6 +3345,10 @@
 #if PROUI_EX
   #define HAS_GCODE_PREVIEW 0
   #define HAS_TOOLBAR 1
+  #if ENABLED(FILAMENT_RUNOUT_SENSOR)
+    #define HAS_PROUI_RUNOUT_SENSOR 1
+  #endif
+  #define DEF_PROBEZFIX 0
 #endif
 #define HAS_CUSTOM_COLORS 1
 #define HAS_PLOT 1
@@ -3363,7 +3367,7 @@
 //#define CCLOUD_PRINT_SUPPORT  // Allows enable/disable Creality Cloud Print Support
 #define ZHOME_BEFORE_LEVELING
 //#define SMOOTH_ENCODER_MENUITEMS  // Menu items value faster/smooth change rate
-#define SHOW_SPEED_IND // Show the axes speed in mm/s intermittently with the speed percentage
+//#define SHOW_SPEED_IND // Show the axes speed in mm/s intermittently with the speed percentage
 //#define NO_BLINK_IND  // Disables dashboard icon background blink indicator
 
 //#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
