@@ -70,7 +70,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_CREALITY_V422  // Creality Board v4.2.2
+  #define MOTHERBOARD BOARD_CREALITY_V422  // Creality Board v4.2.2 //3vD
 #endif
 
 /**
@@ -119,7 +119,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Ender 3 V2"
+#define CUSTOM_MACHINE_NAME "Ender 3 V2"  //3vD
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -543,7 +543,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 61
+#define TEMP_SENSOR_0 61  //3vD
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -627,7 +627,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 325
+#define HEATER_0_MAXTEMP 325  //3vD
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -679,9 +679,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  12.07
-    #define DEFAULT_Ki   0.7
-    #define DEFAULT_Kd  52.13
+    #define DEFAULT_Kp  12.29 //3vD
+    #define DEFAULT_Ki   0.74 //3vD
+    #define DEFAULT_Kd  51.13 //3vD
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -765,9 +765,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 462.10
-  #define DEFAULT_bedKi  85.47
-  #define DEFAULT_bedKd 624.59
+  #define DEFAULT_bedKp 188.47  //3vD
+  #define DEFAULT_bedKi  36.81  //3vD
+  #define DEFAULT_bedKd 643.30  //3vD
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -846,7 +846,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200  // Ender Configs
+#define EXTRUDE_MAXLENGTH 200  // Ender Configs //3vD
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -1218,7 +1218,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 417.5 }  // Ender Configs
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 417.5 }  // Ender Configs  //3vD
 
 #define LIMITED_MAX_STEPS_EDITING
 #if ENABLED(LIMITED_MAX_STEPS_EDITING)
@@ -1331,10 +1331,10 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN  // Probe connected to BLTouch port
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN  // Probe connected to BLTouch port  //3vD
 
 // Force the use of the probe for Z-axis homing
-#define USE_PROBE_FOR_Z_HOMING
+#define USE_PROBE_FOR_Z_HOMING  //3vD
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1391,7 +1391,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH  // 3D/CR/BLTouch version
+#define BLTOUCH  // 3D/CR/BLTouch version //3vD
 
 /**
  * MagLev V4 probe by MDD
@@ -1543,7 +1543,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -30, -40, -4 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm)
+#define NOZZLE_TO_PROBE_OFFSET { -30, -40, -4 }  // MRiscoC BLTouch offset for support: https://www.thingiverse.com/thing:4605354 (z-offset = -1.80 mm) //3vD
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1609,8 +1609,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
-#define EXTRA_PROBING    1
+#define MULTIPLE_PROBING 2  //3vD
+#define EXTRA_PROBING    1  //3vD
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1839,7 +1839,7 @@
  */
 #define FILAMENT_RUNOUT_SENSOR  // MRiscoC Enabled runout sensor support
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+  #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.  //3vD
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
   #define FIL_RUNOUT_STATE     LOW        // Pin state indicating that filament is NOT present.
@@ -1980,8 +1980,8 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-#define AUTO_BED_LEVELING_BILINEAR  // MRiscoC BLTouch auto level
-//#define AUTO_BED_LEVELING_UBL
+//#define AUTO_BED_LEVELING_BILINEAR  // MRiscoC BLTouch auto level
+#define AUTO_BED_LEVELING_UBL //3vD
 //#define MESH_BED_LEVELING
 
 /**
@@ -1990,12 +1990,12 @@
  * leveling immediately after G28.
  */
 //#define RESTORE_LEVELING_AFTER_G28
-#define ENABLE_LEVELING_AFTER_G28
+//#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING  // MRiscoC Heatting to compensate thermal expansions
+//#define PREHEAT_BEFORE_LEVELING  // MRiscoC Heatting to compensate thermal expansions //3vD
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP   0   // (°C) Only applies to E0 at this time  // MRiscoC No necessary for BLTouch
   #define LEVELING_BED_TEMP     50
@@ -2093,13 +2093,13 @@
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
   #define MESH_INSET 25              // Set Mesh bounds as an inset region of the bed  // MRiscoC Center mesh
-  #define GRID_MAX_POINTS_X 5      // Don't use more than 15 points per axis, implementation limited.  // MRiscoC Customizable by menu
+  #define GRID_MAX_POINTS_X 4      // Don't use more than 15 points per axis, implementation limited.  // MRiscoC Customizable by menu  //3vD
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   //#define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
 
   //#define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
-  //#define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)
+  #define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)  //3vD
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
@@ -2155,7 +2155,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-#define LCD_BED_TRAMMING  // ProUI has a bed tramming menu
+#define LCD_BED_TRAMMING  // ProUI has a bed tramming menu  //3vD
 
 #if ENABLED(LCD_BED_TRAMMING)
   #define BED_TRAMMING_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets  // ProUI use mesh insets for bed tramming
@@ -2345,26 +2345,26 @@
 // Preheat Constants - Up to 10 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 195
-#define PREHEAT_1_TEMP_BED     60
-#define PREHEAT_1_TEMP_CHAMBER 0
-#define PREHEAT_1_FAN_SPEED     128 // Value from 0 to 255
+#define PREHEAT_1_TEMP_HOTEND 195 //3vD
+#define PREHEAT_1_TEMP_BED     60 //3vD
+#define PREHEAT_1_TEMP_CHAMBER 0  //3vD
+#define PREHEAT_1_FAN_SPEED     128 // Value from 0 to 255  //3vD
 
 #define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 220
-#define PREHEAT_2_TEMP_BED     110
-#define PREHEAT_2_TEMP_CHAMBER 40
-#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_2_TEMP_HOTEND 220 //3vD
+#define PREHEAT_2_TEMP_BED     110  //3vD
+#define PREHEAT_2_TEMP_CHAMBER 40 //3vD
+#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255  //3vD
 
 #define PREHEAT_3_LABEL       "PETG"
-#define PREHEAT_3_TEMP_HOTEND 230
-#define PREHEAT_3_TEMP_BED     70
-#define PREHEAT_3_FAN_SPEED   0
+#define PREHEAT_3_TEMP_HOTEND 230 //3vD
+#define PREHEAT_3_TEMP_BED     70 //3vD
+#define PREHEAT_3_FAN_SPEED   0 //3vD
 
-#define PREHEAT_4_LABEL       "COMP"
-#define PREHEAT_4_TEMP_HOTEND 250
-#define PREHEAT_4_TEMP_BED     40
-#define PREHEAT_4_FAN_SPEED   0
+#define PREHEAT_4_LABEL       "COMP"  //3vD
+#define PREHEAT_4_TEMP_HOTEND 250 //3vD
+#define PREHEAT_4_TEMP_BED     40 //3vD
+#define PREHEAT_4_FAN_SPEED   0 //3vD
 
 // @section motion
 
@@ -3343,7 +3343,7 @@
 // Professional firmware features:
 #define PROUI_EX 1
 #if PROUI_EX
-  #define HAS_GCODE_PREVIEW 0
+  #define HAS_GCODE_PREVIEW 0 //3vD
   #define HAS_TOOLBAR 1
   #if ENABLED(FILAMENT_RUNOUT_SENSOR)
     #define HAS_PROUI_RUNOUT_SENSOR 1
