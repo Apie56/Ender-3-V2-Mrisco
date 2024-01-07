@@ -49,7 +49,7 @@ void dwinSend(size_t &i) {
 
 // Handshake (1: Success, 0: Fail)
 bool dwinHandshake() {
-  static int recnum = 0;
+  int recnum = 0;
   #ifndef LCD_BAUDRATE
     #define LCD_BAUDRATE 115200
   #endif

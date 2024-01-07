@@ -217,7 +217,9 @@
   #include "feature/fanmux.h"
 #endif
 
-#include "module/tool_change.h"
+#if HAS_TOOLCHANGE
+  #include "module/tool_change.h"
+#endif
 
 #if HAS_FANCHECK
   #include "feature/fancheck.h"
@@ -774,7 +776,7 @@ void idle(const bool no_stepper_sleep/*=false*/) {
   if (marlin_state == MF_INITIALIZING) goto IDLE_DONE;
 
   // TODO: Still causing errors
-  (void)check_tool_sensor_stats(active_extruder, true);
+  TERN_(TOOL_SENSOR, (void)check_tool_sensor_stats(active_extruder, true));
 
   // Handle filament runout sensors
   #if HAS_FILAMENT_SENSOR
@@ -813,6 +815,9 @@ void idle(const bool no_stepper_sleep/*=false*/) {
 
   // Update the Beeper queue
   TERN_(HAS_BEEPER, buzzer.tick());
+
+  // Handle ProUI extension update process
+  TERN_(PROUI_EX, proUIEx.update());
 
   // Handle UI input / draw events
   TERN(DWIN_CREALITY_LCD, dwinUpdate(), ui.update());
@@ -860,7 +865,7 @@ void idle(const bool no_stepper_sleep/*=false*/) {
   TERN_(HAS_TFT_LVGL_UI, LV_TASK_HANDLER());
 
   // Manage Fixed-time Motion Control
-  TERN_(FT_MOTION, fxdTiCtrl.loop());
+  TERN_(FT_MOTION, ftMotion.loop());
 
   IDLE_DONE:
   TERN_(MARLIN_DEV_MODE, idle_depth--);
@@ -1216,6 +1221,12 @@ void setup() {
   #endif
   #if TEMP_SENSOR_IS_MAX_TC(1) || (TEMP_SENSOR_IS_MAX_TC(REDUNDANT) && REDUNDANT_TEMP_MATCH(SOURCE, E1))
     OUT_WRITE(TEMP_1_CS_PIN, HIGH);
+  #endif
+  #if TEMP_SENSOR_IS_MAX_TC(2) || (TEMP_SENSOR_IS_MAX_TC(REDUNDANT) && REDUNDANT_TEMP_MATCH(SOURCE, E2))
+    OUT_WRITE(TEMP_2_CS_PIN, HIGH);
+  #endif
+  #if TEMP_SENSOR_IS_MAX_TC(BED)
+    OUT_WRITE(TEMP_BED_CS_PIN, HIGH);
   #endif
 
   #if ENABLED(DUET_SMART_EFFECTOR) && PIN_EXISTS(SMART_EFFECTOR_MOD)
@@ -1582,10 +1593,6 @@ void setup() {
     SERIAL_ECHO_TERNARY(err, "BL24CXX Check ", "failed", "succeeded", "!\n");
   #endif
 
-  #if HAS_DWIN_E3V2_BASIC
-    SETUP_RUN(dwinInitScreen());
-  #endif
-
   #if HAS_SERVICE_INTERVALS && !HAS_DWIN_E3V2_BASIC
     SETUP_RUN(ui.reset_status(true));  // Show service messages or keep current status
   #endif
@@ -1617,8 +1624,16 @@ void setup() {
     SETUP_RUN(password.lock_machine());      // Will not proceed until correct password provided
   #endif
 
-  #if ALL(HAS_MARLINUI_MENU, TOUCH_SCREEN_CALIBRATION) && ANY(TFT_CLASSIC_UI, TFT_COLOR_UI)
+  #if ALL(HAS_MARLINUI_MENU, TOUCH_SCREEN_CALIBRATION) && ANY(TFT_CLASSIC_UI, TFT_COLOR_UI) && !PROUI_EX
     SETUP_RUN(ui.check_touch_calibration());
+  #endif
+
+  #if PROUI_EX
+    SETUP_RUN(proUIEx.init());
+  #endif
+
+  #if HAS_DWIN_E3V2_BASIC
+    SETUP_RUN(dwinInitScreen());
   #endif
 
   #if ENABLED(EASYTHREED_UI)
@@ -1634,7 +1649,7 @@ void setup() {
   #endif
 
   #if ENABLED(FT_MOTION)
-    SETUP_RUN(fxdTiCtrl.init());
+    SETUP_RUN(ftMotion.init());
   #endif
 
   marlin_state = MF_RUNNING;

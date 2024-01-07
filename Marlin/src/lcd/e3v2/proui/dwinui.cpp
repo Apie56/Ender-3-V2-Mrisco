@@ -1,8 +1,8 @@
 /**
  * DWIN Enhanced graphics implementation for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 4.1.1
- * Date: 2023/07/12
+ * Version: 4.2.1
+ * Date: 2023/09/30
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -23,7 +23,6 @@
 
 #if ENABLED(DWIN_LCD_PROUI)
 
-#include "dwin_defines.h"
 #include "dwinui.h"
 
 xy_int_t DWINUI::cursor = { 0 };
@@ -32,8 +31,6 @@ uint16_t DWINUI::textColor = defColorText;
 uint16_t DWINUI::backColor = defColorBackground;
 uint16_t DWINUI::buttonColor = defColorButton;
 uint8_t  DWINUI::fontID = font8x16;
-
-void (*DWINUI::onTitleDraw)(Title* t) = nullptr;
 
 void DWINUI::init() {
   cursor.reset();
@@ -172,7 +169,7 @@ void DWINUI::drawString(uint16_t color, const char * const string, uint16_t rlim
 //  iNum: Number of digits
 //  x/y: Upper-left coordinate
 //  value: Integer value
-void DWINUI::drawInt(uint8_t bShow, bool signedMode, fontid_t fid, uint16_t color, uint16_t bColor, uint8_t iNum, uint16_t x, uint16_t y, int32_t value) {
+void DWINUI::drawInt(uint8_t bShow, bool signedMode, fontid_t fid, uint16_t color, uint16_t bColor, uint8_t iNum, uint16_t x, uint16_t y, long value) {
   char nstr[10];
   sprintf_P(nstr, PSTR("%*li"), (signedMode ? iNum + 1 : iNum), value);
   dwinDrawString(bShow, fid, color, bColor, x, y, nstr);
@@ -328,40 +325,16 @@ void DWINUI::clearMainArea() {
 
 Title title;
 
-void Title::draw() {
-  if (DWINUI::onTitleDraw != nullptr) (*DWINUI::onTitleDraw)(this);
-}
+uint16_t Title::textColor = defColorTitleTxt;
+uint16_t Title::backColor = defColorTitleBg;
 
-void Title::setCaption(const char * const titleStr) {
-  frameid = 0;
-  if ( caption == titleStr ) return;
-  const uint8_t len = _MIN(sizeof(caption) - 1, strlen(titleStr));
-  memcpy(&caption[0], titleStr, len);
-  caption[len] = '\0';
-}
-
-void Title::showCaption(const char * const titleStr) {
-  setCaption(titleStr);
-  draw();
-}
-
-void Title::setFrame(uint8_t id, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
-  caption[0] = '\0';
-  frameid = id;
-  frame = { x1, y1, x2, y2 };
-}
-
-void Title::setFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
-  setFrame(1, x, y, x + w - 1, y + h - 1);
-}
-
-void Title::frameCopy(uint8_t id, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
-  setFrame(id, x1, y1, x2, y2);
-  draw();
-}
-
-void Title::frameCopy(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
-  frameCopy(1, x, y, x + w - 1, y + h - 1);
+void Title::draw(const char * const caption) {
+  dwinDrawRectangle(1, backColor, 0, 0, DWIN_WIDTH - 1, TITLE_HEIGHT - 1);
+  #if ENABLED(TITLE_CENTERED)
+    drawCenteredString(false, DWIN_FONT_HEAD, textColor, backColor, (TITLE_HEIGHT - DWINUI::fontHeight(DWIN_FONT_HEAD)) / 2 - 1, caption);
+  #else
+    dwinDrawString(false, DWIN_FONT_HEAD, textColor, backColor, 14, (TITLE_HEIGHT - DWINUI::fontHeight(DWIN_FONT_HEAD)) / 2 - 1, caption);
+  #endif
 }
 
 #endif // DWIN_LCD_PROUI

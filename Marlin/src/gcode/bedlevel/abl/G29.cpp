@@ -55,10 +55,6 @@
   #include "../../../lcd/e3v2/proui/dwin.h"
 #endif
 
-#if HAS_MULTI_HOTEND
-  #include "../../../module/tool_change.h"
-#endif
-
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../../../core/debug_out.h"
 
@@ -231,6 +227,7 @@ public:
  *     There's no extra effect if you have a fixed Z probe.
  */
 G29_TYPE GcodeSuite::G29() {
+
   DEBUG_SECTION(log_G29, "G29", DEBUGGING(LEVELING));
 
   // Leveling state is persistent when done manually with multiple G29 commands
@@ -760,6 +757,7 @@ G29_TYPE GcodeSuite::G29() {
             }
             //if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM_P(axis == Y_AXIS ? PSTR("Y=") : PSTR("X=", pos);
 
+            safe_delay(4);
             abl.measured_z = current_position.z - bdl.read();
             if (DEBUGGING(LEVELING)) SERIAL_ECHOLNPGM("x_cur ", planner.get_axis_position_mm(X_AXIS), " z ", abl.measured_z);
 

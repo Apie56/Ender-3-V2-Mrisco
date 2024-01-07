@@ -523,7 +523,7 @@ struct HeaterWatch {
 #endif
 
 // Temperature sensor read value ranges
-#if PROUI_EX
+#if HAS_PROUI_MAXTEMP
   typedef struct { raw_adc_t raw_min, raw_max; celsius_t mintemp, maxtemp, tablemax; } temp_range_t;
 #else
   typedef struct { raw_adc_t raw_min, raw_max; celsius_t mintemp, maxtemp; } temp_range_t;
@@ -597,7 +597,7 @@ class Temperature {
 
     #if HAS_HOTEND
       static hotend_info_t temp_hotend[HOTENDS];
-      #if PROUI_EX
+      #if HAS_PROUI_MAXTEMP
         static celsius_t hotend_maxtemp[HOTENDS];
         static temp_range_t temp_range[HOTENDS];
       #else
@@ -735,7 +735,7 @@ class Temperature {
       static hotend_watch_t watch_hotend[HOTENDS];
     #endif
 
-    #if HAS_HOTEND && DISABLED(PROUI_EX)
+    #if HAS_HOTEND && DISABLED(HAS_PROUI_MAXTEMP)
       static temp_range_t temp_range[HOTENDS];
     #endif
 
@@ -1344,14 +1344,15 @@ class Temperature {
 
     // MAX Thermocouples
     #if HAS_MAX_TC
-      #define MAX_TC_COUNT TEMP_SENSOR_IS_MAX_TC(0) + TEMP_SENSOR_IS_MAX_TC(1) + TEMP_SENSOR_IS_MAX_TC(REDUNDANT)
+      #define MAX_TC_COUNT TEMP_SENSOR_IS_MAX_TC(0) + TEMP_SENSOR_IS_MAX_TC(1) + TEMP_SENSOR_IS_MAX_TC(2) + TEMP_SENSOR_IS_MAX_TC(REDUNDANT)
       #if MAX_TC_COUNT > 1
         #define HAS_MULTI_MAX_TC 1
-        #define READ_MAX_TC(N) read_max_tc(N)
-      #else
-        #define READ_MAX_TC(N) read_max_tc()
       #endif
+      #define READ_MAX_TC(N) read_max_tc(TERN_(HAS_MULTI_MAX_TC, N))
       static raw_adc_t read_max_tc(TERN_(HAS_MULTI_MAX_TC, const uint8_t hindex=0));
+    #endif
+    #if TEMP_SENSOR_IS_MAX_TC(BED)
+      static raw_adc_t read_max_tc_bed();
     #endif
 
     #if HAS_AUTO_FAN

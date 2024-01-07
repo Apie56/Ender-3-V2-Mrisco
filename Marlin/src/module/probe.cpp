@@ -377,7 +377,7 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
 
     TERN_(HOST_PROMPT_SUPPORT, hostui.continue_prompt(ds_str));
     TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired(ds_str));
-    TERN_(DWIN_LCD_PROUI, dwinPopupConfirm(ICON_BLTouch, ds_str, FPSTR(CONTINUE_STR)));
+    TERN_(DWIN_LCD_PROUI, dwinPopupContinue(ICON_BLTouch, ds_str, FPSTR(CONTINUE_STR)));
     TERN_(HAS_RESUME_CONTINUE, wait_for_user_response());
 
     ui.reset_status();
@@ -596,11 +596,15 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
     thermalManager.wait_for_hotend_heating(active_extruder);
   #endif
 
-  // Ensure the BLTouch is deployed. Does nothing if already deployed.
-  if (TERN0(BLTOUCH, bltouch.deploy())) return true;
+  #if ENABLED(BLTOUCH)
+    // Ensure the BLTouch is deployed. (Does nothing if already deployed.)
+    // Don't deploy with high_speed_mode enabled. The probe already re-deploys itself.
+    if (TERN(MEASURE_BACKLASH_WHEN_PROBING, true, !bltouch.high_speed_mode) && bltouch.deploy())
+      return true;
+  #endif
 
   #if HAS_Z_SERVO_PROBE && (ENABLED(Z_SERVO_INTERMEDIATE_STOW) || defined(Z_SERVO_MEASURE_ANGLE))
-    probe_specific_action(true);  //  Always re-deploy in this case
+    probe_specific_action(true);  // Always re-deploy in this case
   #endif
 
   // Disable stealthChop if used. Enable diag1 pin on driver.
@@ -736,7 +740,7 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
    *
    * @param sanity_check Flag to compare the probe result with the expected result
    *                     based on the probe Z offset. If the result is too far away
-   *                     (more than 2mm too early) then consider it an error.
+   *                     (more than Z_PROBE_ERROR_TOLERANCE too early) then throw an error.
    * @param z_min_point Override the minimum probing height (-2mm), to allow deeper probing.
    * @param z_clearance Z clearance to apply on probe failure.
    *
@@ -748,7 +752,7 @@ bool Probe::probe_down_to_z(const_float_t z, const_feedRate_t fr_mm_s) {
     const float zoffs = SUM_TERN(HAS_HOTEND_OFFSET, -offset.z, hotend_offset[active_extruder].z);
 
     auto try_to_probe = [&](PGM_P const plbl, const_float_t z_probe_low_point, const feedRate_t fr_mm_s, const bool scheck) -> bool {
-      constexpr float error_tolerance = 2.0f;
+      constexpr float error_tolerance = Z_PROBE_ERROR_TOLERANCE;
       if (DEBUGGING(LEVELING)) {
         DEBUG_ECHOPGM_P(plbl);
         DEBUG_ECHOLNPGM("> try_to_probe(..., ", z_probe_low_point, ", ", fr_mm_s, ", ...)");
@@ -982,6 +986,7 @@ float Probe::probe_at_point(const_float_t rx, const_float_t ry, const ProbePtRai
 
   #if ENABLED(BD_SENSOR)
 
+    safe_delay(4);
     return current_position.z - bdl.read(); // Difference between Z-home-relative Z and sensor reading
 
   #else // !BD_SENSOR

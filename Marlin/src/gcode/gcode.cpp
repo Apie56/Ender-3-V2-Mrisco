@@ -75,6 +75,10 @@ GcodeSuite gcode;
   #include "../lcd/e3v2/proui/dwin.h"
 #endif
 
+#if HAS_CGCODE
+  #include "../prouiex/custom_gcodes.h"
+#endif
+
 // Inactivity shutdown
 millis_t GcodeSuite::previous_move_ms = 0,
          GcodeSuite::max_inactive_time = 0;
@@ -126,14 +130,16 @@ void GcodeSuite::say_units() {
  * Return -1 if the T parameter is out of range
  */
 int8_t GcodeSuite::get_target_extruder_from_command() {
-  if (parser.seenval('T')) {
-    const int8_t e = parser.value_byte();
-    if (e < EXTRUDERS) return e;
-    SERIAL_ECHO_START();
-    SERIAL_CHAR('M'); SERIAL_ECHO(parser.codenum);
-    SERIAL_ECHOLNPGM(" " STR_INVALID_EXTRUDER " ", e);
-    return -1;
-  }
+  #if HAS_TOOLCHANGE
+    if (parser.seenval('T')) {
+      const int8_t e = parser.value_byte();
+      if (e < EXTRUDERS) return e;
+      SERIAL_ECHO_START();
+      SERIAL_CHAR('M'); SERIAL_ECHO(parser.codenum);
+      SERIAL_ECHOLNPGM(" " STR_INVALID_EXTRUDER " ", e);
+      return -1;
+    }
+  #endif
   return active_extruder;
 }
 
@@ -157,7 +163,7 @@ int8_t GcodeSuite::get_target_e_stepper_from_command(const int8_t dval/*=-1*/) {
 }
 
 /**
- * Set XYZ...E destination and feedrate from the current GCode command
+ * Set XYZ...E destination and feedrate from the current G-Code command
  *
  *  - Set destination from included axis codes
  *  - Set to current for missing axis codes
@@ -474,7 +480,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       #endif
 
       #if ENABLED(DEBUG_GCODE_PARSER)
-        case 800: parser.debug(); break;                          // G800: GCode Parser Test for G
+        case 800: parser.debug(); break;                          // G800: G-Code Parser Test for G
       #endif
 
       default: parser.unknown_command_warning(); break;
@@ -688,7 +694,10 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       case 92: M92(); break;                                      // M92: Set the steps-per-unit for one or more axes
       case 114: M114(); break;                                    // M114: Report current position
-      case 115: M115(); break;                                    // M115: Report capabilities
+
+      #if ENABLED(CAPABILITIES_REPORT)
+        case 115: M115(); break;                                  // M115: Report capabilities
+      #endif
 
       case 117: TERN_(HAS_STATUS_MESSAGE, M117()); break;         // M117: Set LCD message text, if possible
 
@@ -954,13 +963,19 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 575: M575(); break;                                  // M575: Set serial baudrate
       #endif
 
+      #if ENABLED(NONLINEAR_EXTRUSION)
+        case 592: M592(); break;                                  // M592: Nonlinear Extrusion control
+      #endif
+
       #if HAS_ZV_SHAPING
         case 593: M593(); break;                                  // M593: Input Shaping control
       #endif
 
       #if ENABLED(ADVANCED_PAUSE_FEATURE)
         case 600: M600(); break;                                  // M600: Pause for Filament Change
-        case 603: M603(); break;                                  // M603: Configure Filament Change
+        #if ENABLED(CONFIGURE_FILAMENT_CHANGE)
+          case 603: M603(); break;                                  // M603: Configure Filament Change
+        #endif
       #endif
 
       #if HAS_DUPLICATION_MODE
@@ -1050,7 +1065,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       #endif
 
       #if ENABLED(DEBUG_GCODE_PARSER)
-        case 800: parser.debug(); break;                          // M800: GCode Parser Test for M
+        case 800: parser.debug(); break;                          // M800: G-Code Parser Test for M
       #endif
 
       #if ENABLED(GCODE_REPEAT_MARKERS)
@@ -1136,8 +1151,8 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 'S': case 'P': case 'R': break;                        // Invalid S, P, R commands already filtered
     #endif
 
-    #if ALL(DWIN_LCD_PROUI, HAS_CGCODE)
-      case 'C' : dwinGcode(parser.codenum); break;               // PROUI_EX Cn: Custom Gcodes
+    #if HAS_CGCODE
+      case 'C' : customGcode(parser.codenum); break;               // Cn: Custom Gcodes
     #endif
 
     default:

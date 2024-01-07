@@ -99,5 +99,8 @@ class TemporaryBedLevelingState {
     operator xy_int8_t&() { return pos; }
     operator const xy_int8_t&() const { return pos; }
   };
-
+#else
+  #if PROUI_EX
+    typedef float bed_mesh_t[GRID_LIMIT][GRID_LIMIT];
+  #endif
 #endif

@@ -149,7 +149,7 @@
  *
  * M113 - Get or set the timeout interval for Host Keepalive "busy" messages. (Requires HOST_KEEPALIVE_FEATURE)
  * M114 - Report current position.
- * M115 - Report capabilities. (Extended capabilities requires EXTENDED_CAPABILITIES_REPORT)
+ * M115 - Report capabilities. (Requires CAPABILITIES_REPORT)
  * M117 - Display a message on the controller screen. (Requires an LCD)
  * M118 - Display a message in the host console.
  *
@@ -259,6 +259,7 @@
  * M554 - Get or set IP gateway. (Requires enabled Ethernet port)
  * M569 - Enable stealthChop on an axis. (Requires at least one _DRIVER_TYPE to be TMC2130/2160/2208/2209/5130/5160)
  * M575 - Change the serial baud rate. (Requires BAUD_RATE_GCODE)
+ * M592 - Get or set nonlinear extrusion parameters. (Requires NONLINEAR_EXTRUSION)
  * M593 - Get or set input shaping parameters. (Requires INPUT_SHAPING_[XY])
  * M600 - Pause for filament change: "M600 X<pos> Y<pos> Z<raise> E<first_retract> L<later_retract>". (Requires ADVANCED_PAUSE_FEATURE)
  * M603 - Configure filament change: "M603 T<tool> U<unload_length> L<load_length>". (Requires ADVANCED_PAUSE_FEATURE)
@@ -461,7 +462,7 @@ public:
      */
     enum MarlinBusyState : char {
       NOT_BUSY,           // Not in a handler
-      IN_HANDLER,         // Processing a GCode
+      IN_HANDLER,         // Processing a G-Code
       IN_PROCESS,         // Known to be blocking command input (as in G29)
       PAUSED_FOR_USER,    // Blocking pending any input
       PAUSED_FOR_INPUT    // Blocking pending text input (concept)
@@ -763,7 +764,10 @@ private:
   #endif
 
   static void M114();
-  static void M115();
+
+  #if ENABLED(CAPABILITIES_REPORT)
+    static void M115();
+  #endif
 
   #if HAS_STATUS_MESSAGE
     static void M117();
@@ -1110,6 +1114,11 @@ private:
     static void M575();
   #endif
 
+  #if ENABLED(NONLINEAR_EXTRUSION)
+    static void M592();
+    static void M592_report(const bool forReplay=true);
+  #endif
+
   #if HAS_ZV_SHAPING
     static void M593();
     static void M593_report(const bool forReplay=true);
@@ -1280,7 +1289,7 @@ private:
     static void M710_report(const bool forReplay=true);
   #endif
 
-  static void T(const int8_t tool_index);
+  static void T(const int8_t tool_index) IF_DISABLED(HAS_TOOLCHANGE, { UNUSED(tool_index); });
 
 };
 

@@ -1,8 +1,8 @@
 /**
- * DWIN Enhanced implementation for PRO UI
+ * DWIN Enhanced implementation, general defines and data structs for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 4.2.3
- * Date: 2023/08/04
+ * Version: 4.6.3
+ * Date: 2023/10/27
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -22,31 +22,46 @@
 
 #include "../../../inc/MarlinConfig.h"
 
-#include "dwin_defines.h"
-#include "dwinui.h"
+#include "../../../libs/BL24CXX.h"
+#include "../../../MarlinCore.h"
+#include "../../../module/printcounter.h"
+#include "../../../sd/cardreader.h"
 #include "../common/encoder.h"
 #include "../common/limits.h"
-#include "../../../libs/BL24CXX.h"
 
 #if HAS_CGCODE
-  #include "custom_gcodes.h"
+  #include "../../../prouiex/custom_gcodes.h"
 #endif
 
 #if ENABLED(CV_LASER_MODULE)
-  #include "cv_laser_module.h"
+  #include "../../../prouiex/cv_laser_module.h"
 #endif
 
-#define EXT 0 // default extruder
+#include "dwinui.h"
+
+// #define DEBUG_DWIN 1
+
+#define EXT active_extruder // default extruder
 #define FAN 0 // default fan
 
-namespace GET_LANG(LCD_LANGUAGE) {
-  #define _MSG_PREHEAT(N) \
-    LSTR MSG_PREHEAT_##N                  = _UxGT("Preheat ") PREHEAT_## N ##_LABEL; \
-    LSTR MSG_PREHEAT_## N ##_SETTINGS     = _UxGT("Preheat ") PREHEAT_## N ##_LABEL _UxGT(" Conf");
-  #if PREHEAT_COUNT > 1
-    REPEAT_S(2, INCREMENT(PREHEAT_COUNT), _MSG_PREHEAT)
-  #endif
-}
+#define defColorLeds        0xFFFFFFFF
+#define defCaseLightBrightness 255
+#ifdef Z_AFTER_HOMING
+  #define DEF_Z_AFTER_HOMING Z_AFTER_HOMING
+#else
+  #define DEF_Z_AFTER_HOMING 0
+#endif
+#define DEF_HOTENDPIDT PREHEAT_1_TEMP_HOTEND
+#define DEF_BEDPIDT PREHEAT_1_TEMP_BED
+#define DEF_PIDCYCLES 5
+
+#if HAS_BED_PROBE
+  #define OFFSET_ZMIN PROBE_OFFSET_ZMIN
+  #define OFFSET_ZMAX PROBE_OFFSET_ZMAX
+#else
+  #define OFFSET_ZMIN -20
+  #define OFFSET_ZMAX 20
+#endif
 
 extern char dateTime[16+1];
 
@@ -130,15 +145,14 @@ typedef struct {
 } hmi_data_t;
 
 extern hmi_data_t hmiData;
-static constexpr size_t eeprom_data_size = sizeof(hmi_data_t) + TERN0(PROUI_EX, sizeof(PRO_data_t));
+static constexpr size_t eeprom_data_size = sizeof(hmi_data_t);
 
 typedef struct {
-  int8_t Color[3];                    // Color components
+  int8_t Color[3];      // Color components
   #if ANY(HAS_PID_HEATING, MPCTEMP)
     tempcontrol_t tempControl = AUTOTUNE_DONE;
   #endif
-  uint8_t select          = 0;        // Auxiliary selector variable
-  AxisEnum axis           = X_AXIS;   // Axis Select
+  uint8_t select  = 0;  // Auxiliary selector variable
 } hmi_value_t;
 
 typedef struct {
@@ -147,14 +161,15 @@ typedef struct {
   bool pause_flag:1;    // printing is paused
   bool select_flag:1;   // Popup button selected
   bool config_flag:1;   // SD G-code file is a Configuration file
-  #if PROUI_EX && HAS_LEVELING
-    bool cancel_abl:1;  // cancel current abl
-  #endif
 } hmi_flag_t;
 
 extern hmi_value_t hmiValue;
 extern hmi_flag_t hmiFlag;
 extern uint8_t checkkey;
+
+inline bool isPrinting() { return (printingIsActive() || print_job_timer.isPaused()); }
+inline bool sdPrinting() { return (isPrinting() && IS_SD_FILE_OPEN()); }
+inline bool hostPrinting() { return (isPrinting() && !IS_SD_FILE_OPEN()); }
 
 // Popups
 #if HAS_HOTEND || HAS_HEATED_BED
@@ -217,6 +232,7 @@ void gotoPowerLossRecovery();
 void gotoConfirmToPrint();
 void drawMainArea();      // Redraw main area
 void dwinDrawStatusLine(const char *text); // Draw simple status text
+inline void dwinDrawStatusLine(FSTR_P fstr) { dwinDrawStatusLine(FTOP(fstr)); }
 void dwinRedrawDash();     // Redraw Dash and Status line
 void dwinRedrawScreen();   // Redraw all screen elements
 void hmiMainMenu();        // Main process screen
@@ -235,8 +251,10 @@ void dwinHomingDone();
 #if HAS_MESH
   void dwinMeshUpdate(const int8_t cpos, const int8_t tpos, const_float_t zval);
 #endif
-void dwinLevelingStart();
-void dwinLevelingDone();
+#if HAS_LEVELING
+  void dwinLevelingStart();
+  void dwinLevelingDone();
+#endif
 void dwinPrintStarted();
 void dwinPrintPause();
 void dwinPrintResume();
@@ -244,11 +262,11 @@ void dwinPrintFinished();
 void dwinPrintAborted();
 void dwinPrintHeader(const char *text);
 void dwinSetColorDefaults();
+void dwinSetColors();
 void dwinCopySettingsTo(char * const buff);
 void dwinCopySettingsFrom(const char * const buff);
 void dwinSetDataDefaults();
 void dwinRebootScreen();
-inline void dwinGcode(const int16_t codenum) { TERN_(HAS_CGCODE, customGcode(codenum)); }
 
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   void dwinPopupPause(FSTR_P const fmsg, uint8_t button=0);
@@ -270,14 +288,17 @@ inline void dwinGcode(const int16_t codenum) { TERN_(HAS_CGCODE, customGcode(cod
 #endif
 
 // Menu drawing functions
-void drawPrintFileMenu();
+void drawFileMenu();
 void drawControlMenu();
 void drawAdvancedSettingsMenu();
 void drawPrepareMenu();
 void drawMoveMenu();
 
 #if ENABLED(LCD_BED_TRAMMING)
-void drawTrammingMenu();
+  void drawTrammingMenu();
+  #if HAS_TRAMMING_WIZARD
+    void runTrammingWizard();
+  #endif
 #endif
 
 #if HAS_HOME_OFFSET
@@ -308,7 +329,7 @@ void drawMotionMenu();
 void drawTemperatureMenu();
 void drawMaxSpeedMenu();
 void drawMaxAccelMenu();
-#if HAS_CLASSIC_JERK
+#if ENABLED(CLASSIC_JERK)
   void drawMaxJerkMenu();
 #endif
 void drawStepsMenu();
@@ -336,10 +357,11 @@ void drawStepsMenu();
 
 // Custom colors editing
 #if HAS_CUSTOM_COLORS
-  void dwinApplyColor();
   void dwinApplyColor(const int8_t element, const bool ldef=false);
-  void drawSelectColorsMenu();
-  void drawGetColorMenu();
+  #if HAS_CUSTOM_COLORS_MENU
+    void drawSelectColorsMenu();
+    void drawGetColorMenu();
+  #endif
 #endif
 
 // PID

@@ -47,7 +47,7 @@
 #endif
 
 #if ALL(MESH_BED_LEVELING, DWIN_LCD_PROUI)
-  #include "../../lcd/e3v2/proui/bedlevel_tools.h"
+  #include "bedlevel_tools.h"
 #endif
 
 bool leveling_is_valid() {

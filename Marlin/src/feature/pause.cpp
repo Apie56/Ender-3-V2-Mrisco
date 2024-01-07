@@ -89,7 +89,9 @@ static xyze_pos_t resume_position;
   PauseMode pause_mode = PAUSE_MODE_PAUSE_PRINT;
 #endif
 
-fil_change_settings_t fc_settings[EXTRUDERS];
+#if ENABLED(CONFIGURE_FILAMENT_CHANGE)
+  fil_change_settings_t fc_settings[EXTRUDERS];
+#endif
 
 #if HAS_MEDIA
   #include "../sd/cardreader.h"
@@ -217,7 +219,7 @@ bool load_filament(const_float_t slow_load_length/*=0*/, const_float_t fast_load
             REPEAT_1(NUM_RUNOUT_SENSORS, _CASE_INSERTED)
           }
         #else
-          if (READ(FIL_RUNOUT_PIN) != TERN(PROUI_EX, PRO_data.Runout_active_state, FIL_RUNOUT_STATE)) wait_for_user = false;
+          if (READ(FIL_RUNOUT_PIN) != TERN(HAS_PROUI_RUNOUT_SENSOR, PRO_data.Runout_active_state, FIL_RUNOUT_STATE)) wait_for_user = false;
         #endif
       #endif
       idle_no_sleep();

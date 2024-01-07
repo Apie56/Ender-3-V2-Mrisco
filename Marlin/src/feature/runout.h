@@ -39,10 +39,6 @@
   #include "../lcd/extui/ui_api.h"
 #endif
 
-#if HAS_PROUI_RUNOUT_SENSOR
-  #include "../lcd/e3v2/proui/proui.h"
-#endif
-
 //#define FILAMENT_RUNOUT_SENSOR_DEBUG
 #ifndef FILAMENT_RUNOUT_THRESHOLD
   #define FILAMENT_RUNOUT_THRESHOLD 5

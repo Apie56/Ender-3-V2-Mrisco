@@ -1,8 +1,8 @@
 /**
  * DWIN Enhanced graphics implementation for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * Version: 4.1.1
- * Date: 2023/07/12
+ * Version: 4.2.1
+ * Date: 2023/09/30
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -99,7 +99,8 @@
 #define ICON_MeshEditY         CI(1,ICON_MoveY)
 #define ICON_MeshEditZ         CI(1,ICON_MoveZ)
 #define ICON_MeshNext          CI(1,ICON_Axis)
-#define ICON_MeshPoints        CI(1,ICON_SetEndTemp)
+#define ICON_MeshPointsX       CI(1,ICON_SetEndTemp)
+#define ICON_MeshPointsY       CI(1,ICON_SetEndTemp)
 #define ICON_MeshReset         CI(1,ICON_StockConfiguration)
 #define ICON_MeshSave          CI(1,ICON_WriteEEPROM)
 #define ICON_MeshViewer        CI(1,ICON_HotendTemp)
@@ -188,26 +189,6 @@
 #define BTN_Save              91
 #define BTN_Purge             92
 
-// Extended and default UI Colors
-#define COLOR_BLACK           0
-#define COLOR_GREEN           RGB(0,63,0)
-#define COLOR_AQUA            RGB(0,63,31)
-#define COLOR_BLUE            RGB(0,0,31)
-#define COLOR_LIGHT_WHITE     0xBDD7
-#define COLOR_LIGHT_GREEN     0x3460
-#define COLOR_CYAN            0x07FF
-#define COLOR_LIGHT_CYAN      0x04F3
-#define COLOR_LIGHT_BLUE      0x3A6A
-#define COLOR_MAGENTA         0xF81F
-#define COLOR_LIGHT_MAGENTA   0x9813
-#define COLOR_LIGHT_RED       RGB(31,31,15)
-#define COLOR_ORANGE          0xFA20
-#define COLOR_LIGHT_ORANGE    0xFBC0
-#define COLOR_LIGHT_YELLOW    0x8BE0
-#define COLOR_BROWN           0xCC27
-#define COLOR_LIGHT_BROWN     0x6204
-#define COLOR_GREY            0x18E3
-
 // UI element defines and constants
 #define DWIN_FONT_MENU font8x16
 #define DWIN_FONT_STAT font10x20
@@ -244,18 +225,10 @@ typedef struct { uint16_t x, y, w, h; } frame_rect_t;
 
 class Title {
 public:
-  char caption[32] = "";
-  uint8_t frameid = 0;
-  rect_t frame = {0};
-  void draw();
-  void setCaption(const char * const titleStr);
-  inline void setCaption(FSTR_P fTitle) { setCaption((char *)fTitle); }
-  void showCaption(const char * const titleStr);
-  inline void showCaption(FSTR_P fTitle) { showCaption((char *)fTitle); }
-  void setFrame(uint8_t id, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-  void setFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
-  void frameCopy(uint8_t id, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-  void frameCopy(uint16_t x, uint16_t y, uint16_t h, uint16_t v);
+  static uint16_t textColor;
+  static uint16_t backColor;
+  static void draw(const char * const caption);
+  static inline void draw(FSTR_P fcaption) { draw((char *)fcaption); }
 };
 extern Title title;
 
@@ -266,8 +239,6 @@ namespace DWINUI {
   extern uint16_t backColor;
   extern uint16_t buttonColor;
   extern fontid_t fontID;
-
-  extern void (*onTitleDraw)(Title* t);
 
   // DWIN LCD Initialization
   void init();
@@ -359,7 +330,7 @@ namespace DWINUI {
   //  iNum: Number of digits
   //  x/y: Upper-left coordinate
   //  value: Integer value
-  void drawInt(uint8_t bShow, bool signedMode, fontid_t fid, uint16_t color, uint16_t bColor, uint8_t iNum, uint16_t x, uint16_t y, int32_t value);
+  void drawInt(uint8_t bShow, bool signedMode, fontid_t fid, uint16_t color, uint16_t bColor, uint8_t iNum, uint16_t x, uint16_t y, long value);
 
   // Draw a positive integer
   inline void drawInt(uint8_t bShow, fontid_t fid, uint16_t color, uint16_t bColor, uint8_t iNum, uint16_t x, uint16_t y, long value) {
@@ -586,6 +557,10 @@ namespace DWINUI {
   //  color1 : Start color
   //  color2 : End color
   uint16_t colorInt(int16_t val, int16_t minv, int16_t maxv, uint16_t color1, uint16_t color2);
+
+  // -------------------------- Title -------------------------------//
+
+  void drawTitle(uint16_t color, uint16_t bcolor, Title* aTitle);
 
   // ------------------------- Buttons ------------------------------//
 

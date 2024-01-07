@@ -22,6 +22,10 @@
 
 #pragma once
 
+#if HAS_GCODE_PREVIEW && DISABLED(PROUI_EX)
+  #error "HAS_GCODE_PREVIEW requires PROUI_EX."
+#endif
+
 class GPreview {
   public:
     static bool isValid();

@@ -24,6 +24,10 @@
 
 #include "../../../inc/MarlinConfigPre.h"
 
+#if HAS_TRAMMING_WIZARD && !ALL(DWIN_LCD_PROUI, PROUI_EX, HAS_BED_PROBE, LCD_BED_TRAMMING)
+  #error "HAS_TRAMMING_WIZARD requires DWIN_LCD_PROUI, PROUI_EX, HAS_BED_PROBE and LCD_BED_TRAMMING."
+#endif
+
 // Tramming points
 #define LF 0
 #define RF 1
@@ -31,8 +35,16 @@
 #define RB 3
 #define TRAM_C  4
 
-void tram(uint8_t point);
-
-#if ALL(HAS_BED_PROBE, HAS_MESH)
-  void trammingwizard();
+#if HAS_TRAMMING_WIZARD
+  #ifndef BED_TRAMMING_PROBE_TOLERANCE
+    #define BED_TRAMMING_PROBE_TOLERANCE 0.05
+  #endif
+  #ifndef BED_TRAMMING_LEVELING_ORDER
+    #define BED_TRAMMING_LEVELING_ORDER { LF, RF, RB, LB }  // 4 elements only LF, RF, RB and LB are allowed
+  #endif
+  constexpr float bed_tramming_probe_tolerance = BED_TRAMMING_PROBE_TOLERANCE;
+  constexpr uint8_t bed_tramming_leveling_order[] = BED_TRAMMING_LEVELING_ORDER;
+  void trammingWizard();
 #endif
+
+bool tram(uint8_t point OPTARG(HAS_BED_PROBE, bool stow_probe=true));

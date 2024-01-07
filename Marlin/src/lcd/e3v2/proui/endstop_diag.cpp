@@ -56,7 +56,7 @@ void draw_es_state(const bool is_hit) {
 }
 
 void ESDiag::draw() {
-  title.showCaption(GET_TEXT_F(MSG_ENDSTOP_TEST));
+  title.draw(GET_TEXT_F(MSG_ENDSTOP_TEST));
   DWINUI::clearMainArea();
   drawPopupBkgd();
   DWINUI::drawButton(BTN_Continue, 86, 250);

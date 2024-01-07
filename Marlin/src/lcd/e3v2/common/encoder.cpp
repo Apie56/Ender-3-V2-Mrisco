@@ -50,7 +50,11 @@ EncoderRate encoderRate;
 
 // TODO: Replace with ui.quick_feedback
 void Encoder_tick() {
-  TERN_(HAS_BEEPER, if (ui.sound_on) buzzer.click(10));
+  #if ENABLED(SPEAKER)
+    if (ui.sound_on) BUZZ(50,800);
+  #elif HAS_BEEPER
+    if (ui.sound_on) buzzer.click(10);
+  #endif
 }
 
 // Encoder initialization

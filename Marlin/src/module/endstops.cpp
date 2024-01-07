@@ -496,7 +496,7 @@ void __O2 Endstops::report_states() {
     }
     #undef _CASE_RUNOUT
   #elif HAS_FILAMENT_SENSOR
-    print_es_state(READ(FIL_RUNOUT1_PIN) != TERN(PROUI_EX, PRO_data.Runout_active_state, FIL_RUNOUT_STATE), F(STR_FILAMENT));
+    print_es_state(READ(FIL_RUNOUT1_PIN) != TERN(HAS_PROUI_RUNOUT_SENSOR, PRO_data.Runout_active_state, FIL_RUNOUT_STATE), F(STR_FILAMENT));
   #endif
 
   TERN_(BLTOUCH, bltouch._reset_SW_mode());
@@ -1360,7 +1360,7 @@ void Endstops::update() {
 
       #if ENABLED(DEBUG_LEVELING_FEATURE)
         auto debug_current = [](FSTR_P const s, const int16_t a, const int16_t b) {
-          if (DEBUGGING(LEVELING)) { DEBUG_ECHOF(s); DEBUG_ECHOLNPGM(" current: ", a, " -> ", b); }
+          if (DEBUGGING(LEVELING)) { DEBUG_ECHOLN(s, F(" current: "), a, F(" -> "), b); }
         };
       #else
         #define debug_current(...)

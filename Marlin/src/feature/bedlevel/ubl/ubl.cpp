@@ -129,14 +129,24 @@ void unified_bed_leveling::set_all_mesh_points_to_value(const_float_t value) {
         return Z_STEPS_NAN; // If Z is out of range, return our custom 'NaN'
       return int16_t(z_scaled);
     };
-    GRID_LOOP(x, y) stored_values[x][y] = z_to_store(in_values[x][y]);
+    #if PROUI_EX
+      for (uint8_t x = 0; x < GRID_LIMIT; ++x) for (uint8_t y = 0; y < GRID_LIMIT; ++y)
+    #else
+      GRID_LOOP(x, y)
+    #endif
+      stored_values[x][y] = z_to_store(in_values[x][y]);
   }
 
   void unified_bed_leveling::set_mesh_from_store(const mesh_store_t &stored_values, bed_mesh_t &out_values) {
     auto store_to_z = [](const int16_t z_scaled) {
       return z_scaled == Z_STEPS_NAN ? NAN : z_scaled / mesh_store_scaling;
     };
-    GRID_LOOP(x, y) out_values[x][y] = store_to_z(stored_values[x][y]);
+    #if PROUI_EX
+      for (uint8_t x = 0; x < GRID_LIMIT; ++x) for (uint8_t y = 0; y < GRID_LIMIT; ++y)
+    #else
+      GRID_LOOP(x, y)
+    #endif
+      out_values[x][y] = store_to_z(stored_values[x][y]);
   }
 
 #endif // OPTIMIZED_MESH_STORAGE

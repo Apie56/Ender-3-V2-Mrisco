@@ -23,9 +23,8 @@
 
 #if ALL(DWIN_LCD_PROUI, HAS_LOCKSCREEN)
 
-#include "dwin_defines.h"
-#include "dwinui.h"
 #include "dwin.h"
+#include "dwinui.h"
 #include "lockscreen.h"
 
 LockScreen lockScreen;
@@ -41,7 +40,7 @@ void LockScreen::init() {
 }
 
 void LockScreen::draw() {
-  title.setCaption(GET_TEXT_F(MSG_LOCKSCREEN));
+  title.draw(GET_TEXT_F(MSG_LOCKSCREEN));
   DWINUI::clearMainArea();
   DWINUI::drawIcon(ICON_LOGO, 71, 120);  // CREALITY logo
   DWINUI::drawCenteredString(COLOR_WHITE, 180, GET_TEXT_F(MSG_LOCKSCREEN_LOCKED));

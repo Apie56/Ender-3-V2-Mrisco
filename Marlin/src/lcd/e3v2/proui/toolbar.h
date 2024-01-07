@@ -1,8 +1,8 @@
 /**
  * toolBar for PRO UI
  * Author: Miguel A. Risco-Castillo (MRISCOC)
- * version: 2.1.1
- * Date: 2023/07/12
+ * version: 3.1.1
+ * Date: 2023/09/12
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -22,6 +22,10 @@
 #pragma once
 
 #include "../../../inc/MarlinConfigPre.h"
+
+#if HAS_TOOLBAR && DISABLED(PROUI_EX)
+  #error "HAS_TOOLBAR requires PROUI_EX."
+#endif
 
 #include "dwin.h"
 #include "menus.h"
@@ -50,8 +54,9 @@ public:
 };
 extern ToolBar toolBar;
 
-void onDrawTBItem(MenuItem* menuitem, int8_t line);
-void updateTBSetupItem(MenuItem* menuitem, uint8_t val);
-void drawTBSetupItem(bool focused);
-void drawToolBar(bool force = false);
 void TBGetItem(uint8_t item);
+void onDrawTBItem(int8_t pos, int8_t line);
+void updateTBSetupItem(int8_t pos, uint8_t val);
+void drawTBSetupItem(bool focused);
+void drawToolBar();
+inline void redrawToolBar() { invalidateMenu(); return drawToolBar(); };

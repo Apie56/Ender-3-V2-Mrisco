@@ -65,6 +65,8 @@ MarlinUI ui;
 
 constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 
+#define BLOCK_CLICK_AFTER_MOVEMENT_MS 100
+
 #if HAS_STATUS_MESSAGE
   #if ENABLED(STATUS_MESSAGE_SCROLLING) && ANY(HAS_WIRED_LCD, DWIN_LCD_PROUI)
     uint8_t MarlinUI::status_scroll_offset; // = 0
@@ -216,6 +218,10 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 
 void MarlinUI::init() {
 
+  #if HAS_U8GLIB_I2C_OLED && PINS_EXIST(I2C_SCL, I2C_SDA) && DISABLED(SOFT_I2C_EEPROM)
+    Wire.begin(uint8_t(I2C_SDA_PIN), uint8_t(I2C_SCL_PIN));
+  #endif
+
   init_lcd();
 
   #if HAS_DIGITAL_BUTTONS
@@ -270,10 +276,6 @@ void MarlinUI::init() {
 
   #if ALL(HAS_ENCODER_ACTION, HAS_SLOW_BUTTONS)
     slow_buttons = 0;
-  #endif
-
-  #if HAS_U8GLIB_I2C_OLED && PINS_EXIST(I2C_SCL, I2C_SDA) && DISABLED(SOFT_I2C_EEPROM)
-    Wire.begin(int(I2C_SDA_PIN), int(I2C_SCL_PIN));
   #endif
 
   update_buttons();
@@ -406,7 +408,7 @@ void MarlinUI::init() {
 
     #if HAS_TOUCH_BUTTONS
       uint8_t MarlinUI::touch_buttons;
-      uint8_t MarlinUI::repeat_delay;
+      uint16_t MarlinUI::repeat_delay;
     #endif
 
     #if ANY(AUTO_BED_LEVELING_UBL, G26_MESH_VALIDATION)
@@ -442,8 +444,9 @@ void MarlinUI::init() {
             p = get_utf8_value_cb(p, cb_read_byte, wc);
             const bool eol = !wc;         // zero ends the string
             // End or a break between phrases?
-            if (eol || wc == ' ' || wc == '-' || wc == '+' || wc == '.') {
-              if (!c && wc == ' ') { if (wrd) wrd++; continue; } // collapse extra spaces
+            if (eol || wc == ' ' || wc == '-' || wc == '+' || wc == '.' || wc == '\n') {
+              const bool newline_after = wc == '\n';
+              if (!c && (wc == ' ' || newline_after)) { if (wrd) wrd++; continue; } // collapse extra spaces
               // Past the right and the word is not too long?
               if (col + c > LCD_WIDTH && col >= (LCD_WIDTH) / 4) _newline(); // should it wrap?
               c += !eol;                  // +1 so the space will be printed
@@ -454,6 +457,7 @@ void MarlinUI::init() {
                 lcd_put_lchar(wc);        // character to the LCD
               }
               if (eol) break;             // all done!
+              if (newline_after) _newline();
               wrd = nullptr;              // set up for next word
             }
             else c++;                     // count word characters
@@ -470,20 +474,20 @@ void MarlinUI::init() {
         }
       }
 
-      void MarlinUI::draw_select_screen_prompt(FSTR_P const pref, const char * const string/*=nullptr*/, FSTR_P const suff/*=nullptr*/) {
-        const uint8_t plen = utf8_strlen(pref), slen = suff ? utf8_strlen(suff) : 0;
+      void MarlinUI::draw_select_screen_prompt(FSTR_P const fpre, const char * const string/*=nullptr*/, FSTR_P const fsuf/*=nullptr*/) {
+        const uint8_t plen = utf8_strlen_P(FTOP(fpre)), slen = fsuf ? utf8_strlen_P(FTOP(fsuf)) : 0;
         uint8_t col = 0, row = 0;
         if (!string && plen + slen <= LCD_WIDTH) {
           col = (LCD_WIDTH - plen - slen) / 2;
           row = LCD_HEIGHT > 3 ? 1 : 0;
         }
         if (LCD_HEIGHT >= 8) row = LCD_HEIGHT / 2 - 2;
-        wrap_string_P(col, row, FTOP(pref), true);
+        wrap_string_P(col, row, FTOP(fpre), true);
         if (string) {
           if (col) { col = 0; row++; } // Move to the start of the next line
           wrap_string(col, row, string);
         }
-        if (suff) wrap_string_P(col, row, FTOP(suff));
+        if (fsuf) wrap_string_P(col, row, FTOP(fsuf));
       }
 
     #endif // !HAS_GRAPHICAL_TFT
@@ -691,7 +695,7 @@ void MarlinUI::init() {
       else if ((old_frm < 100 && new_frm > 100) || (old_frm > 100 && new_frm < 100))
         new_frm = 100;
 
-      LIMIT(new_frm, 10, 999);
+      LIMIT(new_frm, SPEED_EDIT_MIN, SPEED_EDIT_MAX);
 
       if (old_frm != new_frm) {
         feedrate_percentage = new_frm;
@@ -851,7 +855,7 @@ void MarlinUI::init() {
             TERN_(MULTI_E_MANUAL, axis == E_AXIS ? e_index :) active_extruder
           );
 
-          //SERIAL_ECHOLNPGM("Add planner.move with Axis ", AS_CHAR(AXIS_CHAR(axis)), " at FR ", fr_mm_s);
+          //SERIAL_ECHOLNPGM("Add planner.move with Axis ", C(AXIS_CHAR(axis)), " at FR ", fr_mm_s);
 
           axis = NO_AXIS_ENUM;
 
@@ -868,7 +872,7 @@ void MarlinUI::init() {
       TERN_(MULTI_E_MANUAL, if (move_axis == E_AXIS) e_index = eindex);
       start_time = millis() + (menu_scale < 0.99f ? 0UL : 250UL); // delay for bigger moves
       axis = move_axis;
-      //SERIAL_ECHOLNPGM("Post Move with Axis ", AS_CHAR(AXIS_CHAR(axis)), " soon.");
+      //SERIAL_ECHOLNPGM("Post Move with Axis ", C(AXIS_CHAR(axis)), " soon.");
     }
 
     #if ENABLED(AUTO_BED_LEVELING_UBL)
@@ -876,8 +880,8 @@ void MarlinUI::init() {
       void MarlinUI::external_encoder() {
         if (external_control && encoderDiff) {
           bedlevel.encoder_diff += encoderDiff; // Encoder for UBL G29 mesh editing
-          encoderDiff = 0;                  // Hide encoder events from the screen handler
-          refresh(LCDVIEW_REDRAW_NOW);      // ...but keep the refresh.
+          encoderDiff = 0;                      // Hide encoder events from the screen handler
+          refresh(LCDVIEW_REDRAW_NOW);          // ...but keep the refresh.
         }
       }
 
@@ -928,7 +932,8 @@ void MarlinUI::init() {
   void MarlinUI::update() {
 
     static uint16_t max_display_update_time = 0;
-    millis_t ms = millis();
+    static millis_t next_encoder_enable_ms = 0;
+    const millis_t ms = millis();
 
     #if LED_POWEROFF_TIMEOUT > 0
       leds.update_timeout(powerManager.psu_on);
@@ -978,7 +983,12 @@ void MarlinUI::init() {
       if (!touch_buttons) {
         // Integrated LCD click handling via button_pressed
         if (!external_control && button_pressed()) {
-          if (!wait_for_unclick) do_click();              // Handle the click
+          if (!wait_for_unclick) {
+            if (ELAPSED(ms, next_encoder_enable_ms))
+              do_click();              // Handle the click
+            else
+              wait_for_unclick = true;
+          }
         }
         else
           wait_for_unclick = false;
@@ -1015,68 +1025,73 @@ void MarlinUI::init() {
         uint8_t abs_diff = ABS(encoderDiff);
 
         #if ENCODER_PULSES_PER_STEP > 1
-          // When reversing the encoder direction, a movement step can be missed because
-          // encoderDiff has a non-zero residual value, making the controller unresponsive.
-          // The fix clears the residual value when the encoder is idle.
-          // Also check if past half the threshold to compensate for missed single steps.
-          static int8_t lastEncoderDiff;
-
-          // Timeout? No decoder change since last check. 10 or 20 times per second.
-          if (encoderDiff == lastEncoderDiff && abs_diff <= epps / 2)   // Same direction & size but not over a half-step?
-            encoderDiff = 0;                                            // Clear residual pulses.
-          else if (WITHIN(abs_diff, epps / 2 + 1, epps - 1)) {          // Past half of threshold?
-            abs_diff = epps;                                            // Treat as a full step size
-            encoderDiff = (encoderDiff < 0 ? -1 : 1) * abs_diff;        // ...in the spin direction.
-          }
-          TERN_(HAS_TOUCH_SLEEP, if (lastEncoderDiff != encoderDiff) wakeup_screen());
-          lastEncoderDiff = encoderDiff;
+          #if HAS_TOUCH_SLEEP
+            static int8_t lastEncoderDiff;
+            if (lastEncoderDiff != encoderDiff) {
+              wakeup_screen();
+              lastEncoderDiff = encoderDiff;
+            }
+          #endif
         #endif
 
         const bool encoderPastThreshold = (abs_diff >= epps);
-        if (encoderPastThreshold || lcd_clicked) {
-          if (encoderPastThreshold && TERN1(IS_TFTGLCD_PANEL, !external_control)) {
+        if (encoderPastThreshold && TERN1(IS_TFTGLCD_PANEL, !external_control)) {
 
-            #if ALL(HAS_MARLINUI_MENU, ENCODER_RATE_MULTIPLIER)
+          #if ALL(HAS_MARLINUI_MENU, ENCODER_RATE_MULTIPLIER)
 
-              int32_t encoderMultiplier = 1;
+            int32_t encoderMultiplier = 1;
 
-              if (encoderRateMultiplierEnabled) {
+            if (encoderRateMultiplierEnabled) {
+              if (lastEncoderMovementMillis) {
                 const float encoderMovementSteps = float(abs_diff) / epps;
+                // Note that the rate is always calculated between two passes through the
+                // loop and that the abs of the encoderDiff value is tracked.
+                const float encoderStepRate = encoderMovementSteps / float(ms - lastEncoderMovementMillis) * 1000;
 
-                if (lastEncoderMovementMillis) {
-                  // Note that the rate is always calculated between two passes through the
-                  // loop and that the abs of the encoderDiff value is tracked.
-                  const float encoderStepRate = encoderMovementSteps / float(ms - lastEncoderMovementMillis) * 1000;
+                if (encoderStepRate >= ENCODER_100X_STEPS_PER_SEC)     encoderMultiplier = 100;
+                else if (encoderStepRate >= ENCODER_10X_STEPS_PER_SEC) encoderMultiplier = 10;
 
-                  if (encoderStepRate >= ENCODER_100X_STEPS_PER_SEC)     encoderMultiplier = 100;
-                  else if (encoderStepRate >= ENCODER_10X_STEPS_PER_SEC) encoderMultiplier = 10;
+                // Enable to output the encoder steps per second value
+                //#define ENCODER_RATE_MULTIPLIER_DEBUG
+                #if ENABLED(ENCODER_RATE_MULTIPLIER_DEBUG)
+                  SERIAL_ECHO_START();
+                  SERIAL_ECHOPGM("Enc Step Rate: ", encoderStepRate);
+                  SERIAL_ECHOPGM("  Multiplier: ", encoderMultiplier);
+                  SERIAL_ECHOPGM("  ENCODER_10X_STEPS_PER_SEC: ", ENCODER_10X_STEPS_PER_SEC);
+                  SERIAL_ECHOPGM("  ENCODER_100X_STEPS_PER_SEC: ", ENCODER_100X_STEPS_PER_SEC);
+                  SERIAL_EOL();
+                #endif
+              }
 
-                  // Enable to output the encoder steps per second value
-                  //#define ENCODER_RATE_MULTIPLIER_DEBUG
-                  #if ENABLED(ENCODER_RATE_MULTIPLIER_DEBUG)
-                    SERIAL_ECHO_START();
-                    SERIAL_ECHOPGM("Enc Step Rate: ", encoderStepRate);
-                    SERIAL_ECHOPGM("  Multiplier: ", encoderMultiplier);
-                    SERIAL_ECHOPGM("  ENCODER_10X_STEPS_PER_SEC: ", ENCODER_10X_STEPS_PER_SEC);
-                    SERIAL_ECHOPGM("  ENCODER_100X_STEPS_PER_SEC: ", ENCODER_100X_STEPS_PER_SEC);
-                    SERIAL_EOL();
-                  #endif
-                }
+              lastEncoderMovementMillis = ms;
+            } // encoderRateMultiplierEnabled
 
-                lastEncoderMovementMillis = ms;
-              } // encoderRateMultiplierEnabled
+          #else
 
-            #else
+            constexpr int32_t encoderMultiplier = 1;
 
-              constexpr int32_t encoderMultiplier = 1;
+          #endif // ENCODER_RATE_MULTIPLIER
 
-            #endif // ENCODER_RATE_MULTIPLIER
+          int8_t fullSteps = encoderDiff / epps;
+          if (fullSteps != 0) {
 
-            if (can_encode()) encoderPosition += (encoderDiff * encoderMultiplier) / epps;
+            #if ENABLED(ENCODER_RATE_MULTIPLIER)
+              static bool lastFwd;
+              const bool fwd = fullSteps > 0;
+              if (encoderMultiplier != 1 && fwd != lastFwd)
+                fullSteps *= -1;  // Fast move and direction changed? Assume glitch.
+              else
+                lastFwd = fwd;    // Slow move or lastFwd==fwd already. Remember dir.
+            #endif
 
-            encoderDiff = 0;
+            next_encoder_enable_ms = ms + BLOCK_CLICK_AFTER_MOVEMENT_MS;
+            encoderDiff -= fullSteps * epps;
+            if (can_encode() && !lcd_clicked)
+              encoderPosition += (fullSteps * encoderMultiplier);
           }
+        }
 
+        if (encoderPastThreshold || lcd_clicked) {
           reset_status_timeout(ms);
 
           #if LCD_BACKLIGHT_TIMEOUT_MINS
@@ -1090,7 +1105,7 @@ void MarlinUI::init() {
           #if LED_POWEROFF_TIMEOUT > 0
             if (!powerManager.psu_on) leds.reset_timeout(ms);
           #endif
-        } // encoder activity
+        }
 
       #endif // HAS_ENCODER_ACTION
 
@@ -1389,9 +1404,10 @@ void MarlinUI::init() {
 
       #if HAS_ENCODER_WHEEL
         static uint8_t lastEncoderBits;
+        bool ignore = false;
 
         // Manage encoder rotation
-        #define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += encoderDirection; break; case _E2: encoderDiff -= encoderDirection; }
+        #define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += encoderDirection; break; case _E2: encoderDiff -= encoderDirection; break; default: ignore = true; }
 
         uint8_t enc = 0;
         if (buttons & EN_A) enc |= B01;
@@ -1406,7 +1422,7 @@ void MarlinUI::init() {
           #if ALL(HAS_MARLINUI_MENU, AUTO_BED_LEVELING_UBL)
             external_encoder();
           #endif
-          lastEncoderBits = enc;
+          if (!ignore) lastEncoderBits = enc;
         }
 
       #endif // HAS_ENCODER_WHEEL

@@ -21,6 +21,7 @@
 #pragma once
 
 #include "../../../inc/MarlinConfig.h"
+#include "../../../feature/bedlevel/bedlevel.h"
 
 #define USE_GRID_MESHVIEWER
 
@@ -33,7 +34,9 @@
     static void drawBackground(const uint8_t csizex, const uint8_t csizey);
     static void drawPoint(const uint8_t x, const uint8_t y, const float z);
     static void drawMesh(const bed_mesh_t zval, const uint8_t csizex, const uint8_t csizey);
-    static void drawViewer(const bool withsave=false, const bool redraw=true);
+    #if HAS_MESH
+      static void drawViewer(const bool withsave=false, const bool redraw=true);
+    #endif
   };
   extern MeshViewerPro meshViewer;
 #else
@@ -48,4 +51,6 @@
   extern MeshViewer meshViewer;
 #endif
 
-void gotoMeshViewer(const bool redraw);
+#if HAS_MESH
+  void gotoMeshViewer(const bool redraw);
+#endif

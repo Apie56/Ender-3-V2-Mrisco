@@ -133,15 +133,23 @@
 #define ICON_Info_0             90
 #define ICON_Info_1             91
 
-#define ICON_Folder       ICON_More
-#define ICON_AdvSet       ICON_Language
-#define ICON_HomeOffset   ICON_AdvSet
-#define ICON_HomeOffsetX  ICON_StepX
-#define ICON_HomeOffsetY  ICON_StepY
-#define ICON_HomeOffsetZ  ICON_StepZ
-#define ICON_ProbeOffset  ICON_AdvSet
-#define ICON_ProbeOffsetX ICON_StepX
-#define ICON_ProbeOffsetY ICON_StepY
-#define ICON_ProbeOffsetZ ICON_StepZ
-#define ICON_PIDNozzle    ICON_SetEndTemp
-#define ICON_PIDbed       ICON_SetBedTemp
+#ifndef DWIN_LCD_PROUI
+  #define ICON_Folder       ICON_More
+  #define ICON_AdvSet       ICON_Language
+  #define ICON_HomeOffset   ICON_AdvSet
+  #define ICON_HomeOffsetX  ICON_StepX
+  #define ICON_HomeOffsetY  ICON_StepY
+  #define ICON_HomeOffsetZ  ICON_StepZ
+  #define ICON_ProbeOffset  ICON_AdvSet
+  #define ICON_ProbeOffsetX ICON_StepX
+  #define ICON_ProbeOffsetY ICON_StepY
+  #define ICON_ProbeOffsetZ ICON_StepZ
+  #define ICON_PIDNozzle    ICON_SetEndTemp
+  #define ICON_PIDbed       ICON_SetBedTemp
+  #define ICON_FWRetract    ICON_StepE
+  #define ICON_FWRetLength  ICON_StepE
+  #define ICON_FWRetSpeed   ICON_Setspeed
+  #define ICON_FWRetZRaise  ICON_MoveZ
+  #define ICON_FWRecSpeed   ICON_Setspeed
+  #define ICON_FWRecExtra   ICON_StepE
+#endif

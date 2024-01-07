@@ -107,7 +107,7 @@ void MeshViewer::drawMesh(const bed_mesh_t zval, const uint8_t csizex, const uin
 }
 
 void MeshViewer::drawViewer(const bool withsave/*=false*/, const bool redraw/*=true*/) {
-  title.showCaption(GET_TEXT_F(MSG_MESH_VIEWER));
+  title.draw(GET_TEXT_F(MSG_MESH_VIEWER));
   if (redraw) drawMesh(bedlevel.z_values, GRID_MAX_POINTS_X, GRID_MAX_POINTS_Y); // Draw complete mesh viewer
   else DWINUI::drawBox(1, hmiData.colorBackground, { 89, 305, 99, 38 }); // Erase "Continue" button
   if (withsave) {

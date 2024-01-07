@@ -237,15 +237,13 @@ void PrintJobRecovery::save(const bool force/*=false*/, const float zraise/*=POW
       #endif
     #endif
 
-    #if HAS_EXTRUDERS
+    #if HAS_HOTEND
       HOTEND_LOOP() info.target_temperature[e] = thermalManager.degTargetHotend(e);
     #endif
 
     TERN_(HAS_HEATED_BED, info.target_temperature_bed = thermalManager.degTargetBed());
 
-    #if HAS_FAN
-      COPY(info.fan_speed, thermalManager.fan_speed);
-    #endif
+    TERN_(HAS_FAN, COPY(info.fan_speed, thermalManager.fan_speed));
 
     #if HAS_LEVELING
       info.flag.leveling = planner.leveling_active;
@@ -570,19 +568,15 @@ void PrintJobRecovery::resume() {
   PROCESS_SUBCOMMANDS_NOW(TS(
     F("G1F3000X"), p_float_t(info.current_position.x, 3), 'Y', p_float_t(info.current_position.y, 3)
   ));
-  DEBUG_ECHOLNPGM("Move XY : ",cmd);
 
   // Move back down to the saved Z for printing
   PROCESS_SUBCOMMANDS_NOW(TS(F("G1F600Z"), p_float_t(z_print, 3)));
-  DEBUG_ECHOLNPGM("Move Z : ",cmd);
 
   // Restore the feedrate
   PROCESS_SUBCOMMANDS_NOW(TS(F("G1F"), info.feedrate));
-  DEBUG_ECHOLNPGM("Feedrate: ",cmd);
 
   // Restore E position with G92.9
   PROCESS_SUBCOMMANDS_NOW(TS(F("G92.9E"), p_float_t(info.current_position.e, 3)));
-  DEBUG_ECHOLNPGM("Extruder : ",cmd);
 
   TERN_(GCODE_REPEAT_MARKERS, repeat = info.stored_repeat);
   TERN_(HAS_HOME_OFFSET, home_offset = info.home_offset);
@@ -617,9 +611,10 @@ void PrintJobRecovery::resume() {
         DEBUG_ECHOLNPGM("zraise: ", info.zraise, " ", info.flag.raised ? "(before)" : "");
 
         #if ENABLED(GCODE_REPEAT_MARKERS)
-          DEBUG_ECHOLNPGM("repeat index: ", info.stored_repeat.index);
-          for (uint8_t i = 0; i < info.stored_repeat.index; ++i)
-            DEBUG_ECHOLNPGM("..... sdpos: ", info.stored_repeat.marker.sdpos, " count: ", info.stored_repeat.marker.counter);
+          const uint8_t ind = info.stored_repeat.count();
+          DEBUG_ECHOLNPGM("repeat markers: ", ind);
+          for (uint8_t i = ind; i--;)
+            DEBUG_ECHOLNPGM("...", i, " sdpos: ", info.stored_repeat.get_marker_sdpos(i), " count: ", info.stored_repeat.get_marker_counter(i));
         #endif
 
         #if HAS_HOME_OFFSET
@@ -706,7 +701,9 @@ void PrintJobRecovery::resume() {
 
         DEBUG_ECHOLNPGM("flag.dryrun: ", AS_DIGIT(info.flag.dryrun));
         DEBUG_ECHOLNPGM("flag.allow_cold_extrusion: ", AS_DIGIT(info.flag.allow_cold_extrusion));
-        DEBUG_ECHOLNPGM("flag.volumetric_enabled: ", AS_DIGIT(info.flag.volumetric_enabled));
+        #if DISABLED(NO_VOLUMETRICS)
+          DEBUG_ECHOLNPGM("flag.volumetric_enabled: ", AS_DIGIT(info.flag.volumetric_enabled));
+        #endif
       }
       else
         DEBUG_ECHOLNPGM("INVALID DATA");
