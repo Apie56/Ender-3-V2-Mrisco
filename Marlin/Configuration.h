@@ -120,7 +120,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Ender-3-V2-SKRME3V3"
+#define CUSTOM_MACHINE_NAME "Ender 3 V2 mSKRE3V3"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -684,9 +684,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  26.95
-    #define DEFAULT_Ki   2.47
-    #define DEFAULT_Kd  73.24
+    #define DEFAULT_Kp  25.93
+    #define DEFAULT_Ki   2.7
+    #define DEFAULT_Kd  62.22
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -774,9 +774,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 193.31
-  #define DEFAULT_bedKi  37.76
-  #define DEFAULT_bedKd 654.82
+  #define DEFAULT_bedKp 462.10
+  #define DEFAULT_bedKi  85.47
+  #define DEFAULT_bedKd 624.59
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -1641,8 +1641,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
-#define EXTRA_PROBING    1
+//#define MULTIPLE_PROBING 2
+//#define EXTRA_PROBING    1
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -2150,7 +2150,7 @@
 
   //#define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
 
-  #define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
+  //#define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
   //#define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
@@ -2750,8 +2750,8 @@
 // Note: Test audio output with the G-Code:
 //  M300 S<frequency Hz> P<duration ms>
 //
-#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 50  // Ender Configs
-#define LCD_FEEDBACK_FREQUENCY_HZ 800  // Ender Configs
+#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2  // Ender Configs
+#define LCD_FEEDBACK_FREQUENCY_HZ 5000  // Ender Configs
 
 //
 // Tone queue size, used to keep beeps from blocking execution.
